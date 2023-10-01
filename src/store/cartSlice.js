@@ -16,11 +16,10 @@ const cartSlice = createSlice({
 
       if (existingItemIndex >= 0) {
         state.items[existingItemIndex].quantity += action.payload.quantity;
-        // Recalculate the total price for this item
         state.items[existingItemIndex].totalPrice = (
           state.items[existingItemIndex].quantity *
           state.items[existingItemIndex].price
-        ).toFixed(2); // Keeps the price in a string format with two decimal places
+        ).toFixed(2);
       } else {
         state.items.push({
           ...action.payload.item,
@@ -34,8 +33,33 @@ const cartSlice = createSlice({
     removeFromCart: (state, action) => {
       state.items = state.items.filter((item) => item.id !== action.payload);
     },
+    increaseQuantity: (state, action) => {
+      const itemIndex = state.items.findIndex(
+        (item) => item.id === action.payload
+      );
+      if (itemIndex >= 0) {
+        state.items[itemIndex].quantity += 1;
+        state.items[itemIndex].totalPrice = (
+          state.items[itemIndex].quantity * state.items[itemIndex].price
+        ).toFixed(2);
+      }
+    },
+    decreaseQuantity: (state, action) => {
+      const itemIndex = state.items.findIndex(
+        (item) => item.id === action.payload
+      );
+      if (itemIndex >= 0 && state.items[itemIndex].quantity > 1) {
+        state.items[itemIndex].quantity -= 1;
+        state.items[itemIndex].totalPrice = (
+          state.items[itemIndex].quantity * state.items[itemIndex].price
+        ).toFixed(2);
+      } else if (itemIndex >= 0 && state.items[itemIndex].quantity === 1) {
+        state.items.splice(itemIndex, 1);
+      }
+    },
   },
 });
 
-export const { addToCart, removeFromCart } = cartSlice.actions;
+export const { addToCart, removeFromCart, increaseQuantity, decreaseQuantity } =
+  cartSlice.actions;
 export default cartSlice.reducer;
