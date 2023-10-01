@@ -65,6 +65,7 @@ function Cart() {
     <div className="container mx-auto p-4 flex flex-col md:flex-row">
       <div className="w-full md:w-1/2 mb-4 md:mb-0 md:pr-4">
         <h2 className="text-2xl font-semibold mb-4">Your Cart</h2>
+        {cartItems.length === 0 && <p>Your cart is empty please add items!</p>}
         {cartItems.length > 0 && (
           <ul>
             {cartItems.map((item) => (
