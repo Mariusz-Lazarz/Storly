@@ -1,8 +1,17 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { getDatabase, ref, onValue, off } from "firebase/database";
+import { addToCart } from "../store/cartSlice";
 
 function Store() {
   const [items, setItems] = useState([]);
+  const [selectedQuantities, setSelectedQuantities] = useState({});
+  const dispatch = useDispatch();
+  const cartItems = useSelector((state) => state.cart.items);
+
+  useEffect(() => {
+    console.log("Cart Items:", cartItems);
+  }, [cartItems]);
 
   useEffect(() => {
     const db = getDatabase();
@@ -18,14 +27,33 @@ function Store() {
         });
       }
       setItems(loadedItems);
+
+      // Initialize selectedQuantities state with each item's id set to 1
+      const initialQuantities = {};
+      loadedItems.forEach((item) => {
+        initialQuantities[item.id] = 1;
+      });
+      setSelectedQuantities(initialQuantities);
     };
 
     onValue(itemsRef, handleData, { onlyOnce: false });
 
     return () => {
-      off(itemsRef, "value", handleData); // Detach the event listener when the component unmounts
+      off(itemsRef, "value", handleData);
     };
-  }, []);
+  }, [dispatch]);
+
+  const handleQuantityChange = (itemId, quantity) => {
+    setSelectedQuantities((prevQuantities) => ({
+      ...prevQuantities,
+      [itemId]: quantity,
+    }));
+  };
+
+  const handleAddToCart = (item) => {
+    const quantity = selectedQuantities[item.id];
+    dispatch(addToCart({ item, quantity: Number(quantity) }));
+  };
 
   return (
     <div className="container mx-auto p-4">
@@ -38,10 +66,7 @@ function Store() {
               className="w-full h-48 object-cover rounded mb-4"
             />
             <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
-            {/* <p className="text-gray-700 mb-4">{item.description}</p> */}
             <div className="flex items-center gap-4 mb-4">
-              {" "}
-              {/* Flex container */}
               <div className="flex-grow">
                 <label
                   htmlFor={`quantity-${item.id}`}
@@ -55,11 +80,17 @@ function Store() {
                   name={`quantity-${item.id}`}
                   min="1"
                   max={item.quantity}
-                  defaultValue="1"
+                  value={selectedQuantities[item.id] || 1}
+                  onChange={(e) =>
+                    handleQuantityChange(item.id, e.target.value)
+                  }
                   className="mt-1 block w-10 rounded-md border-gray-300 shadow-sm focus:border-light-pink focus:ring focus:ring-light-pink focus:ring-opacity-50"
                 />
               </div>
-              <button className="bg-light-pink text-white py-2 px-4 rounded-full">
+              <button
+                className="bg-light-pink text-white py-2 px-4 rounded-full"
+                onClick={() => handleAddToCart(item)}
+              >
                 Add to Cart
               </button>
             </div>

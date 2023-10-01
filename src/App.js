@@ -5,7 +5,8 @@ import AddItemForm from "./components/AddItemForm";
 import NotFound from "./components/NotFound";
 import Store from "./components/Store";
 import HomePage from "./components/HomePage";
-import Footer from "./components/Footer"; // Import the Footer component
+import Footer from "./components/Footer";
+
 import "./App.css";
 
 function App() {
@@ -21,7 +22,7 @@ function App() {
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
-        <Footer /> {/* Include the Footer component */}
+        <Footer />
       </div>
     </Router>
   );
