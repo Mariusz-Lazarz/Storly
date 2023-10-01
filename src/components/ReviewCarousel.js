@@ -1,0 +1,45 @@
+import React from "react";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
+
+function ReviewCarousel() {
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+  };
+
+  return (
+    <Slider {...settings}>
+      {renderSlide(
+        "Storly is amazing! The variety of items is just astonishing!",
+        "John Doe"
+      )}
+      {renderSlide(
+        "I love using Storly! It makes managing collections so easy!",
+        "Jane Smith"
+      )}
+      {renderSlide(
+        "The user interface is so friendly and intuitive. Highly recommended!",
+        "Michael Johnson"
+      )}
+    </Slider>
+  );
+}
+
+function renderSlide(reviewText, reviewerName) {
+  return (
+    <div className="flex flex-col items-center p-4">
+      <FontAwesomeIcon icon={faUser} className="w-12 h-12 rounded-full mb-2" />
+      <span className="block mb-2 text-center">- {reviewerName}</span>
+      <p className="text-center">{reviewText}</p>
+    </div>
+  );
+}
+
+export default ReviewCarousel;
