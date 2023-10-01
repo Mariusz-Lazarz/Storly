@@ -8,6 +8,7 @@ import HomePage from "./components/HomePage";
 import Footer from "./components/Footer";
 
 import "./App.css";
+import Cart from "./components/Cart";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Routes>
             <Route path="/add" element={<AddItemForm />} />
             <Route path="/store" element={<Store />} />
+            <Route path="/cart" element={<Cart />} />
             <Route path="/" element={<HomePage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
