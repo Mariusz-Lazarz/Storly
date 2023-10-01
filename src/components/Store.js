@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getDatabase, ref, onValue, off } from "firebase/database";
 import { addToCart } from "../store/cartSlice";
+import { getAuth } from "firebase/auth"; // Import Firebase Authentication function
 
 function Store() {
   const [items, setItems] = useState([]);
   const [selectedQuantities, setSelectedQuantities] = useState({});
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart.items);
+  const auth = getAuth(); // Initialize Firebase Auth
 
   useEffect(() => {
     console.log("Cart Items:", cartItems);
@@ -51,7 +53,18 @@ function Store() {
 
   const handleAddToCart = (item) => {
     const quantity = selectedQuantities[item.id];
-    dispatch(addToCart({ item, quantity: Number(quantity) }));
+
+    // Check if the user is logged in (you can implement your own authentication logic)
+    const user = auth.currentUser; // This is a basic check; replace with your authentication logic
+
+    if (user) {
+      // User is logged in, dispatch addToCart action
+      dispatch(addToCart({ item, quantity: Number(quantity) }));
+    } else {
+      // User is not logged in, handle accordingly (e.g., show a message or redirect to login)
+      alert("You must be logged in to add items to your cart.");
+      // You can also redirect to the login page or take another appropriate action
+    }
   };
 
   return (
