@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import { getDatabase, ref, set } from "firebase/database";
+import React, { useState, useEffect } from "react";
+import { getDatabase, ref, set, push } from "firebase/database";
+import { getAuth, onAuthStateChanged } from "firebase/auth"; // Import required for auth
 
 function AddItemForm() {
   const [title, setTitle] = useState("");
@@ -7,13 +8,33 @@ function AddItemForm() {
   const [description, setDescription] = useState("");
   const [quantity, setQuantity] = useState("");
   const [error, setError] = useState(null);
+  const [auth, setAuth] = useState(null); // State to hold the current user
+
+  useEffect(() => {
+    const auth = getAuth();
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setAuth(user); // User is signed in.
+      } else {
+        setAuth(null); // User is signed out.
+      }
+    });
+
+    return () => unsubscribe(); // Clean up subscription on unmount
+  }, []);
 
   const addItem = async (e) => {
     e.preventDefault();
 
+    if (!auth) {
+      setError("Please login to add an item");
+      return;
+    }
+
     try {
       const db = getDatabase();
-      const newItemRef = ref(db, "items/" + title);
+      const itemsRef = ref(db, "items");
+      const newItemRef = push(itemsRef); // Generates a new child location using a unique key
       await set(newItemRef, {
         title,
         imageLink,
