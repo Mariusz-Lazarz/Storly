@@ -1,17 +1,65 @@
-// Cart.js
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { increaseQuantity, decreaseQuantity } from "../store/cartSlice";
+import {
+  increaseQuantity,
+  decreaseQuantity,
+  clearCart,
+} from "../store/cartSlice";
 
 function Cart() {
   const cartItems = useSelector((state) => state.cart.items);
   const dispatch = useDispatch();
+
+  const [isOrderPlaced, setIsOrderPlaced] = useState(false);
+
+  // Delivery details state
+  const [deliveryDetails, setDeliveryDetails] = useState({
+    name: "",
+    address: "",
+    city: "",
+    zip: "",
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setDeliveryDetails((prevDetails) => ({
+      ...prevDetails,
+      [name]: value,
+    }));
+  };
+
   // Calculate the total amount of the cart
   const totalAmount = cartItems
     .reduce((total, item) => {
       return total + parseFloat(item.totalPrice);
     }, 0)
     .toFixed(2);
+
+  const handlePlaceOrder = (e) => {
+    e.preventDefault();
+
+    if (cartItems.length === 0) {
+      // Prevent placing an order if the cart is empty
+      alert("Your cart is empty. Please add items to your cart.");
+    } else {
+      // Simulate placing an order (you can replace this with your actual order logic)
+      // For demonstration purposes, we'll use a setTimeout to simulate an order being placed.
+      setIsOrderPlaced(true);
+      setTimeout(() => {
+        setIsOrderPlaced(false);
+        dispatch(clearCart()); // Clear the cart after the order is successfully placed
+        alert("Thank you for your purchase!");
+
+        // Clear the delivery details fields by resetting the state
+        setDeliveryDetails({
+          name: "",
+          address: "",
+          city: "",
+          zip: "",
+        });
+      }, 2000); // Simulated 2-second delay for the order process
+    }
+  };
 
   return (
     <div className="container mx-auto p-4 flex flex-col md:flex-row">
@@ -49,6 +97,11 @@ function Cart() {
             Total Amount: ${totalAmount}
           </div>
         )}
+        {isOrderPlaced && (
+          <div className="mt-2 text-green-600">
+            Thank you for your purchase! Your order is being processed.
+          </div>
+        )}
       </div>
       <div className="w-full md:w-1/2 md:pl-4">
         <h2 className="text-2xl font-semibold mb-4">Delivery Details</h2>
@@ -65,6 +118,8 @@ function Cart() {
               type="text"
               id="name"
               name="name"
+              value={deliveryDetails.name}
+              onChange={handleInputChange}
               required
             />
           </div>
@@ -80,6 +135,8 @@ function Cart() {
               type="text"
               id="address"
               name="address"
+              value={deliveryDetails.address}
+              onChange={handleInputChange}
               required
             />
           </div>
@@ -95,6 +152,8 @@ function Cart() {
               type="text"
               id="city"
               name="city"
+              value={deliveryDetails.city}
+              onChange={handleInputChange}
               required
             />
           </div>
@@ -110,12 +169,14 @@ function Cart() {
               type="text"
               id="zip"
               name="zip"
+              value={deliveryDetails.zip}
+              onChange={handleInputChange}
               required
             />
           </div>
           <button
-            type="submit"
-            className="bg-light-pink text-white py-2 px-4 rounded-full"
+            onClick={handlePlaceOrder}
+            className="bg-light-pink text-white py-2 px-4 rounded-full mt-4"
           >
             Place Order
           </button>
