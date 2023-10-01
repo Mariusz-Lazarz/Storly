@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { getDatabase, ref, set, push } from "firebase/database";
-import { getAuth, onAuthStateChanged } from "firebase/auth"; // Import required for auth
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 function AddItemForm() {
   const [title, setTitle] = useState("");
   const [imageLink, setImageLink] = useState("");
   const [description, setDescription] = useState("");
   const [quantity, setQuantity] = useState("");
+  const [price, setPrice] = useState(""); // State to hold the price
   const [error, setError] = useState(null);
-  const [auth, setAuth] = useState(null); // State to hold the current user
+  const [auth, setAuth] = useState(null);
 
   useEffect(() => {
     const auth = getAuth();
@@ -34,18 +35,20 @@ function AddItemForm() {
     try {
       const db = getDatabase();
       const itemsRef = ref(db, "items");
-      const newItemRef = push(itemsRef); // Generates a new child location using a unique key
+      const newItemRef = push(itemsRef);
       await set(newItemRef, {
         title,
         imageLink,
         description,
         quantity: parseInt(quantity, 10),
+        price: parseFloat(price).toFixed(2), // Price is stored as a string with two decimal places
       });
       console.log("Item added successfully");
       setTitle("");
       setImageLink("");
       setDescription("");
       setQuantity("");
+      setPrice(""); // Reset the price field
       setError(null);
     } catch (error) {
       console.error("Error adding item", error);
@@ -87,6 +90,15 @@ function AddItemForm() {
           value={quantity}
           onChange={(e) => setQuantity(e.target.value)}
           className="p-2 border rounded"
+          required
+        />
+        <input
+          type="number"
+          placeholder="Price"
+          value={price}
+          onChange={(e) => setPrice(e.target.value)}
+          className="p-2 border rounded"
+          step="0.01" // Allow decimal numbers
           required
         />
         <button

@@ -28,7 +28,6 @@ function Store() {
       }
       setItems(loadedItems);
 
-      // Initialize selectedQuantities state with each item's id set to 1
       const initialQuantities = {};
       loadedItems.forEach((item) => {
         initialQuantities[item.id] = 1;
@@ -65,7 +64,9 @@ function Store() {
               alt={item.title}
               className="w-full h-48 object-cover rounded mb-4"
             />
-            <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
+            <h3 className="text-lg font-semibold mb-2">
+              {item.title} <span className="text-gray-600">${item.price}</span>
+            </h3>
             <div className="flex items-center gap-4 mb-4">
               <div className="flex-grow">
                 <label

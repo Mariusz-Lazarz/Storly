@@ -3,11 +3,20 @@ import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import { Link } from "react-router-dom";
 import SignUpModal from "./SignUpModal";
 import SignInModal from "./SignInModal";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
+import { useSelector } from "react-redux";
 
 function Navbar() {
   const [openModal, setOpenModal] = useState(null);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  const cartItems = useSelector((state) => state.cart.items);
+  const cartItemCount = cartItems.reduce(
+    (count, item) => count + item.quantity,
+    0
+  );
 
   useEffect(() => {
     const auth = getAuth();
@@ -16,8 +25,7 @@ function Navbar() {
       setLoading(false);
     });
 
-    // Cleanup subscription on component unmount
-    return () => unsubscribe();
+    return () => unsubscribe(); // Cleanup subscription on component unmount
   }, []);
 
   const openSignUp = (e) => {
@@ -45,18 +53,21 @@ function Navbar() {
       <div className="container mx-auto flex justify-between items-center">
         <div className="text-black font-logo text-2xl">
           <Link to="/" className="text-black font-logo text-2xl no-underline">
-            {" "}
-            {/* Use Link component here */}
             <span className="font-bold">Storly</span>
           </Link>
         </div>
         <div>
           {loading ? (
-            // Display a placeholder or a spinner while determining auth state
             <span>Loading...</span>
           ) : user ? (
             <>
               <span className="mr-4">{user.email}</span>
+              <Link to="/cart" className="mr-4 relative">
+                <FontAwesomeIcon icon={faShoppingCart} size="2x"/>
+                <span className="absolute top-0 right-0 bg-red-500 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center">
+                  {cartItemCount}
+                </span>
+              </Link>
               <button
                 onClick={logout}
                 className="bg-light-pink text-white py-2 px-4 rounded-full"

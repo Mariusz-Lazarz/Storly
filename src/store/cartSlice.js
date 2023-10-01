@@ -10,19 +10,24 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     addToCart: (state, action) => {
-      // Check if the item is already in the cart
       const existingItemIndex = state.items.findIndex(
         (item) => item.id === action.payload.item.id
       );
 
       if (existingItemIndex >= 0) {
-        // If the item is already in the cart, update its quantity
         state.items[existingItemIndex].quantity += action.payload.quantity;
+        // Recalculate the total price for this item
+        state.items[existingItemIndex].totalPrice = (
+          state.items[existingItemIndex].quantity *
+          state.items[existingItemIndex].price
+        ).toFixed(2); // Keeps the price in a string format with two decimal places
       } else {
-        // If the item is not in the cart, add it with the specified quantity
         state.items.push({
           ...action.payload.item,
           quantity: action.payload.quantity,
+          totalPrice: (
+            action.payload.item.price * action.payload.quantity
+          ).toFixed(2),
         });
       }
     },
