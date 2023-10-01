@@ -1,16 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   increaseQuantity,
   decreaseQuantity,
   clearCart,
 } from "../store/cartSlice";
+import { getDatabase, ref, onValue, off } from "firebase/database";
 
 function Cart() {
   const cartItems = useSelector((state) => state.cart.items);
   const dispatch = useDispatch();
 
   const [isOrderPlaced, setIsOrderPlaced] = useState(false);
+  const [maxQuantities, setMaxQuantities] = useState({});
 
   // Delivery details state
   const [deliveryDetails, setDeliveryDetails] = useState({
@@ -35,29 +37,59 @@ function Cart() {
     }, 0)
     .toFixed(2);
 
+  const handleIncrease = (itemId) => {
+    const itemInCart = cartItems.find((item) => item.id === itemId);
+
+    if (itemInCart) {
+      const availableQuantity = maxQuantities[itemId];
+
+      if (itemInCart.quantity < availableQuantity) {
+        dispatch(increaseQuantity(itemId));
+      } else {
+        alert(`You can't add more than ${availableQuantity} of this item.`);
+      }
+    }
+  };
+
+  useEffect(() => {
+    const db = getDatabase();
+    const itemsRef = ref(db, "items"); // Replace with the correct path to your items in Firebase
+
+    onValue(itemsRef, (snapshot) => {
+      const data = snapshot.val();
+      const newMaxQuantities = {};
+
+      for (const key in data) {
+        newMaxQuantities[key] = data[key].quantity;
+      }
+
+      setMaxQuantities(newMaxQuantities);
+    });
+
+    return () => {
+      // Clean up the Firebase listener when component unmounts
+      off(itemsRef);
+    };
+  }, []);
+
   const handlePlaceOrder = (e) => {
     e.preventDefault();
 
     if (cartItems.length === 0) {
-      // Prevent placing an order if the cart is empty
       alert("Your cart is empty. Please add items to your cart.");
     } else {
-      // Simulate placing an order (you can replace this with your actual order logic)
-      // For demonstration purposes, we'll use a setTimeout to simulate an order being placed.
       setIsOrderPlaced(true);
       setTimeout(() => {
         setIsOrderPlaced(false);
-        dispatch(clearCart()); // Clear the cart after the order is successfully placed
+        dispatch(clearCart());
         alert("Thank you for your purchase!");
-
-        // Clear the delivery details fields by resetting the state
         setDeliveryDetails({
           name: "",
           address: "",
           city: "",
           zip: "",
         });
-      }, 2000); // Simulated 2-second delay for the order process
+      }, 2000);
     }
   };
 
@@ -65,7 +97,7 @@ function Cart() {
     <div className="container mx-auto p-4 flex flex-col md:flex-row">
       <div className="w-full md:w-1/2 mb-4 md:mb-0 md:pr-4">
         <h2 className="text-2xl font-semibold mb-4">Your Cart</h2>
-        {cartItems.length === 0 && <p>Your cart is empty please add items!</p>}
+        {cartItems.length === 0 && <p>Your cart is empty. Please add items!</p>}
         {cartItems.length > 0 && (
           <ul>
             {cartItems.map((item) => (
@@ -75,7 +107,7 @@ function Cart() {
                   <div className="flex items-center gap-2">
                     {" "}
                     <button
-                      onClick={() => dispatch(increaseQuantity(item.id))}
+                      onClick={() => handleIncrease(item.id)}
                       className="bg-blue-500 text-white rounded-full w-8 h-8 hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300"
                     >
                       +
