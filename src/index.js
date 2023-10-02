@@ -10,8 +10,8 @@ import { PersistGate } from "redux-persist/integration/react";
 import PiwikPro from "@piwikpro/react-piwik-pro";
 
 PiwikPro.initialize(
-  "7a8c4a0d-195d-4aae-b9ca-af3d05a6be5e",
-  "https://mlazarz.containers.piwik.pro"
+  '7a8c4a0d-195d-4aae-b9ca-af3d05a6be5e',
+  'https://mlazarz.piwik.pro'
 );
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

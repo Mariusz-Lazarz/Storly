@@ -9,6 +9,8 @@ import Footer from "./components/Footer";
 
 import "./App.css";
 import Cart from "./components/Cart";
+import About from "./components/About";
+import Contact from "./components/Contact";
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
             <Route path="/add" element={<AddItemForm />} />
             <Route path="/store" element={<Store />} />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
             <Route path="/" element={<HomePage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
