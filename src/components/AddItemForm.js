@@ -48,7 +48,7 @@ function AddItemForm() {
       setImageLink("");
       setDescription("");
       setQuantity("");
-      setPrice(""); // Reset the price field
+      setPrice("");
       setError(null);
     } catch (error) {
       console.error("Error adding item", error);

@@ -53,7 +53,7 @@ function Cart() {
 
   useEffect(() => {
     const db = getDatabase();
-    const itemsRef = ref(db, "items"); // Replace with the correct path to your items in Firebase
+    const itemsRef = ref(db, "items");
 
     onValue(itemsRef, (snapshot) => {
       const data = snapshot.val();
@@ -67,7 +67,6 @@ function Cart() {
     });
 
     return () => {
-      // Clean up the Firebase listener when component unmounts
       off(itemsRef);
     };
   }, []);
