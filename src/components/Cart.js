@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import {
   increaseQuantity,
   decreaseQuantity,
   clearCart,
 } from "../store/cartSlice";
 import { getDatabase, ref, onValue, off } from "firebase/database";
+import { eCommerce } from "@piwikpro/react-piwik-pro";
 
 function Cart() {
   const cartItems = useSelector((state) => state.cart.items);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [isOrderPlaced, setIsOrderPlaced] = useState(false);
   const [maxQuantities, setMaxQuantities] = useState({});
@@ -73,11 +76,20 @@ function Cart() {
 
   const handlePlaceOrder = (e) => {
     e.preventDefault();
-
+    const number = Math.floor(Math.random() * 100) + 1;
     if (cartItems.length === 0) {
       alert("Your cart is empty. Please add items to your cart.");
     } else {
       setIsOrderPlaced(true);
+      eCommerce.trackEcommerceOrder(
+        String(number),
+        totalAmount,
+        2000,
+        200,
+        200,
+        100
+      );
+      eCommerce.clearEcommerceCart();
       setTimeout(() => {
         setIsOrderPlaced(false);
         dispatch(clearCart());
@@ -88,6 +100,7 @@ function Cart() {
           city: "",
           zip: "",
         });
+        navigate("/");
       }, 1000);
     }
   };

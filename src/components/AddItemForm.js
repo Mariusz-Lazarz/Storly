@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { getDatabase, ref, set, push } from "firebase/database";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 function AddItemForm() {
   const [title, setTitle] = useState("");
@@ -10,6 +11,7 @@ function AddItemForm() {
   const [price, setPrice] = useState(""); // State to hold the price
   const [error, setError] = useState(null);
   const [auth, setAuth] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const auth = getAuth();
@@ -50,6 +52,7 @@ function AddItemForm() {
       setQuantity("");
       setPrice("");
       setError(null);
+      navigate("/store");
     } catch (error) {
       console.error("Error adding item", error);
       setError(error.message);

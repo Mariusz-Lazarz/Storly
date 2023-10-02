@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { getDatabase, ref, onValue, off } from "firebase/database";
 import { addToCart } from "../store/cartSlice";
 import { getAuth } from "firebase/auth";
+import { eCommerce } from "@piwikpro/react-piwik-pro";
 
 // Component to render each item
 function StoreItem({
@@ -94,6 +95,13 @@ function Store() {
 
     if (user) {
       dispatch(addToCart({ item, quantity: Number(quantity) }));
+      eCommerce.addEcommerceItem(
+        String(item.id),
+        item.title,
+        item.title,
+        Number(item.price),
+        Number(quantity)
+      );
     } else {
       alert("You must be logged in to add items to your cart.");
     }
