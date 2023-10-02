@@ -5,6 +5,7 @@ import {
   faTwitter,
   faInstagram,
 } from "@fortawesome/free-brands-svg-icons";
+import { Link } from "react-router-dom"; // Import the Link component
 
 function Footer() {
   return (
@@ -36,14 +37,24 @@ function Footer() {
             <FontAwesomeIcon icon={faInstagram} size="2x" />
           </a>
         </div>
-        <a
-          href="https://www.piwik.pro"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-black hover:underline"
-        >
-          Piwik PRO
-        </a>
+        <div className="flex space-x-4">
+          {" "}
+          {/* New flex container for your internal links */}
+          <Link to="/about" className="text-black hover:underline">
+            About
+          </Link>
+          <Link to="/contact" className="text-black hover:underline">
+            Contact
+          </Link>
+          <a
+            href="https://www.piwik.pro"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-black hover:underline"
+          >
+            Piwik PRO
+          </a>
+        </div>
         <div className="text-black">
           &copy; {new Date().getFullYear()} Mariusz Łazarz
         </div>
