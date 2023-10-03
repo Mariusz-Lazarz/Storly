@@ -3,19 +3,21 @@ function StoreItem({
   selectedQuantities,
   handleQuantityChange,
   handleAddToCart,
-  itemsInCart, // New prop: Array of item IDs already in the cart
+  itemsInCart,
 }) {
-  const isInCart = itemsInCart.includes(item.id); // Check if the item is in the cart
-  
+  const isInCart = itemsInCart.includes(item.id);
+
   return (
-    <div className="bg-white p-4 rounded shadow-lg">
-      <img
-        src={item.imageLink}
-        alt={item.title}
-        className="w-full h-48 object-cover rounded mb-4"
-      />
-      <h3 className="text-lg font-semibold mb-2">
-        {item.title} <span className="text-gray-600">${item.price}</span>
+    <div className="bg-white p-2 rounded shadow-lg border">
+      <div className="h-24 flex items-center justify-center mb-4">
+        <img
+          src={item.imageLink}
+          alt={item.title}
+          className="object-cover rounded max-w-fit h-24"
+        />
+      </div>
+      <h3 className="font-semibold mb-2 text-base">
+        {item.title} <span className="text-green-600">${item.price}</span>
       </h3>
       <div className="flex items-center gap-4 mb-4">
         <div className="flex-grow">
@@ -49,11 +51,13 @@ function StoreItem({
           />
         </div>
         <button
-          className={`bg-light-pink text-white py-2 px-4 rounded-full ${isInCart ? 'opacity-50 cursor-not-allowed' : ''}`}
+          className={`bg-light-pink text-white py-2 px-4 rounded-full ${
+            isInCart ? "opacity-50 cursor-not-allowed" : ""
+          }`}
           onClick={() => handleAddToCart(item)}
           disabled={isInCart} // Disable button if item is in the cart
         >
-          {isInCart ? 'In Cart' : 'Add to Cart'}
+          {isInCart ? "In Cart" : "Add"}
         </button>
       </div>
     </div>
