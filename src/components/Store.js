@@ -35,7 +35,6 @@ function Store() {
         }, {});
         setSelectedQuantities(initialQuantities);
       } else {
-        // Data is null, set items and selectedQuantities to empty
         setItems([]);
         setSelectedQuantities({});
       }

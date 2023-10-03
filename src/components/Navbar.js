@@ -61,9 +61,14 @@ function Navbar() {
             <span>Loading...</span>
           ) : user ? (
             <>
-              <span className="mr-4">{user.email}</span>
+              <Link
+                to="/userPanel"
+                className="mr-4 text-blue-500 hover:underline"
+              >
+                {user.email}
+              </Link>
               <Link to="/cart" className="mr-4 relative">
-                <FontAwesomeIcon icon={faShoppingCart} size="2x"/>
+                <FontAwesomeIcon icon={faShoppingCart} size="2x" />
                 <span className="absolute top-0 right-0 bg-red-500 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center">
                   {cartItemCount}
                 </span>

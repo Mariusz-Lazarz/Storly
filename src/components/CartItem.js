@@ -31,7 +31,15 @@ export function CartItem({ item }) {
   return (
     <li className="mb-4">
       <div className="flex justify-between items-center">
-        <span className="text-lg">{item.title}</span>
+        <div className="flex items-center gap-2">
+          {" "}
+          <img
+            src={item.imageLink}
+            alt={`${item.title}`}
+            className="w-16 h-16 object-cover mr-4"
+          />{" "}
+          <span className="text-lg">{item.title}</span>
+        </div>
         <div className="flex items-center gap-2">
           <span>Quantity: {item.quantity}</span>
           <button

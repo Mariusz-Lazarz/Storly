@@ -11,6 +11,7 @@ import "./App.css";
 import Cart from "./components/Cart";
 import About from "./components/About";
 import Contact from "./components/Contact";
+import UserPanel from "./components/UserPanel";
 
 function App() {
   return (
@@ -19,12 +20,13 @@ function App() {
         <Navbar />
         <main className="flex-grow">
           <Routes>
+            <Route path="/" element={<HomePage />} />
             <Route path="/add" element={<AddItemForm />} />
             <Route path="/store" element={<Store />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
-            <Route path="/" element={<HomePage />} />
+            <Route path="/userPanel" element={<UserPanel />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
