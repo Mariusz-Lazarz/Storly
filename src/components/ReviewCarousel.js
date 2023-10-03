@@ -17,16 +17,20 @@ function ReviewCarousel() {
   return (
     <Slider {...settings}>
       {renderSlide(
-        "Storly is amazing! The variety of items is just astonishing!",
-        "John Doe"
+        "Ten sklep jest najlepszy woooooooooow!!!!!!!!!",
+        "Lipski Bartek"
       )}
       {renderSlide(
-        "I love using Storly! It makes managing collections so easy!",
-        "Jane Smith"
+        "My tracking is working in GA but not in Piwik!!!!!!!!",
+        "Google Analytics"
       )}
       {renderSlide(
-        "The user interface is so friendly and intuitive. Highly recommended!",
-        "Michael Johnson"
+        "Swojego macbooka kupywalem wlasnie tutaj :OO !!!!!",
+        "Grucha"
+      )}
+      {renderSlide(
+        "Looker studtio a co to takiego? Nie polecam!",
+        "Loyal Customer"
       )}
     </Slider>
   );

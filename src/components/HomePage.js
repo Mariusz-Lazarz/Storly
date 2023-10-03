@@ -8,28 +8,28 @@ function HomePage() {
       <div className="text-center">
         <h1 className="text-4xl font-bold mb-4">Welcome to Storly!</h1>
         <p className="text-lg mb-8">
-          Explore our collection and manage your items seamlessly.
+          Najlepszy i najfajniejszy sklep w jakim byłeś
         </p>
         <div className="flex flex-wrap justify-center">
           <Link to="/store" className="m-4 no-underline">
             <div className="p-6 bg-white rounded shadow-lg w-72 hover:bg-gray-100">
-              <h2 className="text-2xl font-bold mb-2">Browse Items</h2>
+              <h2 className="text-2xl font-bold mb-2">Przeglądaj</h2>
               <p className="text-lg">
-                Discover unique items available in our collection.
+                Przegladaj i zamawiaj najlepsze produkty z Turcji
               </p>
             </div>
           </Link>
           <Link to="/add" className="m-4 no-underline">
             <div className="p-6 bg-white rounded shadow-lg w-72 hover:bg-gray-100">
-              <h2 className="text-2xl font-bold mb-2">Manage Collection</h2>
+              <h2 className="text-2xl font-bold mb-2">Wystaw</h2>
               <p className="text-lg">
-                Add, modify, and manage your items efficiently.
+                Handlujesz, dodaj swoje guczi tutaj
               </p>
             </div>
           </Link>
         </div>
         <div className="mt-8">
-          <h2 className="text-2xl font-bold mb-4">What our users say</h2>
+          <h2 className="text-2xl font-bold mb-4">Jak radzimy sobie z klientami</h2>
           <ReviewCarousel />
         </div>
       </div>
