@@ -1,14 +1,25 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
+
 function StoreItem({
   item,
   selectedQuantities,
   handleQuantityChange,
   handleAddToCart,
+  handleRemoveItem,
   itemsInCart,
 }) {
   const isInCart = itemsInCart.includes(item.id);
 
   return (
-    <div className="bg-white p-2 rounded shadow-lg border">
+    <div className="bg-white p-2 rounded shadow-lg border relative">
+      <button
+        className="absolute -top-3 -right-3 p-1"
+        onClick={() => handleRemoveItem(item.id)}
+        aria-label="Remove Item"
+      >
+        <FontAwesomeIcon icon={faTimesCircle} className="text-red-500" size="2x"/>
+      </button>
       <div className="h-24 flex items-center justify-center mb-4">
         <img
           src={item.imageLink}
@@ -19,7 +30,7 @@ function StoreItem({
       <h3 className="font-semibold mb-2 text-base">
         {item.title} <span className="text-green-600">${item.price}</span>
       </h3>
-      <div className="flex items-center gap-4 mb-4">
+      <div className="flex items-center gap-4 mb-1">
         <div className="flex-grow">
           <label
             htmlFor={`quantity-${item.id}`}
@@ -47,7 +58,7 @@ function StoreItem({
               handleQuantityChange(item.id, newValue);
             }}
             className="mt-1 block w-12 rounded-md border-gray-300 shadow-sm focus:border-light-pink focus:ring focus:ring-light-pink focus:ring-opacity-50"
-            disabled={isInCart} // Disable quantity input if item is in the cart
+            disabled={isInCart}
           />
         </div>
         <button
@@ -55,7 +66,7 @@ function StoreItem({
             isInCart ? "opacity-50 cursor-not-allowed" : ""
           }`}
           onClick={() => handleAddToCart(item)}
-          disabled={isInCart} // Disable button if item is in the cart
+          disabled={isInCart}
         >
           {isInCart ? "In Cart" : "Add"}
         </button>

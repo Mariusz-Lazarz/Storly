@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getDatabase, ref, onValue, off } from "firebase/database";
+import { getDatabase, ref, onValue, off, set } from "firebase/database";
 import { addToCart } from "../store/cartSlice";
 import { getAuth } from "firebase/auth";
 import StoreItem from "./StoreItem";
@@ -22,17 +22,23 @@ function Store() {
 
     const handleData = (snapshot) => {
       const data = snapshot.val();
-      const loadedItems = Object.keys(data).map((key) => ({
-        id: key,
-        ...data[key],
-      }));
-      setItems(loadedItems);
+      if (data) {
+        const loadedItems = Object.keys(data).map((key) => ({
+          id: key,
+          ...data[key],
+        }));
+        setItems(loadedItems);
 
-      const initialQuantities = loadedItems.reduce((acc, item) => {
-        acc[item.id] = 1;
-        return acc;
-      }, {});
-      setSelectedQuantities(initialQuantities);
+        const initialQuantities = loadedItems.reduce((acc, item) => {
+          acc[item.id] = 1;
+          return acc;
+        }, {});
+        setSelectedQuantities(initialQuantities);
+      } else {
+        // Data is null, set items and selectedQuantities to empty
+        setItems([]);
+        setSelectedQuantities({});
+      }
     };
 
     onValue(itemsRef, handleData);
@@ -75,19 +81,32 @@ function Store() {
     }
   };
 
+  const handleRemoveItem = (itemId) => {
+    const db = getDatabase();
+    const itemRef = ref(db, `items/${itemId}`);
+    set(itemRef, null); // This will remove the item from Firebase
+  };
+
   return (
     <div className="container mx-auto p-4">
       <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4">
-        {items.map((item) => (
-          <StoreItem
-            key={item.id}
-            item={item}
-            selectedQuantities={selectedQuantities}
-            handleQuantityChange={handleQuantityChange}
-            handleAddToCart={handleAddToCart}
-            itemsInCart={itemIdsInCart} // Pass item IDs in the cart as a prop
-          />
-        ))}
+        {items.length > 0 ? (
+          items.map((item) => (
+            <StoreItem
+              key={item.id}
+              item={item}
+              selectedQuantities={selectedQuantities}
+              handleQuantityChange={handleQuantityChange}
+              handleAddToCart={handleAddToCart}
+              itemsInCart={itemIdsInCart}
+              handleRemoveItem={handleRemoveItem}
+            />
+          ))
+        ) : (
+          <div className="col-span-full text-center text-red-600 text-xl">
+            Our store is currently empty. Let's add something to begin!
+          </div>
+        )}
       </div>
     </div>
   );
