@@ -20,7 +20,7 @@ Navigate to the project directory and install the required dependencies using np
 
 bash
 
-cd store
+cd Storly
 
 npm install
 
