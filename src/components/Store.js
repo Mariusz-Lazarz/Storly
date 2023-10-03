@@ -4,6 +4,7 @@ import { getDatabase, ref, onValue, off } from "firebase/database";
 import { addToCart } from "../store/cartSlice";
 import { getAuth } from "firebase/auth";
 import StoreItem from "./StoreItem";
+import { DataLayer } from "@piwikpro/react-piwik-pro";
 
 function Store() {
   const [items, setItems] = useState([]);
@@ -53,6 +54,24 @@ function Store() {
 
     if (user) {
       dispatch(addToCart({ item, quantity: Number(quantity) }));
+      DataLayer.push({
+        event: "add_to_cart",
+        ecommerce: {
+          currency: "USD",
+          value: Number(quantity) * item.price,
+          items: [
+            {
+              item_id: String(item.id),
+              item_name: item.title,
+              price: String(item.price),
+              quantity: Number(quantity),
+              item_brand: `${item.title} + Brand`,
+              item_category: `${item.title} + Category`,
+              item_variant: `${item.title} + S`,
+            },
+          ],
+        },
+      });
     } else {
       alert("You must be logged in to add items to your cart.");
     }

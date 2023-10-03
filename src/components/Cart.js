@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getDatabase, ref, onValue, off } from "firebase/database";
-import { eCommerce } from "@piwikpro/react-piwik-pro";
+import { DataLayer } from "@piwikpro/react-piwik-pro";
 import { useNavigate } from "react-router-dom";
 import { clearCart } from "../store/cartSlice";
 import { CartItem } from "./CartItem";
@@ -46,19 +46,30 @@ function Cart() {
       return;
     }
 
+    const orderItems = cartItems.map((item) => ({
+      item_id: item.id,
+      item_name: item.name,
+      price: item.price,
+      item_brand: item.brand,
+      item_category: item.category,
+      item_variant: item.variant,
+      quantity: item.quantity,
+    }));
+
     const orderNumber = Math.floor(Math.random() * 100) + 1;
 
     setIsOrderPlaced(true);
-    eCommerce.trackEcommerceOrder(
-      String(orderNumber),
-      totalAmount,
-      2000,
-      200,
-      200,
-      100
-    );
-    eCommerce.clearEcommerceCart();
-
+    DataLayer.push({
+      event: "purchase",
+      ecommerce: {
+        currency: "USD",
+        transaction_id: String(orderNumber),
+        value: totalAmount,
+        tax: 3.26,
+        shipping: 5.0,
+        items: orderItems,
+      },
+    });
     setTimeout(() => {
       setIsOrderPlaced(false);
       dispatch(clearCart());
