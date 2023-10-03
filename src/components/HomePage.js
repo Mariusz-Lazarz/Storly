@@ -30,7 +30,7 @@ function HomePage() {
         </div>
         <div className="mt-8">
           <h2 className="text-2xl font-bold mb-4">What our users say</h2>
-          <ReviewCarousel /> {/* Use the new component */}
+          <ReviewCarousel />
         </div>
       </div>
     </div>

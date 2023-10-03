@@ -31,17 +31,15 @@ function StoreItem({
             max={item.quantity}
             value={selectedQuantities[item.id] || 1}
             onChange={(e) => {
-              // Ensure the entered value is within the valid range
               let newValue = parseInt(e.target.value, 10);
               if (isNaN(newValue)) {
-                newValue = 1; // Default to 1 if not a number
+                newValue = 1;
               } else if (newValue < 1) {
-                newValue = 1; // Minimum allowed value is 1
+                newValue = 1;
               } else if (newValue > item.quantity) {
-                newValue = item.quantity; // Maximum allowed value is the item's quantity
+                newValue = item.quantity;
               }
 
-              // Update the selectedQuantities state with the validated value
               handleQuantityChange(item.id, newValue);
             }}
             className="mt-1 block w-12 rounded-md border-gray-300 shadow-sm focus:border-light-pink focus:ring focus:ring-light-pink focus:ring-opacity-50"

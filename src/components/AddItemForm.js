@@ -43,7 +43,7 @@ function AddItemForm() {
         imageLink,
         description,
         quantity: parseInt(quantity, 10),
-        price: parseFloat(price).toFixed(2), // Price is stored as a string with two decimal places
+        price: parseFloat(price).toFixed(2),
       });
       console.log("Item added successfully");
       setTitle("");
@@ -101,7 +101,7 @@ function AddItemForm() {
           value={price}
           onChange={(e) => setPrice(e.target.value)}
           className="p-2 border rounded"
-          step="0.01" // Allow decimal numbers
+          step="0.01"
           required
         />
         <button

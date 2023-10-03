@@ -6,7 +6,6 @@ import { getAuth } from "firebase/auth";
 import { eCommerce } from "@piwikpro/react-piwik-pro";
 import StoreItem from "./StoreItem";
 
-// Main Store Component
 function Store() {
   const [items, setItems] = useState([]);
   const [selectedQuantities, setSelectedQuantities] = useState({});

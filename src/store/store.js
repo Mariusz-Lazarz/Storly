@@ -17,7 +17,6 @@ const store = configureStore({
   },
   middleware: getDefaultMiddleware({
     serializableCheck: {
-      // Ignore these action types
       ignoredActions: ["persist/PERSIST"],
     },
   }),

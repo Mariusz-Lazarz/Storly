@@ -14,14 +14,12 @@ function SignInModal({ isOpen, onClose }) {
   const login = async (e) => {
     e.preventDefault();
     try {
-      // Attempt to login the user using async/await syntax
       const userCredential = await signInWithEmailAndPassword(
         auth,
         email,
         password
       );
       console.log("Logged in successfully", userCredential);
-      // Clear the input fields and close the modal after successful login
       setEmail("");
       setPassword("");
       onClose();

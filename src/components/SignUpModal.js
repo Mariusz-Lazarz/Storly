@@ -14,10 +14,8 @@ function SignUpModal({ isOpen, onClose }) {
   const register = async (e) => {
     e.preventDefault();
     try {
-      // Attempt to register the user using async/await syntax
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       console.log("Registered successfully", userCredential);
-      // Clear the input fields and close the modal after successful registration
       setEmail("");
       setPassword("");
       onClose();
