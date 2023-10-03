@@ -1,4 +1,3 @@
-// cartSlice.js
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
@@ -58,7 +57,7 @@ const cartSlice = createSlice({
       }
     },
     clearCart: (state) => {
-      state.items = []; // Set the items array to an empty array to clear the cart
+      state.items = [];
     },
   },
 });
