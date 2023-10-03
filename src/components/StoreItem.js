@@ -1,10 +1,12 @@
-// Component to render each item
 function StoreItem({
   item,
   selectedQuantities,
   handleQuantityChange,
   handleAddToCart,
+  itemsInCart, // New prop: Array of item IDs already in the cart
 }) {
+  const isInCart = itemsInCart.includes(item.id); // Check if the item is in the cart
+  
   return (
     <div className="bg-white p-4 rounded shadow-lg">
       <img
@@ -43,13 +45,15 @@ function StoreItem({
               handleQuantityChange(item.id, newValue);
             }}
             className="mt-1 block w-12 rounded-md border-gray-300 shadow-sm focus:border-light-pink focus:ring focus:ring-light-pink focus:ring-opacity-50"
+            disabled={isInCart} // Disable quantity input if item is in the cart
           />
         </div>
         <button
-          className="bg-light-pink text-white py-2 px-4 rounded-full"
+          className={`bg-light-pink text-white py-2 px-4 rounded-full ${isInCart ? 'opacity-50 cursor-not-allowed' : ''}`}
           onClick={() => handleAddToCart(item)}
+          disabled={isInCart} // Disable button if item is in the cart
         >
-          Add to Cart
+          {isInCart ? 'In Cart' : 'Add to Cart'}
         </button>
       </div>
     </div>
