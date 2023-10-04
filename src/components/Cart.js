@@ -6,12 +6,14 @@ import { useNavigate } from "react-router-dom";
 import { clearCart } from "../store/cartSlice";
 import { CartItem } from "./CartItem";
 import { DeliveryDetailsForm } from "./DeliveryDetailsForm";
+import Overlay from "./Overlay"; // Import the Overlay component
 
 function Cart() {
   const cartItems = useSelector((state) => state.cart.items);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isOrderPlaced, setIsOrderPlaced] = useState(false);
+  const [isOverlayVisible, setIsOverlayVisible] = useState(false); // New state for Overlay
   const [maxQuantities, setMaxQuantities] = useState({});
 
   useEffect(() => {
@@ -20,12 +22,13 @@ function Cart() {
 
     const onItemsValueChange = (snapshot) => {
       const data = snapshot.val();
-      const newMaxQuantities = {};
-
-      for (const key in data) {
-        newMaxQuantities[key] = data[key].quantity;
-      }
-
+      const newMaxQuantities = Object.entries(data).reduce(
+        (acc, [key, value]) => {
+          acc[key] = value.quantity;
+          return acc;
+        },
+        {}
+      );
       setMaxQuantities(newMaxQuantities);
     };
 
@@ -59,6 +62,8 @@ function Cart() {
     const orderNumber = Math.floor(Math.random() * 100) + 1;
 
     setIsOrderPlaced(true);
+    setIsOverlayVisible(true); // Show Overlay when order is placed
+
     DataLayer.push({
       event: "purchase",
       ecommerce: {
@@ -72,14 +77,16 @@ function Cart() {
     });
     setTimeout(() => {
       setIsOrderPlaced(false);
+      setIsOverlayVisible(false); // Hide Overlay when order is processed
       dispatch(clearCart());
       alert("Thank you for your purchase!");
       navigate("/");
-    }, 1000);
+    }, 2000);
   };
 
   return (
     <div className="container mx-auto p-4 flex flex-col md:flex-row">
+      {isOverlayVisible && <Overlay />}
       <div className="w-full md:w-1/2 mb-4 md:mb-0 md:pr-4">
         <h2 className="text-2xl font-semibold mb-4">Your Cart</h2>
         {cartItems.length === 0 && <p>Your cart is empty. Please add items!</p>}
@@ -100,8 +107,8 @@ function Cart() {
           </div>
         )}
         {isOrderPlaced && (
-          <div className="mt-2 text-green-600">
-            Thank you for your purchase! Your order is being processed.
+          <div className="mt-2 flex justify-center items-center">
+            <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-blue-500"></div>
           </div>
         )}
       </div>

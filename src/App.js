@@ -25,13 +25,10 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/add" element={<AddItemForm />} />
             <Route path="/store" element={<Store />} />
-            <Route path="/cart" element={user ? <Cart /> : <NotFound />} />
+            <Route path="/cart" element={<Cart />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
-            <Route
-              path="/userPanel"
-              element={user ? <UserPanel /> : <NotFound />}
-            />
+            <Route path="/userPanel" element={<UserPanel />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
