@@ -6,14 +6,14 @@ import { useNavigate } from "react-router-dom";
 import { clearCart } from "../store/cartSlice";
 import { CartItem } from "./CartItem";
 import { DeliveryDetailsForm } from "./DeliveryDetailsForm";
-import Overlay from "./Overlay"; // Import the Overlay component
+import Overlay from "./Overlay";
 
 function Cart() {
   const cartItems = useSelector((state) => state.cart.items);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isOrderPlaced, setIsOrderPlaced] = useState(false);
-  const [isOverlayVisible, setIsOverlayVisible] = useState(false); // New state for Overlay
+  const [isOverlayVisible, setIsOverlayVisible] = useState(false);
   const [maxQuantities, setMaxQuantities] = useState({});
 
   useEffect(() => {
@@ -62,7 +62,7 @@ function Cart() {
     const orderNumber = Math.floor(Math.random() * 100) + 1;
 
     setIsOrderPlaced(true);
-    setIsOverlayVisible(true); // Show Overlay when order is placed
+    setIsOverlayVisible(true);
 
     DataLayer.push({
       event: "purchase",
@@ -77,7 +77,7 @@ function Cart() {
     });
     setTimeout(() => {
       setIsOrderPlaced(false);
-      setIsOverlayVisible(false); // Hide Overlay when order is processed
+      setIsOverlayVisible(false);
       dispatch(clearCart());
       alert("Thank you for your purchase!");
       navigate("/");

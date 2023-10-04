@@ -24,7 +24,6 @@ function SignInModal({ isOpen, onClose }) {
       setPassword("");
       onClose();
     } catch (error) {
-      // Handle errors and display a user-friendly message
       console.error("Error logging in user", error);
       setError(
         "Failed to login. Please check your email and password and try again."

@@ -5,7 +5,7 @@ import {
   faTwitter,
   faInstagram,
 } from "@fortawesome/free-brands-svg-icons";
-import { Link } from "react-router-dom"; // Import the Link component
+import { Link } from "react-router-dom";
 
 function Footer() {
   return (

@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import ReviewCarousel from "./ReviewCarousel"; // Import the new component
+import ReviewCarousel from "./ReviewCarousel";
 
 function HomePage() {
   return (

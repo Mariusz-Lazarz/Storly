@@ -83,7 +83,7 @@ function Store() {
   const handleRemoveItem = (itemId) => {
     const db = getDatabase();
     const itemRef = ref(db, `items/${itemId}`);
-    set(itemRef, null); // This will remove the item from Firebase
+    set(itemRef, null);
   };
 
   return (

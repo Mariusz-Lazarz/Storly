@@ -11,11 +11,8 @@ import Cart from "./components/Cart";
 import About from "./components/About";
 import Contact from "./components/Contact";
 import UserPanel from "./components/UserPanel";
-import { getAuth } from "firebase/auth";
 
 function App() {
-  const auth = getAuth();
-  const user = auth.currentUser;
   return (
     <Router>
       <div className="App flex flex-col min-h-screen">

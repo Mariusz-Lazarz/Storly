@@ -8,7 +8,7 @@ function AddItemForm() {
   const [imageLink, setImageLink] = useState("");
   const [description, setDescription] = useState("");
   const [quantity, setQuantity] = useState("");
-  const [price, setPrice] = useState(""); // State to hold the price
+  const [price, setPrice] = useState("");
   const [error, setError] = useState(null);
   const [auth, setAuth] = useState(null);
   const navigate = useNavigate();
@@ -17,13 +17,13 @@ function AddItemForm() {
     const auth = getAuth();
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        setAuth(user); // User is signed in.
+        setAuth(user);
       } else {
-        setAuth(null); // User is signed out.
+        setAuth(null);
       }
     });
 
-    return () => unsubscribe(); // Clean up subscription on unmount
+    return () => unsubscribe();
   }, []);
 
   const addItem = async (e) => {

@@ -20,7 +20,6 @@ function SignUpModal({ isOpen, onClose }) {
       setPassword("");
       onClose();
     } catch (error) {
-      // Handle errors and display a user-friendly message
       console.error("Error registering user", error);
       if (error.code === "auth/email-already-in-use") {
         setError("Email already in use");
