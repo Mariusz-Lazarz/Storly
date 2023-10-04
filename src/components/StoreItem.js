@@ -12,13 +12,17 @@ function StoreItem({
   const isInCart = itemsInCart.includes(item.id);
 
   return (
-    <div className="bg-white p-2 rounded shadow-lg border relative">
+    <div className="bg-white p-2 rounded shadow-lg border relative hover:scale-110 hover:cursor-pointer">
       <button
         className="absolute -top-3 -right-3 p-1"
         onClick={() => handleRemoveItem(item.id)}
         aria-label="Remove Item"
       >
-        <FontAwesomeIcon icon={faTimesCircle} className="text-red-500" size="2x"/>
+        <FontAwesomeIcon
+          icon={faTimesCircle}
+          className="text-red-500"
+          size="2x"
+        />
       </button>
       <div className="h-24 flex items-center justify-center mb-4">
         <img

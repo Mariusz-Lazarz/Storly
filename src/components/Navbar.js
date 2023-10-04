@@ -85,7 +85,7 @@ function Navbar() {
               </Link>
               <Link to="/cart" className="mr-4 relative">
                 <FontAwesomeIcon icon={faShoppingCart} size="2x" />
-                <span className="absolute top-0 right-0 bg-red-500 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center">
+                <span className="absolute -top-4 -right-2 bg-red-500 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center">
                   {cartItemCount}
                 </span>
               </Link>
