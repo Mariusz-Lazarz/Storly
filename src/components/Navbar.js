@@ -18,6 +18,22 @@ function Navbar() {
     0
   );
 
+  // useEffect(() => {
+  //   const auth = getAuth();
+  //   const autoLogoutTimer = setTimeout(async () => {
+  //     if (user) {
+  //       try {
+  //         await signOut(auth);
+  //         console.log("Auto logged out due to inactivity");
+  //       } catch (error) {
+  //         console.error("Error logging out", error);
+  //       }
+  //     }
+  //   }, 1800000);
+
+  //   return () => clearTimeout(autoLogoutTimer);
+  // }, [user]);
+
   useEffect(() => {
     const auth = getAuth();
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -25,7 +41,7 @@ function Navbar() {
       setLoading(false);
     });
 
-    return () => unsubscribe(); // Cleanup subscription on component unmount
+    return () => unsubscribe();
   }, []);
 
   const openSignUp = (e) => {

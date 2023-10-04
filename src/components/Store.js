@@ -9,6 +9,8 @@ import { DataLayer } from "@piwikpro/react-piwik-pro";
 function Store() {
   const [items, setItems] = useState([]);
   const [selectedQuantities, setSelectedQuantities] = useState({});
+
+  console.log(selectedQuantities);
   const dispatch = useDispatch();
   const auth = getAuth();
 
