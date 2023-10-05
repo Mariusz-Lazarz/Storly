@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getDatabase, ref, onValue, off } from "firebase/database";
+import { getDatabase, ref, onValue, off, push, set } from "firebase/database";
 import { DataLayer } from "@piwikpro/react-piwik-pro";
 import { useNavigate } from "react-router-dom";
 import { clearCart } from "../store/cartSlice";
 import { CartItem } from "./CartItem";
 import { DeliveryDetailsForm } from "./DeliveryDetailsForm";
 import Overlay from "./Overlay";
+import { getAuth } from "firebase/auth";
 
 function Cart() {
   const cartItems = useSelector((state) => state.cart.items);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const auth = getAuth();
   const [isOrderPlaced, setIsOrderPlaced] = useState(false);
   const [isOverlayVisible, setIsOverlayVisible] = useState(false);
   const [maxQuantities, setMaxQuantities] = useState({});
@@ -48,21 +50,41 @@ function Cart() {
       alert("Your cart is empty. Please add items to your cart.");
       return;
     }
-
     const orderItems = cartItems.map((item) => ({
-      item_id: item.id,
-      item_name: item.name,
-      price: item.price,
-      item_brand: item.brand,
-      item_category: item.category,
-      item_variant: item.variant,
-      quantity: item.quantity,
+      item_id: item.id || "Unknown",
+      item_title: item.title || "Unknown",
+      price: item.price || "Unknown",
+      item_brand: item.brand || "Unknown",
+      item_category: item.category || "Unknown",
+      item_variant: item.variant || "Unknown",
+      quantity: item.quantity || "Unknown",
     }));
+
+    console.log(orderItems);
 
     const orderNumber = Math.floor(Math.random() * 100) + 1;
 
     setIsOrderPlaced(true);
     setIsOverlayVisible(true);
+
+    const db = getDatabase();
+    const itemsRef = ref(db, "orders");
+    const newItemRef = push(itemsRef);
+
+    const currentDate = new Date();
+    const dateString = currentDate.toUTCString();
+
+    await set(newItemRef, {
+      userid: auth.currentUser.uid,
+      transaction_id: String(orderNumber),
+      date: dateString,
+      value: totalAmount,
+      tax: 3.26,
+      shipping: 5.0,
+      items: orderItems,
+      deliveryDetails,
+    });
+    console.log("order sent to DB ");
 
     DataLayer.push({
       event: "purchase",
