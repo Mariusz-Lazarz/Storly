@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 
 function StoreItem({
   item,
@@ -12,7 +13,7 @@ function StoreItem({
   const isInCart = itemsInCart.includes(item.id);
 
   return (
-    <div className="bg-white p-2 rounded shadow-lg border relative hover:scale-110 hover:cursor-pointer">
+    <div className="bg-white p-2 rounded shadow-lg border relative">
       <button
         className="absolute -top-3 -right-3 p-1"
         onClick={() => handleRemoveItem(item.id)}
@@ -32,7 +33,7 @@ function StoreItem({
         />
       </div>
       <h3 className="font-semibold mb-2 text-base">
-        {item.title} <span className="text-green-600">${item.price}</span>
+        {item.title} <span className="text-orange-600">${item.price}</span>
       </h3>
       <div className="flex items-center gap-4 mb-1">
         <div className="flex-grow">
@@ -74,6 +75,11 @@ function StoreItem({
         >
           {isInCart ? "In Cart" : "Add"}
         </button>
+      </div>
+      <div className="flex justify-center">
+        <Link to={`/product/${item.id}`} state={item}>
+          <p className="text-blue-500">More details</p>
+        </Link>
       </div>
     </div>
   );

@@ -11,6 +11,7 @@ import Cart from "./components/Cart";
 import About from "./components/About";
 import Contact from "./components/Contact";
 import UserPanel from "./components/UserPanel";
+import ProductDetails from "./components/ProductDetails";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/userPanel" element={<UserPanel />} />
+            <Route path="/product/:id" element={<ProductDetails />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
