@@ -1,46 +1,35 @@
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import ReactDOM from "react-dom";
+import { applyBlur, revertBlur } from "../utils/blur";
 
 const Modal = ({ children, onClose }) => {
-  const el = useRef(document.createElement("div"));
-  const modalRef = useRef();
+  const modalContent = useRef(null);
 
-  useEffect(() => {
-    const closeOnOutsideClick = (e) => {
-      if (modalRef.current && !modalRef.current.contains(e.target)) {
-        onClose();
-      }
-    };
-
-    const modalRoot = document.getElementById("modal-root");
-    const appRoot = document.getElementById("root");
-
-    if (appRoot) {
-      appRoot.style.filter = "blur(5px)";
+  const handleClickOutside = (event) => {
+    if (modalContent.current && !modalContent.current.contains(event.target)) {
+      onClose();
+      revertBlur();
     }
+  };
 
-    modalRoot.appendChild(el.current);
-    document.addEventListener("click", closeOnOutsideClick);
+  applyBlur();
 
-    return () => {
-      modalRoot.removeChild(el.current);
-      document.removeEventListener("click", closeOnOutsideClick);
-      if (appRoot) {
-        appRoot.style.filter = "";
-      }
-    };
-  }, [onClose]);
+  const modalRoot = document.getElementById("modal-root");
 
   return ReactDOM.createPortal(
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-      <div 
-        ref={modalRef} 
+    <div
+      onClick={handleClickOutside}
+      className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
+    >
+      <div
+        ref={modalContent}
+        onClick={(e) => e.stopPropagation()}
         className="bg-white p-6 rounded shadow-lg relative md:w-11/12 lg:w-1/3 mx-auto"
       >
         {children}
       </div>
     </div>,
-    el.current
+    modalRoot
   );
 };
 

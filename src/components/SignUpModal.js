@@ -3,6 +3,7 @@ import Modal from "./Modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { revertBlur } from "../utils/blur";
 
 function SignUpModal({ isOpen, onClose }) {
   const [email, setEmail] = useState("");
@@ -14,7 +15,11 @@ function SignUpModal({ isOpen, onClose }) {
   const register = async (e) => {
     e.preventDefault();
     try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
       console.log("Registered successfully", userCredential);
       setEmail("");
       setPassword("");
@@ -33,7 +38,13 @@ function SignUpModal({ isOpen, onClose }) {
   return (
     <Modal onClose={onClose}>
       <div className="bg-white p-6 rounded relative w-full md:w-11/12 mx-auto my-auto">
-        <button onClick={onClose} className="absolute top-2 right-2 text-black">
+        <button
+          onClick={() => {
+            onClose();
+            revertBlur();
+          }}
+          className="absolute top-2 right-2 text-black"
+        >
           <FontAwesomeIcon icon={faTimes} />
         </button>
         <form className="flex flex-col space-y-4" onSubmit={register}>

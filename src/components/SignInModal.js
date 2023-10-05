@@ -3,6 +3,7 @@ import Modal from "./Modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { revertBlur } from "../utils/blur";
 
 function SignInModal({ isOpen, onClose }) {
   const [email, setEmail] = useState("");
@@ -36,7 +37,13 @@ function SignInModal({ isOpen, onClose }) {
   return (
     <Modal onClose={onClose}>
       <div className="bg-white p-6 rounded relative w-full md:w-11/12 mx-auto my-auto">
-        <button onClick={onClose} className="absolute top-2 right-2 text-black">
+        <button
+          onClick={() => {
+            onClose();
+            revertBlur();
+          }}
+          className="absolute top-2 right-2 text-black"
+        >
           <FontAwesomeIcon icon={faTimes} />
         </button>
         <form className="flex flex-col space-y-4" onSubmit={login}>
