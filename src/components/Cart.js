@@ -68,8 +68,7 @@ function Cart() {
     setIsOverlayVisible(true);
 
     const db = getDatabase();
-    const itemsRef = ref(db, "orders");
-    const newItemRef = push(itemsRef);
+    const newItemRef = ref(db, `orders/${auth.currentUser.uid}/${orderNumber}`);
 
     const currentDate = new Date();
     const dateString = currentDate.toUTCString();

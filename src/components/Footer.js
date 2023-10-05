@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 function Footer() {
   return (
     <footer className="bg-white p-4 border-t mt-auto">
-      <div className="container mx-auto flex justify-between items-center">
+      <div className="container mx-auto justify-between items-center flex flex-col md:flex-row">
         <div className="flex space-x-4">
           <a
             href="https://www.facebook.com"
