@@ -6,7 +6,7 @@ import { getAuth } from "firebase/auth";
 import StoreItem from "./StoreItem";
 import { DataLayer } from "@piwikpro/react-piwik-pro";
 
-function Store() {
+const Store = () => {
   const [items, setItems] = useState([]);
   const [selectedQuantities, setSelectedQuantities] = useState({});
   const dispatch = useDispatch();
@@ -109,6 +109,6 @@ function Store() {
       </div>
     </div>
   );
-}
+};
 
 export default Store;

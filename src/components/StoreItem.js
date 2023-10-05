@@ -2,14 +2,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
-function StoreItem({
+const StoreItem = ({
   item,
   selectedQuantities,
   handleQuantityChange,
   handleAddToCart,
   handleRemoveItem,
   itemsInCart,
-}) {
+}) => {
   const isInCart = itemsInCart.includes(item.id);
 
   return (
@@ -83,6 +83,6 @@ function StoreItem({
       </div>
     </div>
   );
-}
+};
 
 export default StoreItem;

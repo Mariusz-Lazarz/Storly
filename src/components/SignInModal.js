@@ -5,7 +5,7 @@ import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { revertBlur } from "../utils/blur";
 
-function SignInModal({ isOpen, onClose }) {
+const SignInModal = ({ isOpen, onClose }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
@@ -21,6 +21,7 @@ function SignInModal({ isOpen, onClose }) {
         password
       );
       console.log("Logged in successfully", userCredential);
+      revertBlur();
       setEmail("");
       setPassword("");
       onClose();
@@ -73,6 +74,6 @@ function SignInModal({ isOpen, onClose }) {
       </div>
     </Modal>
   );
-}
+};
 
 export default SignInModal;
