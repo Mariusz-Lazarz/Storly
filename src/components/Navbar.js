@@ -65,7 +65,8 @@ function Navbar() {
   };
 
   return (
-    <nav className="bg-gray-800 p-4">
+    <>
+    <nav className="bg-gray-800 p-4 fixed top-0 w-full z-50">
       <div className="container mx-auto flex justify-between items-center">
         <div className="text-white font-logo text-2xl">
           <Link to="/" className="text-white font-logo text-2xl no-underline">
@@ -126,6 +127,8 @@ function Navbar() {
         onClose={() => setOpenModal(null)}
       />
     </nav>
+    <div className="nav-spacer" style={{height: '4rem'}}></div>
+    </>
   );
 }
 
