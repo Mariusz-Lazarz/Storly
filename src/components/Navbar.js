@@ -65,33 +65,36 @@ function Navbar() {
   };
 
   return (
-    <nav className="bg-white p-4">
+    <nav className="bg-gray-800 p-4">
       <div className="container mx-auto flex justify-between items-center">
-        <div className="text-black font-logo text-2xl">
-          <Link to="/" className="text-black font-logo text-2xl no-underline">
+        <div className="text-white font-logo text-2xl">
+          <Link to="/" className="text-white font-logo text-2xl no-underline">
             <span className="font-bold">Storly</span>
           </Link>
         </div>
-        <div>
+        <div className="flex items-center">
           {loading ? (
             <span>Loading...</span>
           ) : user ? (
             <>
-              <Link
-                to="/userPanel"
-                className="mr-4 text-blue-500 hover:underline"
-              >
+              <Link to="/userPanel" className="text-blue-500 hover:underline">
                 {user.email}
               </Link>
-              <Link to="/cart" className="mr-4 relative">
-                <FontAwesomeIcon icon={faShoppingCart} size="2x" />
-                <span className="absolute -top-4 -right-2 bg-red-500 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center">
+              <Link to="/cart" className="mx-4 relative">
+                <FontAwesomeIcon
+                  icon={faShoppingCart}
+                  style={{ fontSize: "1.5rem" }}
+                />
+                <span
+                  className="absolute text-white rounded-full text-xs w-4 h-4 flex items-center justify-center bg-red-500"
+                  style={{ top: "-25%", right: "-25%" }}
+                >
                   {cartItemCount}
                 </span>
               </Link>
               <button
                 onClick={logout}
-                className="bg-light-pink text-white py-2 px-4 rounded-full"
+                className=" bg-light-pink text-white py-1 px-2 rounded-full"
               >
                 Logout
               </button>
