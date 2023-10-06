@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import OrderHistory from "./OrderHistory";
 import UserData from "./UserData";
+import useRedirect from "../hooks/useRedirect";
 
 function UserPanel() {
   const [activeTab, setActiveTab] = useState("orderHistory");
+  useRedirect();
 
   return (
     <div className="container mx-auto p-6">
