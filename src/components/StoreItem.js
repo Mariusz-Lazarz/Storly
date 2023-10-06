@@ -1,5 +1,5 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
 const StoreItem = ({
@@ -14,7 +14,7 @@ const StoreItem = ({
 
   return (
     <div className="bg-white p-2 rounded shadow-lg border relative">
-      <button
+      {/* <button
         className="absolute -top-3 -right-3"
         onClick={() => handleRemoveItem(item.id)}
         aria-label="Remove Item"
@@ -24,7 +24,7 @@ const StoreItem = ({
           className="text-red-500"
           size="2x"
         />
-      </button>
+      </button> */}
       <div className="h-24 flex items-center justify-center mb-4">
         <img
           src={item.imageLink}

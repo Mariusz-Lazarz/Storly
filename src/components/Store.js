@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getDatabase, ref, onValue, off, set } from "firebase/database";
+import { getDatabase, ref, onValue, off } from "firebase/database";
 import { addToCart } from "../store/cartSlice";
 import { getAuth } from "firebase/auth";
 import StoreItem from "./StoreItem";
@@ -40,11 +40,11 @@ const Store = () => {
           return acc;
         }, {});
         setSelectedQuantities(initialQuantities);
-        setIsLoading(false);
       } else {
         setItems([]);
         setSelectedQuantities({});
       }
+      setIsLoading(false);
     };
 
     onValue(itemsRef, handleData);
@@ -87,11 +87,11 @@ const Store = () => {
     }
   };
 
-  const handleRemoveItem = (itemId) => {
-    const db = getDatabase();
-    const itemRef = ref(db, `items/${auth.currentUser.uid}/${itemId}`);
-    set(itemRef, null);
-  };
+  // const handleRemoveItem = (itemId) => {
+  //   const db = getDatabase();
+  //   const itemRef = ref(db, `items/${auth.currentUser.uid}/${itemId}`);
+  //   set(itemRef, null);
+  // };
 
   return (
     <div className="container mx-auto p-4">
@@ -110,7 +110,7 @@ const Store = () => {
                 handleQuantityChange={handleQuantityChange}
                 handleAddToCart={handleAddToCart}
                 itemsInCart={itemIdsInCart}
-                handleRemoveItem={handleRemoveItem}
+                // handleRemoveItem={handleRemoveItem}
               />
             ))
           ) : (
