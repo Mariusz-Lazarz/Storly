@@ -5,7 +5,7 @@ import { DataLayer } from "@piwikpro/react-piwik-pro";
 import { useNavigate } from "react-router-dom";
 import { clearCart } from "../store/cartSlice";
 import { CartItem } from "./CartItem";
-import { DeliveryDetailsForm } from "./DeliveryDetailsForm";
+import DeliveryDetailsForm from "./DeliveryDetailsForm";
 import Overlay from "./Overlay";
 import { getAuth } from "firebase/auth";
 
@@ -62,20 +62,19 @@ function Cart() {
 
     console.log(orderItems);
 
-    const orderNumber = Math.floor(Math.random() * 100) + 1;
-
     setIsOrderPlaced(true);
     setIsOverlayVisible(true);
 
     const db = getDatabase();
-    const newItemRef = ref(db, `orders/${auth.currentUser.uid}/${orderNumber}`);
+    const newOrderRef = push(ref(db, `orders/${auth.currentUser.uid}`));
+    const uniqueKey = newOrderRef.key;
 
     const currentDate = new Date();
     const dateString = currentDate.toUTCString();
 
-    await set(newItemRef, {
+    await set(newOrderRef, {
       userid: auth.currentUser.uid,
-      transaction_id: String(orderNumber),
+      transaction_id: uniqueKey,
       date: dateString,
       value: totalAmount,
       tax: 3.26,
@@ -89,7 +88,7 @@ function Cart() {
       event: "purchase",
       ecommerce: {
         currency: "USD",
-        transaction_id: String(orderNumber),
+        transaction_id: uniqueKey,
         value: totalAmount,
         tax: 3.26,
         shipping: 5.0,

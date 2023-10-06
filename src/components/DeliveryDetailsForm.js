@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export function DeliveryDetailsForm({ onPlaceOrder }) {
+function DeliveryDetailsForm({ onPlaceOrder }) {
   const [deliveryDetails, setDeliveryDetails] = useState({
     name: "",
     address: "",
@@ -100,3 +100,5 @@ export function DeliveryDetailsForm({ onPlaceOrder }) {
     </form>
   );
 }
+
+export default DeliveryDetailsForm;
