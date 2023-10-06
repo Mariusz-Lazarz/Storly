@@ -24,10 +24,15 @@ const Store = () => {
     const handleData = (snapshot) => {
       const data = snapshot.val();
       if (data) {
-        const loadedItems = Object.keys(data).map((key) => ({
-          id: key,
-          ...data[key],
-        }));
+        const loadedItems = Object.keys(data).flatMap((key) => {
+          if (typeof data[key] === "object" && !Array.isArray(data[key])) {
+            return Object.keys(data[key]).map((nestedKey) => ({
+              id: nestedKey,
+              ...data[key][nestedKey],
+            }));
+          }
+          return [];
+        });
         setItems(loadedItems);
 
         const initialQuantities = loadedItems.reduce((acc, item) => {
@@ -84,7 +89,7 @@ const Store = () => {
 
   const handleRemoveItem = (itemId) => {
     const db = getDatabase();
-    const itemRef = ref(db, `items/${itemId}`);
+    const itemRef = ref(db, `items/${auth.currentUser.uid}/${itemId}`);
     set(itemRef, null);
   };
 

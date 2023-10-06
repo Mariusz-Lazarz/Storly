@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import OrderHistory from "./OrderHistory";
 import UserData from "./UserData";
+import EditProducts from "./EditProducts";
 import useRedirect from "../hooks/useRedirect";
 
 function UserPanel() {
@@ -23,6 +24,16 @@ function UserPanel() {
             Order History
           </button>
           <button
+            onClick={() => setActiveTab("editProducts")}
+            className={`transition duration-300 ease-in-out px-4 py-2 ${
+              activeTab === "editProducts"
+                ? "bg-white text-gray-800 border-b-4 border-blue-500"
+                : "bg-gray-200 text-gray-600"
+            }`}
+          >
+            Edit Products
+          </button>
+          <button
             onClick={() => setActiveTab("userData")}
             className={`transition duration-300 ease-in-out px-4 py-2 ${
               activeTab === "userData"
@@ -35,6 +46,7 @@ function UserPanel() {
         </div>
         <div className="p-6 bg-white rounded shadow-lg">
           {activeTab === "orderHistory" && <OrderHistory />}
+          {activeTab === "editProducts" && <EditProducts />}
           {activeTab === "userData" && <UserData />}
         </div>
       </div>

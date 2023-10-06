@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { getDatabase, ref, set, push } from "firebase/database";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
 function AddItemForm() {
@@ -10,34 +10,36 @@ function AddItemForm() {
   const [quantity, setQuantity] = useState("");
   const [price, setPrice] = useState("");
   const [error, setError] = useState(null);
-  const [auth, setAuth] = useState(null);
   const navigate = useNavigate();
+  // const [auth, setAuth] = useState(null);
 
-  useEffect(() => {
-    const auth = getAuth();
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setAuth(user);
-      } else {
-        setAuth(null);
-      }
-    });
+  // console.log(auth);
 
-    return () => unsubscribe();
-  }, []);
+  // useEffect(() => {
+  //   const auth = getAuth();
+  //   const unsubscribe = onAuthStateChanged(auth, (user) => {
+  //     if (user) {
+  //       setAuth(user);
+  //     } else {
+  //       setAuth(null);
+  //     }
+  //   });
+
+  //   return () => unsubscribe();
+  // }, []);
 
   const addItem = async (e) => {
+    const auth = getAuth();
     e.preventDefault();
 
-    if (!auth) {
+    if (!auth.currentUser) {
       setError("Please login to add an item");
       return;
     }
 
     try {
       const db = getDatabase();
-      const itemsRef = ref(db, "items");
-      const newItemRef = push(itemsRef);
+      const newItemRef = push(ref(db, `items/${auth.currentUser.uid}`));
       await set(newItemRef, {
         title,
         imageLink,

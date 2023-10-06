@@ -15,7 +15,7 @@ const StoreItem = ({
   return (
     <div className="bg-white p-2 rounded shadow-lg border relative">
       <button
-        className="absolute -top-3 -right-3 p-1"
+        className="absolute -top-3 -right-3"
         onClick={() => handleRemoveItem(item.id)}
         aria-label="Remove Item"
       >

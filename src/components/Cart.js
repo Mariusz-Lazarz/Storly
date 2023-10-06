@@ -24,14 +24,21 @@ function Cart() {
 
     const onItemsValueChange = (snapshot) => {
       const data = snapshot.val();
-      const newMaxQuantities = Object.entries(data).reduce(
-        (acc, [key, value]) => {
-          acc[key] = value.quantity;
+      if (data && typeof data === "object") {
+        const newMaxQuantities = Object.keys(data).reduce((acc, key) => {
+          if (typeof data[key] === "object" && !Array.isArray(data[key])) {
+            Object.keys(data[key]).forEach((nestedKey) => {
+              acc[nestedKey] = data[key][nestedKey].quantity;
+            });
+          }
           return acc;
-        },
-        {}
-      );
-      setMaxQuantities(newMaxQuantities);
+        }, {});
+
+        setMaxQuantities(newMaxQuantities);
+      } else {
+        // Handle the case where data is null or not an object
+        setMaxQuantities({});
+      }
     };
 
     onValue(itemsRef, onItemsValueChange);
