@@ -9,6 +9,7 @@ import { DataLayer } from "@piwikpro/react-piwik-pro";
 const Store = () => {
   const [items, setItems] = useState([]);
   const [selectedQuantities, setSelectedQuantities] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
   const dispatch = useDispatch();
   const auth = getAuth();
 
@@ -34,6 +35,7 @@ const Store = () => {
           return acc;
         }, {});
         setSelectedQuantities(initialQuantities);
+        setIsLoading(false);
       } else {
         setItems([]);
         setSelectedQuantities({});
@@ -88,25 +90,31 @@ const Store = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4">
-        {items.length > 0 ? (
-          items.map((item) => (
-            <StoreItem
-              key={item.id}
-              item={item}
-              selectedQuantities={selectedQuantities}
-              handleQuantityChange={handleQuantityChange}
-              handleAddToCart={handleAddToCart}
-              itemsInCart={itemIdsInCart}
-              handleRemoveItem={handleRemoveItem}
-            />
-          ))
-        ) : (
-          <div className="col-span-full text-center text-red-600 text-xl">
-            Our store is currently empty. Let's add something to begin!
-          </div>
-        )}
-      </div>
+      {isLoading ? (
+        <div className="mt-2 flex justify-center items-center">
+          <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-blue-500"></div>
+        </div>
+      ) : (
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4">
+          {items.length > 0 ? (
+            items.map((item) => (
+              <StoreItem
+                key={item.id}
+                item={item}
+                selectedQuantities={selectedQuantities}
+                handleQuantityChange={handleQuantityChange}
+                handleAddToCart={handleAddToCart}
+                itemsInCart={itemIdsInCart}
+                handleRemoveItem={handleRemoveItem}
+              />
+            ))
+          ) : (
+            <div className="col-span-full text-center text-red-600 text-xl">
+              Our store is currently empty. Let's add something to begin!
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 };
