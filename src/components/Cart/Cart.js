@@ -9,6 +9,7 @@ import DeliveryDetailsForm from "./DeliveryDetailsForm";
 import Overlay from "../Modal/Overlay";
 import { getAuth } from "firebase/auth";
 import LoadingSpinner from "../../utils/LoadingSpinner";
+import Alert from "../Modal/Alert";
 
 function Cart() {
   const cartItems = useSelector((state) => state.cart.items);
@@ -18,6 +19,7 @@ function Cart() {
   const [isOrderPlaced, setIsOrderPlaced] = useState(false);
   const [isOverlayVisible, setIsOverlayVisible] = useState(false);
   const [maxQuantities, setMaxQuantities] = useState({});
+  const [isAlertVisible, setIsAlertVisible] = useState(true);
 
   useEffect(() => {
     const db = getDatabase();
@@ -48,6 +50,16 @@ function Cart() {
     };
   }, []);
 
+  const orderItems = cartItems.map((item) => ({
+    item_id: item.id || "Unknown",
+    item_title: item.title || "Unknown",
+    price: item.price || "Unknown",
+    item_brand: item.brand || "Unknown",
+    item_category: item.category || "Unknown",
+    item_variant: item.variant || "Unknown",
+    quantity: item.quantity || "Unknown",
+  }));
+
   const totalAmount = cartItems
     .reduce((total, item) => total + parseFloat(item.totalPrice), 0)
     .toFixed(2);
@@ -57,18 +69,6 @@ function Cart() {
       alert("Your cart is empty. Please add items to your cart.");
       return;
     }
-    const orderItems = cartItems.map((item) => ({
-      item_id: item.id || "Unknown",
-      item_title: item.title || "Unknown",
-      price: item.price || "Unknown",
-      item_brand: item.brand || "Unknown",
-      item_category: item.category || "Unknown",
-      item_variant: item.variant || "Unknown",
-      quantity: item.quantity || "Unknown",
-    }));
-
-    console.log(orderItems);
-
     setIsOrderPlaced(true);
     setIsOverlayVisible(true);
 
@@ -89,7 +89,6 @@ function Cart() {
       items: orderItems,
       deliveryDetails,
     });
-    console.log("order sent to DB ");
 
     DataLayer.push({
       event: "purchase",
@@ -105,10 +104,14 @@ function Cart() {
     setTimeout(() => {
       setIsOrderPlaced(false);
       setIsOverlayVisible(false);
-      dispatch(clearCart());
-      alert("Thank you for your purchase!");
-      navigate("/");
+      setIsAlertVisible(true);
     }, 2000);
+  };
+
+  const handleAlertConfirm = () => {
+    setIsAlertVisible(false);
+    dispatch(clearCart());
+    navigate("/");
   };
 
   return (
@@ -139,6 +142,15 @@ function Cart() {
         <h2 className="text-2xl font-semibold mb-4">Delivery Details</h2>
         <DeliveryDetailsForm onPlaceOrder={handlePlaceOrder} />
       </div>
+      {isAlertVisible && (
+        <Alert
+          isOpen={isAlertVisible}
+          title="Purchase Successful"
+          message="Thank you for your purchase!"
+          onConfirm={handleAlertConfirm}
+        />
+      )}
+
     </div>
   );
 }
