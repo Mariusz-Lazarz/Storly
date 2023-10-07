@@ -1,18 +1,18 @@
-<font size='6'>Storly operates as an e-commerce platform with an array of features:</font >
+<h1>Storly operates as an e-commerce platform with an array of features:</h1>
 
-<font size='4'>User account creation and login capabilities.</font >
+  <h3>User account creation and login capabilities.</h3>
 
-<font size='4'>Browsing a primary store page featuring offers and accessing detailed pages for each product.</font >
+  <h3>Browsing a primary store page featuring offers and accessing detailed pages for each product.</h3>
 
-<font size='4'>Listing users' own items.</font >
+  <h3>Listing users' own items.</h3>
 
-<font size='4'>Adding products to a basket and placing orders.</font >
+  <h3>Adding products to a basket and placing orders.</h3>
 
-<font size='4'>Viewing a user panel that contains a list of orders.</font >
+  <h3>Viewing a user panel that contains a list of orders.</h3>
 
-<font size='4'>Enabling the owner-user to edit and delete offers.</font >
+  <h3>Enabling the owner-user to edit and delete offers.</h3>
 
-<font size='4'>Tracking Piwik PRO ecommerce capabilties.</font>
+  <h3>Tracking Piwik PRO ecommerce capabilties.</h3>
 
   <h4 style='color:red'>Additional functionalities will be introduced in the future.</h4>
 
