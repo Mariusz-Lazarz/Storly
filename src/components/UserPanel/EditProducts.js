@@ -44,6 +44,10 @@ function EditProducts() {
     setEditFormData(product);
   };
 
+  const handleCloseClick = () => {
+    setEditingProductId(null);
+  };
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setEditFormData({ ...editFormData, [name]: value });
@@ -177,6 +181,12 @@ function EditProducts() {
                 >
                   Submit
                 </button>
+                <button
+                  className="px-4 py-2 bg-red-500 text-white rounded-lg ml-2"
+                  onClick={handleCloseClick}
+                >
+                  Cancel
+                </button>
               </form>
             ) : (
               <div className="flex justify-between items-center">
@@ -187,12 +197,25 @@ function EditProducts() {
                 />
                 <div className="flex-1 ml-4 flex items-center justify-between">
                   <span className="text-lg">{product.title}</span>
-                  <span className="text-sm">{product.description}</span>
-                  <span className="text-sm">{product.category}</span>
-                  <span className="text-sm">{product.brand}</span>
-                  <span className="text-sm">{product.variant}</span>
-                  <span className="text-sm">Quantity: {product.quantity}</span>
-                  <span className="text-lg">${product.price}</span>
+                  <span className="hidden lg:block text-sm">
+                    {product.description}
+                  </span>
+                  <span className="hidden lg:block text-sm">
+                    {product.category}
+                  </span>
+                  <span className="hidden lg:block text-sm">
+                    {product.brand}
+                  </span>
+                  <span className="hidden lg:block text-sm">
+                    {product.variant}
+                  </span>
+                  <span className="hidden lg:block text-sm">
+                    Quantity: {product.quantity}
+                  </span>
+
+                  <span className="hidden lg:block text-sm">
+                    ${product.price}
+                  </span>
                 </div>
                 <div className="flex space-x-4">
                   <button

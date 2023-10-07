@@ -4,7 +4,6 @@ import { DataLayer } from "@piwikpro/react-piwik-pro";
 const ProductDetails = () => {
   const location = useLocation();
   const item = location.state;
-  console.log(item);
 
   DataLayer.push({
     event: "product_detail_view",
