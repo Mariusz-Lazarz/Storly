@@ -2,6 +2,8 @@
 
   <h3>User account creation and login capabilities.</h3>
 
+  <h3>Forgot password functionality to restore password</h3>
+
   <h3>Browsing a primary store page featuring offers and accessing detailed pages for each product.</h3>
 
   <h3>Listing users' own items.</h3>
@@ -18,7 +20,7 @@
 
 ![Alt text](./img/Banner.png)
 
-How to Use
+<h1>How to Use</h1>
 
 1. Clone the Repository
 

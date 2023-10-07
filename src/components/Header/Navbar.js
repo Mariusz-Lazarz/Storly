@@ -3,6 +3,7 @@ import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import { Link } from "react-router-dom";
 import SignUpModal from "../UserAuth/SignUpModal";
 import SignInModal from "../UserAuth/SignInModal";
+import ResetPassword from "../UserAuth/ResetPassword";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from "react-redux";
@@ -54,6 +55,11 @@ function Navbar() {
   const openSignIn = (e) => {
     e.stopPropagation();
     setOpenModal("signIn");
+  };
+
+  const openResetPassword = (e) => {
+    e.stopPropagation();
+    setOpenModal("resetPassword");
   };
 
   const logout = async () => {
@@ -129,6 +135,12 @@ function Navbar() {
         <SignInModal
           isOpen={openModal === "signIn"}
           onClose={() => setOpenModal(null)}
+          onForgotPasswordClick={openResetPassword}
+        />
+        <ResetPassword
+          isOpen={openModal === "resetPassword"}
+          onClose={() => setOpenModal(null)}
+          onBackToLoginClick={openSignIn}
         />
       </nav>
       <div className="nav-spacer" style={{ height: "4rem" }}></div>

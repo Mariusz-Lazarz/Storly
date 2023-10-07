@@ -5,7 +5,7 @@ import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { revertBlur } from "../../utils/blur";
 
-const SignInModal = ({ isOpen, onClose }) => {
+const SignInModal = ({ isOpen, onClose, onForgotPasswordClick }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
@@ -69,6 +69,13 @@ const SignInModal = ({ isOpen, onClose }) => {
             Login
           </button>
         </form>
+        <button
+          type="button"
+          onClick={onForgotPasswordClick}
+          className="text-blue-500 text-sm underline cursor-pointer mt-4 inline-block"
+        >
+          Forgot Password?
+        </button>
       </div>
     </Modal>
   );
