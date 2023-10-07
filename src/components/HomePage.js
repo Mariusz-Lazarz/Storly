@@ -35,7 +35,7 @@ function HomePage() {
               </div>
             </Link>
           </div>
-          <div className="mt-24 mb-10">
+          <div className="mt-8 mb-8">
             <h2 className="text-2xl font-bold mb-4">
               Jak radzimy sobie z klientami
             </h2>

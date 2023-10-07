@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from "react";
+import { revertBlur } from "../utils/blur";
 import { getDatabase, ref, onValue, off, update, set } from "firebase/database";
 import { getAuth } from "firebase/auth";
+import Alert from "./Alert";
 
 function EditProducts() {
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [editingProductId, setEditingProductId] = useState(null);
   const [editFormData, setEditFormData] = useState({});
+  const [showAlert, setShowAlert] = useState(false);
+  const [modalProduct, setModalProduct] = useState(null);
 
   useEffect(() => {
     const auth = getAuth();
@@ -15,7 +19,6 @@ function EditProducts() {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
         const productsRef = ref(db, `items/${user.uid}`);
-
         const handleData = (snapshot) => {
           const data = snapshot.val();
           const productsArray = data
@@ -24,7 +27,6 @@ function EditProducts() {
           setProducts(productsArray);
           setIsLoading(false);
         };
-
         onValue(productsRef, handleData);
         return () => {
           off(productsRef, "value", handleData);
@@ -58,11 +60,25 @@ function EditProducts() {
     setEditingProductId(null);
   };
 
-  const handleRemoveItem = (productId) => {
+  const handleRemoveItem = (product) => {
+    setShowAlert(true);
+    setModalProduct(product);
+  };
+
+  const handleModalConfirm = () => {
     const db = getDatabase();
     const auth = getAuth();
-    const itemRef = ref(db, `items/${auth.currentUser.uid}/${productId}`);
+    const itemRef = ref(db, `items/${auth.currentUser.uid}/${modalProduct.id}`);
     set(itemRef, null);
+    revertBlur();
+    setShowAlert(false);
+    setModalProduct(null);
+  };
+
+  const handleModalCancel = () => {
+    revertBlur();
+    setShowAlert(false);
+    setModalProduct(null);
   };
 
   return (
@@ -154,7 +170,7 @@ function EditProducts() {
                   <button
                     className="px-4 py-2 bg-red-500 text-white rounded-lg"
                     onClick={() => {
-                      handleRemoveItem(product.id);
+                      handleRemoveItem(product);
                     }}
                   >
                     Delete
@@ -165,6 +181,13 @@ function EditProducts() {
           </div>
         ))
       )}
+      <Alert
+        isOpen={showAlert}
+        title="Confirm Deletion"
+        message="Are you sure you want to delete this item?"
+        onConfirm={handleModalConfirm}
+        onCancel={handleModalCancel}
+      ></Alert>
     </div>
   );
 }
