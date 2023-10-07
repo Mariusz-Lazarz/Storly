@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import ReactDOM from "react-dom";
-import { applyBlur, revertBlur } from "../utils/blur";
+import { applyBlur, revertBlur } from "../../utils/blur";
 
 const Modal = ({ children, onClose }) => {
   const modalContent = useRef(null);

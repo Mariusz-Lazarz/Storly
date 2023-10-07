@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { getDatabase, ref, onValue, off, push, set } from "firebase/database";
 import { DataLayer } from "@piwikpro/react-piwik-pro";
 import { useNavigate } from "react-router-dom";
-import { clearCart } from "../store/cartSlice";
+import { clearCart } from "../../store/cartSlice";
 import { CartItem } from "./CartItem";
 import DeliveryDetailsForm from "./DeliveryDetailsForm";
-import Overlay from "./Overlay";
+import Overlay from "../Modal/Overlay";
 import { getAuth } from "firebase/auth";
 
 function Cart() {

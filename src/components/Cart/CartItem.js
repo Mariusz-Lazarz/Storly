@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { removeFromCart } from "../store/cartSlice";
+import { removeFromCart } from "../../store/cartSlice";
 import { DataLayer } from "@piwikpro/react-piwik-pro";
 
 export function CartItem({ item }) {

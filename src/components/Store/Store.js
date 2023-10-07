@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getDatabase, ref, onValue, off } from "firebase/database";
-import { addToCart } from "../store/cartSlice";
+import { addToCart } from "../../store/cartSlice";
 import { getAuth } from "firebase/auth";
 import StoreItem from "./StoreItem";
 import { DataLayer } from "@piwikpro/react-piwik-pro";

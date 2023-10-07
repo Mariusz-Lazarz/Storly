@@ -1,17 +1,17 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Navbar from "./components/Navbar";
-import AddItemForm from "./components/AddItemForm";
-import NotFound from "./components/NotFound";
-import Store from "./components/Store";
-import HomePage from "./components/HomePage";
-import Footer from "./components/Footer";
+import Navbar from "./components/Header/Navbar";
+import AddItemForm from "./components/AddItem/AddItemForm";
+import NotFound from "./components/Error/NotFound";
+import Store from "./components/Store/Store";
+import HomePage from "./components/Home/HomePage";
+import Footer from "./components/Footer/Footer";
 import "./App.css";
-import Cart from "./components/Cart";
-import About from "./components/About";
-import Contact from "./components/Contact";
-import UserPanel from "./components/UserPanel";
-import ProductDetails from "./components/ProductDetails";
+import Cart from "./components/Cart/Cart";
+import About from "./components/Home/About";
+import Contact from "./components/Home/Contact";
+import UserPanel from "./components/UserPanel/UserPanel";
+import ProductDetails from "./components/Store/ProductDetails";
 
 function App() {
   return (

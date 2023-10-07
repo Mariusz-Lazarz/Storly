@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import OrderHistory from "./OrderHistory";
 import UserData from "./UserData";
 import EditProducts from "./EditProducts";
-import useRedirect from "../hooks/useRedirect";
+import useRedirect from "../../hooks/useRedirect";
 
 function UserPanel() {
   const [activeTab, setActiveTab] = useState("orderHistory");

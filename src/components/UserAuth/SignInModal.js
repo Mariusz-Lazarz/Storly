@@ -1,39 +1,38 @@
 import React, { useState } from "react";
-import Modal from "./Modal";
+import Modal from "../Modal/Modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { revertBlur } from "../utils/blur";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { revertBlur } from "../../utils/blur";
 
-const SignUpModal = ({ isOpen, onClose }) => {
+const SignInModal = ({ isOpen, onClose }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
 
   const auth = getAuth();
 
-  const register = async (e) => {
+  const login = async (e) => {
     e.preventDefault();
     try {
-      const userCredential = await createUserWithEmailAndPassword(
+      const userCredential = await signInWithEmailAndPassword(
         auth,
         email,
         password
       );
-      console.log("Registered successfully", userCredential);
+      console.log("Logged in successfully", userCredential);
       revertBlur();
       setEmail("");
       setPassword("");
       onClose();
     } catch (error) {
-      console.error("Error registering user", error);
-      if (error.code === "auth/email-already-in-use") {
-        setError("Email already in use");
-      } else {
-        setError("Failed to register. Please try again.");
-      }
+      console.error("Error logging in user", error);
+      setError(
+        "Failed to login. Please check your email and password and try again."
+      );
     }
   };
+
   if (!isOpen) return null;
 
   return (
@@ -48,8 +47,8 @@ const SignUpModal = ({ isOpen, onClose }) => {
         >
           <FontAwesomeIcon icon={faTimes} />
         </button>
-        <form className="flex flex-col space-y-4" onSubmit={register}>
-          <h2 className="text-2xl font-bold text-center mb-4">Join Us</h2>
+        <form className="flex flex-col space-y-4" onSubmit={login}>
+          <h2 className="text-2xl font-bold text-center mb-4">Login</h2>
           {error && <p className="text-red-500 text-sm">{error}</p>}
           <input
             type="email"
@@ -69,7 +68,7 @@ const SignUpModal = ({ isOpen, onClose }) => {
             type="submit"
             className="bg-light-pink text-white p-2 rounded-full"
           >
-            Register
+            Login
           </button>
         </form>
       </div>
@@ -77,4 +76,4 @@ const SignUpModal = ({ isOpen, onClose }) => {
   );
 };
 
-export default SignUpModal;
+export default SignInModal;

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { revertBlur } from "../utils/blur";
+import { revertBlur } from "../../utils/blur";
 import { getDatabase, ref, onValue, off, update, set } from "firebase/database";
 import { getAuth } from "firebase/auth";
-import Alert from "./Alert";
+import Alert from "../Modal/Alert";
 
 function EditProducts() {
   const [products, setProducts] = useState([]);
