@@ -1,6 +1,16 @@
 Storly
 
-Storly is a ecommerce store that allows you to create account add product, and order it. I might consider adding more functionalities later on.
+Storly operates as an e-commerce platform with an array of features:
+
+    User account creation and login capabilities.
+    Browsing a primary store page featuring offers and accessing detailed pages for each product.
+    Listing users' own items.
+    Adding products to a basket and placing orders.
+    Viewing a user panel that contains a list of orders.
+    Enabling the owner-user to edit and delete offers.
+    Tracking Piwik PRO ecommerce capabilties. 
+
+Additional functionalities will be introduced in the future.
 
 ![Alt text](./img/Banner.png)
 
