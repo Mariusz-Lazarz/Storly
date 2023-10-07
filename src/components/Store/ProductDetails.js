@@ -49,17 +49,20 @@ const ProductDetails = () => {
             <h2 className="text-lg text-pink-500 font-semibold mb-2">
               Details
             </h2>
-            <p className="mb-2">
-              <span className="font-medium">Category:</span>{" "}
-              {item.category || "N/A"}
-            </p>
-            <p className="mb-2">
-              <span className="font-medium">Variant:</span>{" "}
-              {item.variant || "N/A"}
-            </p>
-            <p className="mb-2">
-              <span className="font-medium">Brand:</span> {item.brand || "N/A"}
-            </p>
+            <div className="flex justify-between">
+              <p className="mb-2">
+                <span className="font-medium">Category:</span>{" "}
+                {item.category || "N/A"}
+              </p>
+              <p className="mb-2">
+                <span className="font-medium">Variant:</span>{" "}
+                {item.variant || "N/A"}
+              </p>
+              <p className="mb-2">
+                <span className="font-medium">Brand:</span>{" "}
+                {item.brand || "N/A"}
+              </p>
+            </div>
           </div>
           <hr className="mb-4" />
         </div>

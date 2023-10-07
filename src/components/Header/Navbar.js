@@ -6,11 +6,13 @@ import SignInModal from "../UserAuth/SignInModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 function Navbar() {
   const [openModal, setOpenModal] = useState(null);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   const cartItems = useSelector((state) => state.cart.items);
   const cartItemCount = cartItems.reduce(
@@ -58,6 +60,7 @@ function Navbar() {
     const auth = getAuth();
     try {
       await signOut(auth);
+      navigate("/");
       console.log("Logged out successfully");
     } catch (error) {
       console.error("Error logging out", error);
