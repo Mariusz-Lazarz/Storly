@@ -1,34 +1,48 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import ReactDOM from "react-dom";
 import { applyBlur, revertBlur } from "../../utils/blur";
+import { CSSTransition } from "react-transition-group";
+import "./modal.css";
 
-const Modal = ({ children, onClose }) => {
+const Modal = ({ children, onClose, isOpen }) => {
   const modalContent = useRef(null);
+  console.log(isOpen);
 
   const handleClickOutside = (event) => {
     if (modalContent.current && !modalContent.current.contains(event.target)) {
       onClose();
-      revertBlur();
     }
   };
 
-  applyBlur();
+  useEffect(() => {
+    if (isOpen) {
+      applyBlur();
+      return () => revertBlur();
+    }
+  }, [isOpen]);
 
   const modalRoot = document.getElementById("modal-root");
 
   return ReactDOM.createPortal(
-    <div
-      onClick={handleClickOutside}
-      className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
+    <CSSTransition
+      in={isOpen}
+      timeout={300}
+      classNames="modal"
+      unmountOnExit
     >
       <div
-        ref={modalContent}
-        onClick={(e) => e.stopPropagation()}
-        className="bg-white p-6 rounded shadow-lg relative md:w-11/12 lg:w-1/3 mx-auto"
+        onClick={handleClickOutside}
+        className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
       >
-        {children}
+        <div
+          ref={modalContent}
+          onClick={(e) => e.stopPropagation()}
+          className="bg-white p-6 rounded shadow-lg relative md:w-11/12 lg:w-1/3 mx-auto modal-content"
+        >
+          {children}
+        </div>
       </div>
-    </div>,
+    </CSSTransition>,
     modalRoot
   );
 };

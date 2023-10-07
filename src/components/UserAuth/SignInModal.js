@@ -33,10 +33,8 @@ const SignInModal = ({ isOpen, onClose }) => {
     }
   };
 
-  if (!isOpen) return null;
-
   return (
-    <Modal onClose={onClose}>
+    <Modal onClose={onClose} isOpen={isOpen}>
       <div className="bg-white p-6 rounded relative w-full md:w-11/12 mx-auto my-auto">
         <button
           onClick={() => {

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { revertBlur } from "../../utils/blur";
 import { getDatabase, ref, onValue, off, update, set } from "firebase/database";
 import { getAuth } from "firebase/auth";
 import Alert from "../Modal/Alert";
@@ -76,13 +75,11 @@ function EditProducts() {
     const auth = getAuth();
     const itemRef = ref(db, `items/${auth.currentUser.uid}/${modalProduct.id}`);
     set(itemRef, null);
-    revertBlur();
     setShowAlert(false);
     setModalProduct(null);
   };
 
   const handleModalCancel = () => {
-    revertBlur();
     setShowAlert(false);
     setModalProduct(null);
   };
