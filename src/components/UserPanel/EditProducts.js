@@ -3,6 +3,7 @@ import { revertBlur } from "../../utils/blur";
 import { getDatabase, ref, onValue, off, update, set } from "firebase/database";
 import { getAuth } from "firebase/auth";
 import Alert from "../Modal/Alert";
+import LoadingSpinner from "../../utils/LoadingSpinner";
 
 function EditProducts() {
   const [products, setProducts] = useState([]);
@@ -84,9 +85,7 @@ function EditProducts() {
   return (
     <div className="p-2">
       {isLoading ? (
-        <div className="mt-2 flex justify-center items-center">
-          <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-blue-500"></div>
-        </div>
+        <LoadingSpinner />
       ) : (
         products.map((product) => (
           <div

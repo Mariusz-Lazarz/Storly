@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { getDatabase, ref, onValue, off } from "firebase/database";
 import { getAuth } from "firebase/auth";
+import LoadingSpinner from "../../utils/LoadingSpinner";
 
 function OrderHistory() {
   const [orders, setOrders] = useState([]);
@@ -43,9 +44,7 @@ function OrderHistory() {
   return (
     <div className="p-2">
       {isLoading ? (
-        <div className="mt-2 flex justify-center items-center">
-          <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-blue-500"></div>
-        </div>
+        <LoadingSpinner />
       ) : (
         orders.map((order) => (
           <div key={order.id} className="border-l-4 border-green-500 p-4 mb-4">

@@ -8,6 +8,7 @@ import { CartItem } from "./CartItem";
 import DeliveryDetailsForm from "./DeliveryDetailsForm";
 import Overlay from "../Modal/Overlay";
 import { getAuth } from "firebase/auth";
+import LoadingSpinner from "../../utils/LoadingSpinner";
 
 function Cart() {
   const cartItems = useSelector((state) => state.cart.items);
@@ -133,11 +134,7 @@ function Cart() {
             Total Amount: ${totalAmount}
           </div>
         )}
-        {isOrderPlaced && (
-          <div className="mt-2 flex justify-center items-center">
-            <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-blue-500"></div>
-          </div>
-        )}
+        {isOrderPlaced && <LoadingSpinner />}
       </div>
       <div className="w-full md:w-1/2 md:pl-4">
         <h2 className="text-2xl font-semibold mb-4">Delivery Details</h2>
