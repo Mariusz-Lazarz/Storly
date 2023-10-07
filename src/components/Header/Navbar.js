@@ -85,6 +85,7 @@ function Navbar() {
                   <FontAwesomeIcon
                     icon={faShoppingCart}
                     style={{ fontSize: "1.5rem" }}
+                    color="white"
                   />
                   <span
                     className="absolute text-white rounded-full text-xs w-4 h-4 flex items-center justify-center bg-red-500"
