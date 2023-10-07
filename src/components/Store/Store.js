@@ -5,6 +5,7 @@ import { addToCart } from "../../store/cartSlice";
 import { getAuth } from "firebase/auth";
 import StoreItem from "./StoreItem";
 import { DataLayer } from "@piwikpro/react-piwik-pro";
+import LoadingSpinner from "../../utils/LoadingSpinner";
 
 const Store = () => {
   const [items, setItems] = useState([]);
@@ -96,9 +97,7 @@ const Store = () => {
   return (
     <div className="container mx-auto p-4">
       {isLoading ? (
-        <div className="mt-2 flex justify-center items-center">
-          <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-blue-500"></div>
-        </div>
+        <LoadingSpinner ></LoadingSpinner>
       ) : (
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4">
           {items.length > 0 ? (
