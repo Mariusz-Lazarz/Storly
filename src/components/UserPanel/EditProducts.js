@@ -12,7 +12,6 @@ function EditProducts() {
   const [editFormData, setEditFormData] = useState({});
   const [showAlert, setShowAlert] = useState(false);
   const [modalProduct, setModalProduct] = useState(null);
-
   useEffect(() => {
     const auth = getAuth();
     const db = getDatabase();
@@ -117,6 +116,39 @@ function EditProducts() {
                   />
                 </label>
                 <label className="block">
+                  <span className="text-gray-700">Category</span>
+                  <input
+                    type="text"
+                    name="category"
+                    value={editFormData.category}
+                    onChange={handleInputChange}
+                    className="border p-2 w-full mt-1"
+                    placeholder="Category"
+                  />
+                </label>
+                <label className="block">
+                  <span className="text-gray-700">Brand</span>
+                  <input
+                    type="text"
+                    name="brand"
+                    value={editFormData.brand}
+                    onChange={handleInputChange}
+                    className="border p-2 w-full mt-1"
+                    placeholder="Brand"
+                  />
+                </label>
+                <label className="block">
+                  <span className="text-gray-700">Variant</span>
+                  <input
+                    type="text"
+                    name="variant"
+                    value={editFormData.variant}
+                    onChange={handleInputChange}
+                    className="border p-2 w-full mt-1"
+                    placeholder="Variant"
+                  />
+                </label>
+                <label className="block">
                   <span className="text-gray-700">Quantity</span>
                   <input
                     type="number"
@@ -156,6 +188,9 @@ function EditProducts() {
                 <div className="flex-1 ml-4 flex items-center justify-between">
                   <span className="text-lg">{product.title}</span>
                   <span className="text-sm">{product.description}</span>
+                  <span className="text-sm">{product.category}</span>
+                  <span className="text-sm">{product.brand}</span>
+                  <span className="text-sm">{product.variant}</span>
                   <span className="text-sm">Quantity: {product.quantity}</span>
                   <span className="text-lg">${product.price}</span>
                 </div>
