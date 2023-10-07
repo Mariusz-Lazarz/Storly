@@ -19,7 +19,7 @@ function Cart() {
   const [isOrderPlaced, setIsOrderPlaced] = useState(false);
   const [isOverlayVisible, setIsOverlayVisible] = useState(false);
   const [maxQuantities, setMaxQuantities] = useState({});
-  const [isAlertVisible, setIsAlertVisible] = useState(true);
+  const [isAlertVisible, setIsAlertVisible] = useState(false);
 
   useEffect(() => {
     const db = getDatabase();
@@ -150,7 +150,6 @@ function Cart() {
           onConfirm={handleAlertConfirm}
         />
       )}
-
     </div>
   );
 }
