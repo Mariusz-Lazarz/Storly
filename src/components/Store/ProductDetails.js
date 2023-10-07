@@ -4,6 +4,7 @@ import { DataLayer } from "@piwikpro/react-piwik-pro";
 const ProductDetails = () => {
   const location = useLocation();
   const item = location.state;
+  console.log(item);
 
   DataLayer.push({
     event: "product_detail_view",
@@ -14,9 +15,9 @@ const ProductDetails = () => {
           item_name: item.title,
           price: String(item.price),
           quantity: 1,
-          item_brand: `${item.title} + Brand`,
-          item_category: `${item.title} + Category`,
-          item_variant: `${item.title} + S`,
+          item_brand: item.brand,
+          item_category: item.category,
+          item_variant: item.variant,
         },
       ],
     },
@@ -45,21 +46,23 @@ const ProductDetails = () => {
 
           <hr className="mb-4" />
 
-          {/* <div className="mb-4 flex flex-col">
-            <label htmlFor="quantity" className="block mb-2">
-              Quantity:
-            </label>
-            <input
-              type="number"
-              id="quantity"
-              name="quantity"
-              min="1"
-              className="border rounded-lg p-2 mb-4 w-1/3"
-            />
-            <button className="bg-light-pink text-white py-2 px-4 rounded-lg w-1/3">
-              Add to Cart
-            </button>
-          </div> */}
+          <div className="mb-4">
+            <h2 className="text-lg text-pink-500 font-semibold mb-2">
+              Details
+            </h2>
+            <p className="mb-2">
+              <span className="font-medium">Category:</span>{" "}
+              {item.category || "N/A"}
+            </p>
+            <p className="mb-2">
+              <span className="font-medium">Variant:</span>{" "}
+              {item.variant || "N/A"}
+            </p>
+            <p className="mb-2">
+              <span className="font-medium">Brand:</span> {item.brand || "N/A"}
+            </p>
+          </div>
+          <hr className="mb-4" />
         </div>
       </div>
     </div>

@@ -37,7 +37,6 @@ function Cart() {
 
         setMaxQuantities(newMaxQuantities);
       } else {
-        // Handle the case where data is null or not an object
         setMaxQuantities({});
       }
     };

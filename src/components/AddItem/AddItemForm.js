@@ -6,6 +6,9 @@ import { useNavigate } from "react-router-dom";
 function AddItemForm() {
   const [title, setTitle] = useState("");
   const [imageLink, setImageLink] = useState("");
+  const [category, setCategory] = useState("");
+  const [variant, setVariant] = useState("");
+  const [brand, setBrand] = useState("");
   const [description, setDescription] = useState("");
   const [quantity, setQuantity] = useState("");
   const [price, setPrice] = useState("");
@@ -43,6 +46,9 @@ function AddItemForm() {
       await set(newItemRef, {
         title,
         imageLink,
+        category,
+        variant,
+        brand,
         description,
         quantity: parseInt(quantity, 10),
         price: parseFloat(price).toFixed(2),
@@ -79,6 +85,31 @@ function AddItemForm() {
           placeholder="Image Link"
           value={imageLink}
           onChange={(e) => setImageLink(e.target.value)}
+          className="p-2 border rounded"
+          required
+        />
+
+        <input
+          type="text"
+          placeholder="Category"
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+          className="p-2 border rounded"
+          required
+        />
+        <input
+          type="text"
+          placeholder="Variant"
+          value={variant}
+          onChange={(e) => setVariant(e.target.value)}
+          className="p-2 border rounded"
+          required
+        />
+        <input
+          type="text"
+          placeholder="Brand"
+          value={brand}
+          onChange={(e) => setBrand(e.target.value)}
           className="p-2 border rounded"
           required
         />

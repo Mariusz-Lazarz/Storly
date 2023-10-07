@@ -19,7 +19,6 @@ function OrderHistory() {
 
         const handleData = (snapshot) => {
           const data = snapshot.val();
-          console.log(data);
           const ordersArray = data
             ? Object.keys(data).map((key) => ({ id: key, ...data[key] }))
             : [];

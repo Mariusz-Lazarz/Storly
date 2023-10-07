@@ -76,9 +76,9 @@ const Store = () => {
               item_name: item.title,
               price: String(item.price),
               quantity: Number(quantity),
-              item_brand: `${item.title} + Brand`,
-              item_category: `${item.title} + Category`,
-              item_variant: `${item.title} + S`,
+              item_brand: item.brand,
+              item_category: item.category,
+              item_variant: item.variant,
             },
           ],
         },
@@ -88,16 +88,10 @@ const Store = () => {
     }
   };
 
-  // const handleRemoveItem = (itemId) => {
-  //   const db = getDatabase();
-  //   const itemRef = ref(db, `items/${auth.currentUser.uid}/${itemId}`);
-  //   set(itemRef, null);
-  // };
-
   return (
     <div className="container mx-auto p-4">
       {isLoading ? (
-        <LoadingSpinner ></LoadingSpinner>
+        <LoadingSpinner></LoadingSpinner>
       ) : (
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4">
           {items.length > 0 ? (
@@ -109,7 +103,6 @@ const Store = () => {
                 handleQuantityChange={handleQuantityChange}
                 handleAddToCart={handleAddToCart}
                 itemsInCart={itemIdsInCart}
-                // handleRemoveItem={handleRemoveItem}
               />
             ))
           ) : (
