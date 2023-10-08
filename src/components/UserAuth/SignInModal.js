@@ -14,6 +14,7 @@ const SignInModal = ({ isOpen, onClose, onForgotPasswordClick }) => {
     if (!isOpen) {
       setError(null);
       setEmail("");
+      setPassword("");
     }
   }, [isOpen]);
 

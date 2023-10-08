@@ -15,6 +15,7 @@ const SignUpModal = ({ isOpen, onClose }) => {
     if (!isOpen) {
       setError(null);
       setEmail("");
+      setPassword('')
     }
   }, [isOpen]);
 
