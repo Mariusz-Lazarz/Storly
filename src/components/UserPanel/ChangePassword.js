@@ -1,8 +1,15 @@
 import React, { useState } from "react";
-import { getAuth, updatePassword } from "firebase/auth";
+import {
+  getAuth,
+  reauthenticateWithCredential,
+  EmailAuthProvider,
+  updatePassword,
+} from "firebase/auth";
 import Alert from "../Modal/Alert";
 
 function ChangePassword() {
+  const [email, setEmail] = useState("");
+  const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [error, setError] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
@@ -12,26 +19,27 @@ function ChangePassword() {
     const auth = getAuth();
     const user = auth.currentUser;
 
-    if (!user) {
-      setError("No user is currently signed in.");
+    if (!user || !email || !currentPassword || !newPassword) {
+      setError("All fields are required.");
+      setShowAlert(false);
       return;
     }
 
-    if (newPassword) {
-      try {
-        await updatePassword(user, newPassword);
-        setSuccessMessage("Password updated successfully");
-        setShowAlert(false);
-        setNewPassword("");
-        setError(null);
-      } catch (error) {
-        setShowAlert(false);
-        console.error(error);
-        setError(error.message);
-      }
-    } else {
+    const credential = EmailAuthProvider.credential(email, currentPassword);
+
+    try {
+      await reauthenticateWithCredential(user, credential);
+      await updatePassword(user, newPassword);
+      setSuccessMessage("Password updated successfully");
       setShowAlert(false);
-      setError("New password is required");
+      setEmail("");
+      setCurrentPassword("");
+      setNewPassword("");
+      setError(null);
+    } catch (error) {
+      setShowAlert(false);
+      console.error(error);
+      setError(error.message);
     }
   };
 
@@ -43,12 +51,22 @@ function ChangePassword() {
         <div className="text-green-500 mt-2">{successMessage}</div>
       )}
       <form>
-        {/* <label
-          htmlFor="newPassword"
-          className="block text-sm font-medium text-gray-700 mb-2"
-        >
-          New Password
-        </label> */}
+        <input
+          type="email"
+          id="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Enter your email"
+          className="border p-2 rounded w-full mb-4"
+        />
+        <input
+          type="password"
+          id="currentPassword"
+          value={currentPassword}
+          onChange={(e) => setCurrentPassword(e.target.value)}
+          placeholder="Enter your current password"
+          className="border p-2 rounded w-full mb-4"
+        />
         <input
           type="password"
           id="newPassword"
@@ -60,8 +78,7 @@ function ChangePassword() {
         <button
           onClick={() => setShowAlert(true)}
           type="button"
-          className="bg-green-500 text-white p-2 rounded hover:bg-green-700 transition duration-300
-          "
+          className="bg-green-500 text-white p-2 rounded hover:bg-green-700 transition duration-300"
         >
           Change Password
         </button>
