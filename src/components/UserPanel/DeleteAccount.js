@@ -27,10 +27,12 @@ function DeleteAccount() {
         await deleteUser(user);
         navigate("/");
       } catch (error) {
+        setShowAlert(false);
         console.error(error);
         setError(error.message);
       }
     } else {
+      setShowAlert(false);
       setError("Both email and password are required to delete your account.");
     }
   };
@@ -38,13 +40,14 @@ function DeleteAccount() {
   return (
     <div className="bg-white p-6 rounded shadow-lg mb-6">
       <h2 className="text-2xl font-bold mb-4">Delete Account</h2>
+      {error && <div className="text-red-500 mt-2">{error}</div>}
       <form>
-        <label
+        {/* <label
           htmlFor="email"
           className="block text-sm font-medium text-gray-700 mb-2"
         >
           Email
-        </label>
+        </label> */}
         <input
           type="email"
           id="email"
@@ -53,12 +56,12 @@ function DeleteAccount() {
           placeholder="Enter your email"
           className="border p-2 rounded w-full mb-4"
         />
-        <label
+        {/* <label
           htmlFor="password"
           className="block text-sm font-medium text-gray-700 mb-2"
         >
           Password
-        </label>
+        </label> */}
         <input
           type="password"
           id="password"
@@ -74,7 +77,6 @@ function DeleteAccount() {
         >
           Delete Account
         </button>
-        {error && <div className="text-red-500 mt-2">{error}</div>}
       </form>
       <Alert
         isOpen={showAlert}
