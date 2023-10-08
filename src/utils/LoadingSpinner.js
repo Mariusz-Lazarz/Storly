@@ -1,4 +1,4 @@
-const LoadingSpinner = ({ size = 10, color = "blue-500", className = "" }) => {
+const LoadingSpinner = ({ size = '10', color = "blue-500", className = "" }) => {
   return (
     <div className={`mt-2 flex justify-center items-center ${className}`}>
       <div
