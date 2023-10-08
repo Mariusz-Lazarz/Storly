@@ -2,6 +2,8 @@
 
   <h3>User account creation and login capabilities.</h3>
 
+  <h3>User can delete his account</h3>
+
   <h3>Forgot password functionality to restore password</h3>
 
   <h3>Browsing a primary store page featuring offers and accessing detailed pages for each product.</h3>
