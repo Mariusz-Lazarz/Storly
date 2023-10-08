@@ -5,6 +5,7 @@ import {
   EmailAuthProvider,
   deleteUser,
 } from "firebase/auth";
+import { getDatabase, ref, set } from "firebase/database";
 import { useNavigate } from "react-router-dom";
 import Alert from "../Modal/Alert";
 
@@ -15,6 +16,13 @@ function DeleteAccount() {
   const [showAlert, setShowAlert] = useState(false);
   const [error, setError] = useState(null);
 
+  const handleDeleteItems = () => {
+    const db = getDatabase();
+    const auth = getAuth();
+    const itemRef = ref(db, `items/${auth.currentUser.uid}`);
+    set(itemRef, null);
+  };
+
   const handleDeleteAccount = async (event) => {
     event.preventDefault();
     const auth = getAuth();
@@ -24,6 +32,7 @@ function DeleteAccount() {
       const credential = EmailAuthProvider.credential(email, password);
       try {
         await reauthenticateWithCredential(user, credential);
+        handleDeleteItems();
         await deleteUser(user);
         navigate("/");
       } catch (error) {
