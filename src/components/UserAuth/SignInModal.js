@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Modal from "../Modal/Modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
@@ -9,6 +9,13 @@ const SignInModal = ({ isOpen, onClose, onForgotPasswordClick }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+
+  useEffect(() => {
+    if (!isOpen) {
+      setError(null);
+      setEmail("");
+    }
+  }, [isOpen]);
 
   const auth = getAuth();
 

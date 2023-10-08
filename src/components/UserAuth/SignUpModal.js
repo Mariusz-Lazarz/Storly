@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Modal from "../Modal/Modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
@@ -10,6 +10,13 @@ const SignUpModal = ({ isOpen, onClose }) => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const auth = getAuth();
+
+  useEffect(() => {
+    if (!isOpen) {
+      setError(null);
+      setEmail("");
+    }
+  }, [isOpen]);
 
   const register = async (e) => {
     e.preventDefault();
