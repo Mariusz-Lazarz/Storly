@@ -136,7 +136,7 @@ function Cart() {
             Total Amount: ${totalAmount}
           </div>
         )}
-        {isOrderPlaced && <LoadingSpinner />}
+        {isOrderPlaced && <LoadingSpinner/>}
       </div>
       <div className="w-full md:w-1/2 md:pl-4">
         <h2 className="text-2xl font-semibold mb-4">Delivery Details</h2>
