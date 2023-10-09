@@ -6,7 +6,6 @@ import "./modal.css";
 
 const Modal = ({ children, onClose, isOpen }) => {
   const modalContent = useRef(null);
-  console.log(isOpen);
 
   const handleClickOutside = (event) => {
     if (modalContent.current && !modalContent.current.contains(event.target)) {
@@ -24,12 +23,7 @@ const Modal = ({ children, onClose, isOpen }) => {
   const modalRoot = document.getElementById("modal-root");
 
   return ReactDOM.createPortal(
-    <CSSTransition
-      in={isOpen}
-      timeout={300}
-      classNames="modal"
-      unmountOnExit
-    >
+    <CSSTransition in={isOpen} timeout={300} classNames="modal" unmountOnExit>
       <div
         onClick={handleClickOutside}
         className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
