@@ -6,16 +6,19 @@ import { getAuth } from "firebase/auth";
 import StoreItem from "./StoreItem";
 import { DataLayer } from "@piwikpro/react-piwik-pro";
 import LoadingSpinner from "../../utils/LoadingSpinner";
+import Search from "./Search";
+import { useSearchParams } from "react-router-dom";
 
 const Store = () => {
   const [items, setItems] = useState([]);
   const [selectedQuantities, setSelectedQuantities] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchQuery, setSearchQuery] = useState(searchParams.get("q") || "");
   const dispatch = useDispatch();
   const auth = getAuth();
 
   const itemsInCart = useSelector((state) => state.cart.items);
-
   const itemIdsInCart = itemsInCart.map((item) => item.id);
 
   useEffect(() => {
@@ -51,6 +54,15 @@ const Store = () => {
     onValue(itemsRef, handleData);
     return () => off(itemsRef, "value", handleData);
   }, [dispatch]);
+
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+    setSearchParams({ q: query });
+  };
+
+  const filteredItems = items.filter((item) =>
+    item.title.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   const handleQuantityChange = (itemId, quantity) => {
     setSelectedQuantities((prevQuantities) => ({
@@ -90,12 +102,13 @@ const Store = () => {
 
   return (
     <div className="container mx-auto p-4">
+      <Search searchQuery={searchQuery} handleSearch={handleSearch} />
       {isLoading ? (
         <LoadingSpinner></LoadingSpinner>
       ) : (
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4">
-          {items.length > 0 ? (
-            items.map((item) => (
+          {filteredItems.length > 0 ? (
+            filteredItems.map((item) => (
               <StoreItem
                 key={item.id}
                 item={item}
@@ -107,7 +120,7 @@ const Store = () => {
             ))
           ) : (
             <div className="col-span-full text-center text-red-600 text-xl">
-              Our store is currently empty. Let's add something to begin!
+              No items found
             </div>
           )}
         </div>

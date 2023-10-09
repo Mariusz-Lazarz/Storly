@@ -4,6 +4,8 @@
 
   <h3>User account creation and login capabilities.</h3>
 
+  <h3>User can use search input to search for items</h3>
+
   <h3>User can change his password and also delete his account</h3>
 
   <h3>Forgot password functionality to restore password</h3>
