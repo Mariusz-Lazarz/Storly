@@ -4,14 +4,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { revertBlur } from "../../utils/blur";
-import { DataLayer } from "@piwikpro/react-piwik-pro";
-
-const pushUserId = (userId) => {
-  DataLayer.push({
-    event: "login",
-    userId,
-  });
-};
 
 const SignUpModal = ({ isOpen, onClose }) => {
   const [email, setEmail] = useState("");
@@ -36,7 +28,6 @@ const SignUpModal = ({ isOpen, onClose }) => {
         password
       );
       console.log("Registered successfully", userCredential);
-      pushUserId(userCredential.user.email);
       revertBlur();
       setEmail("");
       setPassword("");

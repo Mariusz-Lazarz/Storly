@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { UserManagement } from "@piwikpro/react-piwik-pro";
 
 function Navbar() {
   const [openModal, setOpenModal] = useState(null);
@@ -20,6 +21,12 @@ function Navbar() {
     (count, item) => count + item.quantity,
     0
   );
+
+  useEffect(() => {
+    if (user) {
+      UserManagement.setUserId(user.email);
+    }
+  }, [user]);
 
   // useEffect(() => {
   //   const auth = getAuth();
