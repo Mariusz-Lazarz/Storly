@@ -1,18 +1,15 @@
-
 import { initializeApp } from "firebase/app";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDl3g1ExNqixugxLUrFCm0WAhQOj1UzlcU",
-  authDomain: "storly-d2eee.firebaseapp.com",
-  databaseURL:
-    "https://storly-d2eee-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "storly-d2eee",
-  storageBucket: "storly-d2eee.appspot.com",
-  messagingSenderId: "513456852856",
-  appId: "1:513456852856:web:31da6fcaefabc4c243828d",
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
 export default app;
