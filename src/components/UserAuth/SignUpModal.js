@@ -22,12 +22,11 @@ const SignUpModal = ({ isOpen, onClose }) => {
   const register = async (e) => {
     e.preventDefault();
     try {
-      const userCredential = await createUserWithEmailAndPassword(
+      await createUserWithEmailAndPassword(
         auth,
         email,
         password
       );
-      console.log("Registered successfully", userCredential);
       revertBlur();
       setEmail("");
       setPassword("");

@@ -23,12 +23,11 @@ const SignInModal = ({ isOpen, onClose, onForgotPasswordClick }) => {
   const login = async (e) => {
     e.preventDefault();
     try {
-      const userCredential = await signInWithEmailAndPassword(
+      await signInWithEmailAndPassword(
         auth,
         email,
         password
       );
-      console.log("Logged in successfully", userCredential);
       revertBlur();
       setEmail("");
       setPassword("");
