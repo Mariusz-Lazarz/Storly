@@ -1,5 +1,7 @@
 <h1>Storly operates as an e-commerce platform with an array of features:</h1>
 
+  <h3>Link to live site: https://loquacious-gingersnap-bd93fb.netlify.app/</h3>
+
   <h3>User account creation and login capabilities.</h3>
 
   <h3>User can change his password and also delete his account</h3>
