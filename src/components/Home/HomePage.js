@@ -19,7 +19,7 @@ function HomePage() {
               className="m-4 no-underline transform transition-transform duration-500 hover:scale-105"
             >
               <div className="p-6 bg-white rounded shadow-lg w-72 transition-colors duration-300 hover:bg-gray-100">
-                <h2 className="text-2xl font-bold mb-2">Przeglądaj</h2>
+                <h2 className="text-2xl font-bold mb-2">Browse</h2>
                 <p className="text-lg">
                   Przegladaj i zamawiaj najlepsze produkty z Turcji
                 </p>
@@ -30,7 +30,7 @@ function HomePage() {
               className="m-4 no-underline transform transition-transform duration-500 hover:scale-105"
             >
               <div className="p-6 bg-white rounded shadow-lg w-72 transition-colors duration-300 hover:bg-gray-100">
-                <h2 className="text-2xl font-bold mb-2">Wystaw</h2>
+                <h2 className="text-2xl font-bold mb-2">Add</h2>
                 <p className="text-lg">Handlujesz, dodaj swoje guczi tutaj</p>
               </div>
             </Link>
