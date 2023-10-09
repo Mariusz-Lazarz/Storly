@@ -7,7 +7,10 @@ import { revertBlur } from "../../utils/blur";
 import { DataLayer } from "@piwikpro/react-piwik-pro";
 
 const pushUserId = (userId) => {
-  DataLayer.push({ userId });
+  DataLayer.push({
+    event: "login",
+    userId,
+  });
 };
 
 const SignInModal = ({ isOpen, onClose, onForgotPasswordClick }) => {
