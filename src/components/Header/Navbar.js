@@ -6,6 +6,7 @@ import SignInModal from "../UserAuth/SignInModal";
 import ResetPassword from "../UserAuth/ResetPassword";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
+import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { UserManagement } from "@piwikpro/react-piwik-pro";
@@ -100,7 +101,7 @@ function Navbar() {
                 <Link to="/cart" className="mx-4 relative">
                   <FontAwesomeIcon
                     icon={faShoppingCart}
-                    style={{ fontSize: "1.5rem" }}
+                    style={{ fontSize: "20px" }}
                     color="white"
                   />
                   <span
@@ -112,9 +113,12 @@ function Navbar() {
                 </Link>
                 <button
                   onClick={logout}
-                  className=" bg-light-pink text-white py-1 px-2 rounded-full"
+                  className="text-white py-1 px-2 rounded-full"
                 >
-                  Logout
+                  <FontAwesomeIcon
+                    icon={faSignOutAlt}
+                    style={{ fontSize: "20px" }}
+                  />
                 </button>
               </>
             ) : (
