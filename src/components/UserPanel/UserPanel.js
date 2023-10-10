@@ -9,7 +9,7 @@ function UserPanel() {
   useRedirect();
 
   return (
-    <div className="container mx-auto p-6">
+    <div className="container mx-auto p-4">
       <div className="text-center">
         <h1 className="text-4xl font-bold mb-4">User Panel</h1>
         <div className="flex justify-center mb-4">
@@ -44,7 +44,7 @@ function UserPanel() {
             User Data
           </button>
         </div>
-        <div className="p-6 bg-white rounded shadow-lg">
+        <div className="p-2 bg-white rounded shadow-lg">
           {activeTab === "orderHistory" && <OrderHistory />}
           {activeTab === "editProducts" && <EditProducts />}
           {activeTab === "userData" && <UserData />}

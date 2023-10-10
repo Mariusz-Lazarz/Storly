@@ -92,7 +92,7 @@ function EditProducts() {
         products.map((product) => (
           <div
             key={product.id}
-            className="border-l-4 border-green-500 p-4 mb-4 flex flex-col"
+            className="border-l-4 border-green-500 p-2 mb-4 flex flex-col"
           >
             {editingProductId === product.id ? (
               <ProductForm
