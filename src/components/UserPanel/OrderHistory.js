@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { faChevronDown, faSort } from "@fortawesome/free-solid-svg-icons";
 import { getDatabase, ref, onValue, off } from "firebase/database";
 import { getAuth } from "firebase/auth";
 import LoadingSpinner from "../../utils/LoadingSpinner";
@@ -8,6 +8,21 @@ import LoadingSpinner from "../../utils/LoadingSpinner";
 function OrderHistory() {
   const [orders, setOrders] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [expandedOrderId, setExpandedOrderId] = useState(null);
+  const [sortOrder, setSortOrder] = useState("desc");
+
+  const sortOrders = (orderArray, order) => {
+    const sortedArray = [...orderArray].sort((a, b) => {
+      return order === "asc"
+        ? a.date.localeCompare(b.date)
+        : b.date.localeCompare(a.date);
+    });
+    return sortedArray;
+  };
+
+  const toggleSortOrder = () => {
+    setSortOrder((prevSortOrder) => (prevSortOrder === "asc" ? "desc" : "asc"));
+  };
 
   useEffect(() => {
     const auth = getAuth();
@@ -20,7 +35,10 @@ function OrderHistory() {
         const handleData = (snapshot) => {
           const data = snapshot.val();
           const ordersArray = data
-            ? Object.keys(data).map((key) => ({ id: key, ...data[key] }))
+            ? sortOrders(
+                Object.keys(data).map((key) => ({ id: key, ...data[key] })),
+                sortOrder
+              )
             : [];
           setOrders(ordersArray);
           setIsLoading(false);
@@ -36,9 +54,7 @@ function OrderHistory() {
     return () => {
       unsubscribe();
     };
-  }, []);
-
-  const [expandedOrderId, setExpandedOrderId] = useState(null);
+  }, [sortOrder]);
 
   return (
     <div className="p-2">
@@ -48,7 +64,17 @@ function OrderHistory() {
         <div className="mb-4">
           <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 p-4 bg-gray-100 text-gray-700 font-semibold">
             <span className="text-center">Order ID</span>
-            <span className="text-center">Date</span>
+            <span
+              className="text-center cursor-pointer"
+              onClick={toggleSortOrder}
+            >
+              Date
+              <FontAwesomeIcon
+                icon={faSort}
+                className="ml-1"
+                style={{ fontSize: "15px" }}
+              />
+            </span>
             <span className="text-center">Value</span>
             <span className="text-center">Details</span>
           </div>
