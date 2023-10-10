@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 const Search = ({ handleSearch }) => {
   const [localQuery, setLocalQuery] = useState("");
@@ -36,23 +36,22 @@ const Search = ({ handleSearch }) => {
   };
 
   return (
-    <div className="p-2 rounded mb-4 flex justify-center">
-      <input
-        type="text"
-        placeholder="Search for items..."
-        value={localQuery}
-        onChange={handleInputChange}
-        onKeyDown={handleKeyDown}
-        onFocus={() => setIsFocused(true)}
-        onBlur={() => setIsFocused(false)}
-        className="w-full lg:w-1/2 p-2 rounded-full border border-gray-300 shadow-sm"
-      />
-      <button
-        onClick={handleSubmit}
-        className="ml-2 p-2 rounded-full border border-gray-300 bg-transparent"
-      >
-        <FontAwesomeIcon icon={faSearch} />
-      </button>
+    <div className="flex justify-center">
+      <div className="w-full lg:w-1/2 pr-4 pl-4 pb-2 pt-2 mb-4  flex justify-center border border-gray-300 rounded-full">
+        <input
+          type="text"
+          placeholder="Search for items..."
+          value={localQuery}
+          onChange={handleInputChange}
+          onKeyDown={handleKeyDown}
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
+          className="focus:outline-none w-full mr-2"
+        />
+        <button onClick={handleSubmit} className="bg-transparent">
+          <FontAwesomeIcon icon={faSearch} />
+        </button>
+      </div>
     </div>
   );
 };
