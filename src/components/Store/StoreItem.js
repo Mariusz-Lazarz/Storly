@@ -26,7 +26,7 @@ const StoreItem = ({
   };
 
   return (
-    <div className="p-2 relative text-center">
+    <div className="p-2 relative text-center transform transition-transform duration-500 hover:scale-105">
       <Link to={`/product/${item.id}`} state={item}>
         <div className="flex items-center justify-center mb-2 h-24 w-24 mx-auto cursor-pointer">
           <img
