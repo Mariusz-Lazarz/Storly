@@ -9,6 +9,9 @@ module.exports = {
       fontFamily: {
         logo: ["Roboto", "sans-serif"], // Logo font
       },
+      body: {
+        overflow: "auto", // or 'scroll'
+      },
     },
   },
   variants: {
