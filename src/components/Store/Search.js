@@ -9,7 +9,7 @@ const Search = ({ handleSearch }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (isFocused) {
+    if (isFocused && localQuery) {
       const timer = setTimeout(() => {
         handleSearch(localQuery);
         navigate(`?q=${localQuery}`);
