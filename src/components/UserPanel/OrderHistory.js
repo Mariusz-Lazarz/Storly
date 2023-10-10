@@ -45,51 +45,62 @@ function OrderHistory() {
       {isLoading ? (
         <LoadingSpinner />
       ) : (
-        orders.map((order) => (
-          <div key={order.id} className="border-l-4 border-green-500 p-4 mb-4">
-            <div
-              className="flex flex-col sm:flex-row justify-between cursor-pointer"
-              onClick={() =>
-                setExpandedOrderId((prevId) =>
-                  prevId === order.id ? null : order.id
-                )
-              }
-            >
-              <span className="mb-2 sm:mb-0">ID: {order.id}</span>
-              <span className="mb-2 sm:mb-0">Date: {order.date}</span>
-              <span className="mb-2 sm:mb-0">Value: ${order.value}</span>
-              <span
-                className={`transform transition-transform ${
-                  order.id === expandedOrderId ? "rotate-180" : ""
-                }`}
-              >
-                <FontAwesomeIcon
-                  icon={faChevronDown}
-                  className={
-                    order.id === expandedOrderId ? "fa-rotate-180" : ""
-                  }
-                />
-              </span>
-            </div>
-            {order.id === expandedOrderId && (
-              <div className="mt-4">
-                {order.items.map((item, index) => (
-                  <div
-                    key={index}
-                    className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4 p-2 border-b"
-                  >
-                    <span>{item.item_title}</span>
-                    <span>ID: {item.item_id}</span>
-                    <span>Price: ${item.price}</span>
-                    <span>Category: {item.item_category}</span>
-                    <span>Brand: {item.item_brand}</span>
-                    <span>Quantity: {item.quantity}</span>
-                  </div>
-                ))}
-              </div>
-            )}
+        <div className="mb-4">
+          <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 p-4 bg-gray-100 text-gray-700 font-semibold">
+            <span className="text-center">Order ID</span>
+            <span className="text-center">Date</span>
+            <span className="text-center">Value</span>
+            <span className="text-center">Details</span>
           </div>
-        ))
+          {orders.map((order) => (
+            <div
+              key={order.id}
+              className="border-l-4 border-green-500 p-4 mb-6 shadow-lg"
+            >
+              <div
+                className="grid grid-cols-1 sm:grid-cols-4 gap-4 cursor-pointer p-4"
+                onClick={() =>
+                  setExpandedOrderId((prevId) =>
+                    prevId === order.id ? null : order.id
+                  )
+                }
+              >
+                <span className="text-center text-blue-600">{order.id}</span>
+                <span className="text-center">{order.date}</span>
+                <span className="text-center">$ {order.value}</span>
+                <span
+                  className={`text-center transform transition-transform ${
+                    order.id === expandedOrderId ? "rotate-180" : ""
+                  }`}
+                >
+                  <FontAwesomeIcon
+                    icon={faChevronDown}
+                    className={
+                      order.id === expandedOrderId ? "fa-rotate-180" : ""
+                    }
+                  />
+                </span>
+              </div>
+              {order.id === expandedOrderId && (
+                <div className="mt-4">
+                  {order.items.map((item, index) => (
+                    <div
+                      key={index}
+                      className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4 p-2 border-b"
+                    >
+                      <span>{item.item_title}</span>
+                      <span>ID: {item.item_id}</span>
+                      <span>Price: ${item.price}</span>
+                      <span>Category: {item.item_category}</span>
+                      <span>Brand: {item.item_brand}</span>
+                      <span>Quantity: {item.quantity}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
       )}
     </div>
   );
