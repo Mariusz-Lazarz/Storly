@@ -16,7 +16,7 @@ import ProductDetails from "./components/Store/ProductDetails";
 function App() {
   return (
     <Router>
-      <div className="App flex flex-col min-h-screen">
+      <div className="App flex flex-col min-h-screen bg-gradient-to-b from-blue-50 via-white to-pink-200">
         <Navbar />
         <main className="flex-grow">
           <Routes>
