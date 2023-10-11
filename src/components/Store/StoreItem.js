@@ -54,7 +54,7 @@ const StoreItem = ({
         </div>
         <button
           className={`py-1 px-2 rounded ${
-            isInCart ? "bg-gray-300 cursor-not-allowed" : "bg-light-pink"
+            isInCart ? "bg-gray-400 cursor-not-allowed" : "bg-light-pink"
           }`}
           onClick={() => handleAddToCart(item)}
           disabled={isInCart}

@@ -57,7 +57,7 @@ function OrderHistory() {
   }, [sortOrder]);
 
   return (
-    <div className="p-2">
+    <div className="p-2 overflow-y-scroll h-screen">
       {isLoading ? (
         <LoadingSpinner />
       ) : (
