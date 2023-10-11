@@ -3,15 +3,18 @@ import OrderHistory from "./OrderHistory";
 import UserData from "./UserData";
 import EditProducts from "./EditProducts";
 import useRedirect from "../../hooks/useRedirect";
+import { useLocation } from "react-router-dom";
 
 function UserPanel() {
   const [activeTab, setActiveTab] = useState("orderHistory");
   useRedirect();
+  const location = useLocation();
+  const user = location.state;
 
   return (
     <div className="container mx-auto p-4">
       <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">User Panel</h1>
+        <h1 className="text-4xl font-bold mb-4">{user}</h1>
         <div className="flex justify-center mb-4">
           <button
             onClick={() => setActiveTab("orderHistory")}

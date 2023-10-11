@@ -5,8 +5,11 @@ import SignUpModal from "../UserAuth/SignUpModal";
 import SignInModal from "../UserAuth/SignInModal";
 import ResetPassword from "../UserAuth/ResetPassword";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
-import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
+import {
+  faShoppingCart,
+  faSignOutAlt,
+  faUser,
+} from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { UserManagement } from "@piwikpro/react-piwik-pro";
@@ -95,8 +98,16 @@ function Navbar() {
               <span>Loading...</span>
             ) : user ? (
               <>
-                <Link to="/userPanel" className="text-blue-500 hover:underline">
-                  {user.email}
+                <Link
+                  to="/userPanel"
+                  state={user.email}
+                  className="text-blue-500 hover:underline"
+                >
+                  <FontAwesomeIcon
+                    icon={faUser}
+                    style={{ fontSize: "20px" }}
+                    color="white"
+                  />
                 </Link>
                 <Link to="/cart" className="mx-4 relative">
                   <FontAwesomeIcon
