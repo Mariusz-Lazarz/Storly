@@ -11,6 +11,7 @@ import { getAuth } from "firebase/auth";
 import LoadingSpinner from "../../utils/LoadingSpinner";
 import Alert from "../Modal/Alert";
 import useRedirect from "../../hooks/useRedirect";
+import Modal from "../Modal/Modal";
 
 function Cart() {
   useRedirect();
@@ -138,7 +139,9 @@ function Cart() {
             Total Amount: ${totalAmount}
           </div>
         )}
-        {isOrderPlaced && <LoadingSpinner />}
+        <Modal isOpen={isOrderPlaced} onClose={null}>
+          <LoadingSpinner />
+        </Modal>
       </div>
       <div className="w-full md:w-1/2 md:pl-4">
         <h2 className="text-2xl font-semibold mb-4">Delivery Details</h2>
