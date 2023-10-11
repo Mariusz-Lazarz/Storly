@@ -4,11 +4,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { revertBlur } from "../../utils/blur";
+import LoadingSpinner from "../../utils/LoadingSpinner";
 
 const SignUpModal = ({ isOpen, onClose }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const auth = getAuth();
 
   useEffect(() => {
@@ -16,23 +18,21 @@ const SignUpModal = ({ isOpen, onClose }) => {
       setError(null);
       setEmail("");
       setPassword("");
+      setIsLoading(false);
     }
   }, [isOpen]);
 
   const register = async (e) => {
+    setIsLoading(true);
     e.preventDefault();
     try {
-      await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
+      await createUserWithEmailAndPassword(auth, email, password);
       revertBlur();
       setEmail("");
       setPassword("");
       onClose();
     } catch (error) {
-      console.error("Error registering user", error);
+      setIsLoading(false);
       if (error.code === "auth/email-already-in-use") {
         setError("Email already in use");
       } else {
@@ -43,6 +43,7 @@ const SignUpModal = ({ isOpen, onClose }) => {
 
   return (
     <Modal onClose={onClose} isOpen={isOpen}>
+      {isLoading && <LoadingSpinner></LoadingSpinner>}
       <div className="bg-white p-6 rounded relative w-full md:w-11/12 mx-auto my-auto">
         <button
           onClick={() => {

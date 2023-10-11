@@ -4,44 +4,44 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { revertBlur } from "../../utils/blur";
+import LoadingSpinner from "../../utils/LoadingSpinner";
 
 const SignInModal = ({ isOpen, onClose, onForgotPasswordClick }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const auth = getAuth();
 
   useEffect(() => {
     if (!isOpen) {
       setError(null);
       setEmail("");
       setPassword("");
+      setIsLoading(false);
     }
   }, [isOpen]);
 
-  const auth = getAuth();
-
   const login = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     try {
-      await signInWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
+      await signInWithEmailAndPassword(auth, email, password);
       revertBlur();
       setEmail("");
       setPassword("");
       onClose();
     } catch (error) {
-      console.error("Error logging in user", error);
+      isLoading(false);
       setError(
         "Failed to login. Please check your email and password and try again."
       );
-    }
+    } 
   };
 
   return (
     <Modal onClose={onClose} isOpen={isOpen}>
+      {isLoading && <LoadingSpinner></LoadingSpinner>}
       <div className="bg-white p-6 rounded relative w-full md:w-11/12 mx-auto my-auto">
         <button
           onClick={() => {
