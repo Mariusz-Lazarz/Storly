@@ -13,6 +13,7 @@ import {
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { UserManagement } from "@piwikpro/react-piwik-pro";
+import LoadingSpinner from "../../utils/LoadingSpinner";
 
 function Navbar() {
   const [openModal, setOpenModal] = useState(null);
@@ -95,7 +96,7 @@ function Navbar() {
           </div>
           <div className="flex items-center">
             {loading ? (
-              <span>Loading...</span>
+              <LoadingSpinner />
             ) : user ? (
               <>
                 <Link
