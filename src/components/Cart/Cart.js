@@ -24,6 +24,8 @@ function Cart() {
   const [maxQuantities, setMaxQuantities] = useState({});
   const [isAlertVisible, setIsAlertVisible] = useState(false);
 
+  console.log(new Date());
+
   useEffect(() => {
     const db = getDatabase();
     const itemsRef = ref(db, "items");

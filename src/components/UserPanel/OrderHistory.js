@@ -92,7 +92,9 @@ function OrderHistory() {
                 }
               >
                 <span className="text-center text-blue-600">{order.id}</span>
-                <span className="text-center">{order.date}</span>
+                <span className="text-center">
+                  {new Date(order.date).toLocaleString()}
+                </span>
                 <span className="text-center">$ {order.value}</span>
                 <span
                   className={`text-center transform transition-transform ${
