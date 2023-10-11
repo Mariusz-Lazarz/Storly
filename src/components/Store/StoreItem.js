@@ -1,29 +1,31 @@
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
+import {
+  faShoppingCart,
+  faPlus,
+  faMinus,
+} from "@fortawesome/free-solid-svg-icons";
 import { Tooltip } from "react-tooltip";
+import { useState } from "react";
 
 const StoreItem = ({
   item,
-  selectedQuantities,
-  handleQuantityChange,
   handleAddToCart,
   itemsInCart,
 }) => {
+  const [quantity, setQuantity] = useState(1);
   const isInCart = itemsInCart.includes(item.id);
 
-  const handleOnChange = (e) => {
-    let newValue = parseInt(e.target.value, 10);
-    if (isNaN(newValue)) {
-      newValue = 1;
-    } else if (newValue < 1) {
-      newValue = 1;
-    } else if (newValue > item.quantity) {
-      newValue = item.quantity;
-    }
-
-    handleQuantityChange(item.id, newValue);
+  const handleDecrement = () => {
+    if (quantity === 1) return;
+    setQuantity((prevState) => prevState - 1);
   };
+
+  const handleIncrement = (item) => {
+    if (quantity === item.quantity) return;
+    setQuantity((prevState) => prevState + 1);
+  };
+
 
   return (
     <div className="p-2 relative text-center transform transition-transform duration-500 hover:scale-105">
@@ -38,25 +40,28 @@ const StoreItem = ({
         <h3 className="font-semibold">{item.title}</h3>
         <span className="text-orange-600">${item.price}</span>
       </Link>
-      <div className="flex items-center m-1">
-        <div className="flex-grow">
-          <input
-            type="number"
-            id={`quantity-${item.id}`}
-            name={`quantity-${item.id}`}
-            min="1"
-            max={item.quantity}
-            value={selectedQuantities[item.id] || 1}
-            onChange={handleOnChange}
-            className="mt-1 block w-12 rounded-md border-gray-30 focus:ring-opacity-50 bg-transparent focus:outline-none"
-            disabled={isInCart}
-          />
+      <div className="flex items-center justify-between m-1">
+        <div>
+          <span>{quantity}</span>
+          <button
+            className="bg-blue-300 text-white rounded py-.5 px-1 mx-2"
+            onClick={() => handleIncrement(item)}
+          >
+            <FontAwesomeIcon icon={faPlus} size="xs" />
+          </button>
+          <button className="bg-light-pink text-white rounded py-.5 px-1">
+            <FontAwesomeIcon
+              icon={faMinus}
+              size="xs"
+              onClick={handleDecrement}
+            />
+          </button>
         </div>
         <button
           className={`py-1 px-2 rounded ${
             isInCart ? "bg-gray-400 cursor-not-allowed" : "bg-light-pink"
           }`}
-          onClick={() => handleAddToCart(item)}
+          onClick={() => handleAddToCart(item, quantity)}
           disabled={isInCart}
           data-tooltip-id="my-tooltip"
           data-tooltip-content={isInCart ? "Item already in cart" : null}

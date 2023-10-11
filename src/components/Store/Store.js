@@ -15,6 +15,7 @@ const Store = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [searchParams, setSearchParams] = useSearchParams();
   const [searchQuery, setSearchQuery] = useState(searchParams.get("q") || "");
+
   const dispatch = useDispatch();
   const auth = getAuth();
 
@@ -71,8 +72,7 @@ const Store = () => {
     }));
   };
 
-  const handleAddToCart = (item) => {
-    const quantity = selectedQuantities[item.id];
+  const handleAddToCart = (item, quantity) => {
     const user = auth.currentUser;
 
     if (user) {
