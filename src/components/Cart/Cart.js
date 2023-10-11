@@ -10,8 +10,10 @@ import Overlay from "../Modal/Overlay";
 import { getAuth } from "firebase/auth";
 import LoadingSpinner from "../../utils/LoadingSpinner";
 import Alert from "../Modal/Alert";
+import useRedirect from "../../hooks/useRedirect";
 
 function Cart() {
+  useRedirect();
   const cartItems = useSelector((state) => state.cart.items);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -136,7 +138,7 @@ function Cart() {
             Total Amount: ${totalAmount}
           </div>
         )}
-        {isOrderPlaced && <LoadingSpinner/>}
+        {isOrderPlaced && <LoadingSpinner />}
       </div>
       <div className="w-full md:w-1/2 md:pl-4">
         <h2 className="text-2xl font-semibold mb-4">Delivery Details</h2>
