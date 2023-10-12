@@ -11,11 +11,9 @@ import { useSearchParams } from "react-router-dom";
 
 const Store = () => {
   const [items, setItems] = useState([]);
-  const [selectedQuantities, setSelectedQuantities] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [searchParams, setSearchParams] = useSearchParams();
   const [searchQuery, setSearchQuery] = useState(searchParams.get("q") || "");
-
   const dispatch = useDispatch();
   const auth = getAuth();
 
@@ -39,38 +37,19 @@ const Store = () => {
           return [];
         });
         setItems(loadedItems);
-
-        const initialQuantities = loadedItems.reduce((acc, item) => {
-          acc[item.id] = 1;
-          return acc;
-        }, {});
-        setSelectedQuantities(initialQuantities);
       } else {
         setItems([]);
-        setSelectedQuantities({});
       }
       setIsLoading(false);
     };
 
     onValue(itemsRef, handleData);
     return () => off(itemsRef, "value", handleData);
-  }, [dispatch]);
-
-  const handleSearch = (query) => {
-    setSearchQuery(query);
-    setSearchParams({ q: query });
-  };
+  }, []);
 
   const filteredItems = items.filter((item) =>
     item.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
-
-  const handleQuantityChange = (itemId, quantity) => {
-    setSelectedQuantities((prevQuantities) => ({
-      ...prevQuantities,
-      [itemId]: quantity,
-    }));
-  };
 
   const handleAddToCart = (item, quantity) => {
     const user = auth.currentUser;
@@ -100,6 +79,11 @@ const Store = () => {
     }
   };
 
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+    setSearchParams({ q: query });
+  };
+
   return (
     <div className="container mx-auto p-4">
       <Search searchQuery={searchQuery} handleSearch={handleSearch} />
@@ -112,8 +96,6 @@ const Store = () => {
               <StoreItem
                 key={item.id}
                 item={item}
-                selectedQuantities={selectedQuantities}
-                handleQuantityChange={handleQuantityChange}
                 handleAddToCart={handleAddToCart}
                 itemsInCart={itemIdsInCart}
               />
