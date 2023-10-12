@@ -42,7 +42,7 @@ function AddItemForm() {
 
     try {
       const db = getDatabase();
-      const newItemRef = push(ref(db, `items/${auth.currentUser.uid}`));
+      const newItemRef = push(ref(db, "items"));
       await set(newItemRef, {
         title,
         imageLink,
@@ -52,6 +52,7 @@ function AddItemForm() {
         description,
         quantity: parseInt(quantity, 10),
         price: parseFloat(price).toFixed(2),
+        userId: auth.currentUser.uid,
       });
       console.log("Item added successfully");
       setTitle("");

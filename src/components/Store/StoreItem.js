@@ -8,11 +8,7 @@ import {
 import { Tooltip } from "react-tooltip";
 import { useState } from "react";
 
-const StoreItem = ({
-  item,
-  handleAddToCart,
-  itemsInCart,
-}) => {
+const StoreItem = ({ item, handleAddToCart, itemsInCart }) => {
   const [quantity, setQuantity] = useState(1);
   const isInCart = itemsInCart.includes(item.id);
 
@@ -26,10 +22,9 @@ const StoreItem = ({
     setQuantity((prevState) => prevState + 1);
   };
 
-
   return (
     <div className="p-2 relative text-center transform transition-transform duration-500 hover:scale-105">
-      <Link to={`/product/${item.id}`} state={item}>
+      <Link to={`/product/${item.id}`}>
         <div className="flex items-center justify-center mb-2 h-24 w-24 mx-auto cursor-pointer">
           <img
             src={item.imageLink}

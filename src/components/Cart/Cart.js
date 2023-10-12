@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getDatabase, ref, onValue, off, push, set } from "firebase/database";
+import { getDatabase, ref, push, set } from "firebase/database";
 import { DataLayer } from "@piwikpro/react-piwik-pro";
 import { useNavigate } from "react-router-dom";
 import { clearCart } from "../../store/cartSlice";
@@ -21,39 +21,7 @@ function Cart() {
   const auth = getAuth();
   const [isOrderPlaced, setIsOrderPlaced] = useState(false);
   const [isOverlayVisible, setIsOverlayVisible] = useState(false);
-  const [maxQuantities, setMaxQuantities] = useState({});
   const [isAlertVisible, setIsAlertVisible] = useState(false);
-
-  console.log(new Date());
-
-  useEffect(() => {
-    const db = getDatabase();
-    const itemsRef = ref(db, "items");
-
-    const onItemsValueChange = (snapshot) => {
-      const data = snapshot.val();
-      if (data && typeof data === "object") {
-        const newMaxQuantities = Object.keys(data).reduce((acc, key) => {
-          if (typeof data[key] === "object" && !Array.isArray(data[key])) {
-            Object.keys(data[key]).forEach((nestedKey) => {
-              acc[nestedKey] = data[key][nestedKey].quantity;
-            });
-          }
-          return acc;
-        }, {});
-
-        setMaxQuantities(newMaxQuantities);
-      } else {
-        setMaxQuantities({});
-      }
-    };
-
-    onValue(itemsRef, onItemsValueChange);
-
-    return () => {
-      off(itemsRef, onItemsValueChange);
-    };
-  }, []);
 
   const orderItems = cartItems.map((item) => ({
     item_id: item.id || "Unknown",
@@ -78,14 +46,14 @@ function Cart() {
     setIsOverlayVisible(true);
 
     const db = getDatabase();
-    const newOrderRef = push(ref(db, `orders/${auth.currentUser.uid}`));
+    const newOrderRef = push(ref(db, `orders`));
     const uniqueKey = newOrderRef.key;
 
     const currentDate = new Date();
     const dateString = currentDate.toUTCString();
 
     await set(newOrderRef, {
-      userid: auth.currentUser.uid,
+      userId: auth.currentUser.uid,
       transaction_id: uniqueKey,
       date: dateString,
       value: totalAmount,
@@ -93,6 +61,7 @@ function Cart() {
       shipping: 5.0,
       items: orderItems,
       deliveryDetails,
+
     });
 
     DataLayer.push({
@@ -128,11 +97,7 @@ function Cart() {
         {cartItems.length > 0 && (
           <ul>
             {cartItems.map((item) => (
-              <CartItem
-                key={item.id}
-                item={item}
-                maxQuantity={maxQuantities[item.id]}
-              />
+              <CartItem key={item.id} item={item} />
             ))}
           </ul>
         )}

@@ -27,16 +27,10 @@ const Store = () => {
     const handleData = (snapshot) => {
       const data = snapshot.val();
       if (data) {
-        const loadedItems = Object.keys(data).flatMap((key) => {
-          if (typeof data[key] === "object" && !Array.isArray(data[key])) {
-            return Object.keys(data[key]).map((nestedKey) => ({
-              id: nestedKey,
-              ...data[key][nestedKey],
-            }));
-          }
-          return [];
+        const itemsArray = Object.entries(data).map(([id, value]) => {
+          return { id, ...value };
         });
-        setItems(loadedItems);
+        setItems(itemsArray);
       } else {
         setItems([]);
       }

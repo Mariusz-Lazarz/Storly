@@ -1,7 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown, faSort } from "@fortawesome/free-solid-svg-icons";
-import { getDatabase, ref, onValue, off } from "firebase/database";
+import {
+  getDatabase,
+  ref,
+  onValue,
+  off,
+  query,
+  orderByChild,
+  equalTo,
+} from "firebase/database";
 import { getAuth } from "firebase/auth";
 import LoadingSpinner from "../../utils/LoadingSpinner";
 
@@ -10,6 +18,7 @@ function OrderHistory() {
   const [isLoading, setIsLoading] = useState(true);
   const [expandedOrderId, setExpandedOrderId] = useState(null);
   const [sortOrder, setSortOrder] = useState("desc");
+
 
   const sortOrders = (orderArray, order) => {
     const sortedArray = [...orderArray].sort((a, b) => {
@@ -30,7 +39,12 @@ function OrderHistory() {
 
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
-        const ordersRef = ref(db, `orders/${user.uid}`);
+        const ordersRef = ref(db, "orders");
+        const userQuery = query(
+          ordersRef,
+          orderByChild("userId"),
+          equalTo(user.uid)
+        );
 
         const handleData = (snapshot) => {
           const data = snapshot.val();
@@ -44,9 +58,9 @@ function OrderHistory() {
           setIsLoading(false);
         };
 
-        onValue(ordersRef, handleData);
+        onValue(userQuery, handleData);
         return () => {
-          off(ordersRef, "value", handleData);
+          off(userQuery, "value", handleData);
         };
       }
     });

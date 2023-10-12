@@ -1,5 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { getDatabase, ref, onValue, off, update, set } from "firebase/database";
+import {
+  getDatabase,
+  ref,
+  onValue,
+  off,
+  update,
+  set,
+  orderByChild,
+  equalTo,
+  query,
+} from "firebase/database";
 import { getAuth } from "firebase/auth";
 import Alert from "../Modal/Alert";
 import LoadingSpinner from "../../utils/LoadingSpinner";
@@ -19,7 +29,13 @@ function EditProducts() {
 
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
-        const productsRef = ref(db, `items/${user.uid}`);
+        const productsRef = ref(db, "items");
+        const userQuery = query(
+          productsRef,
+          orderByChild("userId"),
+          equalTo(user.uid)
+        );
+
         const handleData = (snapshot) => {
           const data = snapshot.val();
           const productsArray = data
@@ -28,9 +44,11 @@ function EditProducts() {
           setProducts(productsArray);
           setIsLoading(false);
         };
-        onValue(productsRef, handleData);
+
+        onValue(userQuery, handleData);
+
         return () => {
-          off(productsRef, "value", handleData);
+          off(userQuery, "value", handleData);
         };
       }
     });
@@ -39,6 +57,14 @@ function EditProducts() {
       unsubscribe();
     };
   }, []);
+
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+    const db = getDatabase();
+    const productRef = ref(db, `items/${editingProductId}`);
+    await update(productRef, editFormData);
+    setEditingProductId(null);
+  };
 
   const handleEditClick = (product) => {
     setEditingProductId(product.id);
@@ -54,17 +80,6 @@ function EditProducts() {
     setEditFormData({ ...editFormData, [name]: value });
   };
 
-  const handleFormSubmit = async (e) => {
-    e.preventDefault();
-    const db = getDatabase();
-    const productRef = ref(
-      db,
-      `items/${getAuth().currentUser.uid}/${editingProductId}`
-    );
-    await update(productRef, editFormData);
-    setEditingProductId(null);
-  };
-
   const handleRemoveItem = (product) => {
     setShowAlert(true);
     setModalProduct(product);
@@ -72,8 +87,7 @@ function EditProducts() {
 
   const handleModalConfirm = () => {
     const db = getDatabase();
-    const auth = getAuth();
-    const itemRef = ref(db, `items/${auth.currentUser.uid}/${modalProduct.id}`);
+    const itemRef = ref(db, `items/${modalProduct.id}`);
     set(itemRef, null);
     setShowAlert(false);
     setModalProduct(null);
