@@ -31,6 +31,7 @@ const ReviewStars = ({ itemId }) => {
         const snapshot = await get(userItemReviewsQuery);
         if (snapshot.exists()) {
           const reviewData = Object.values(snapshot.val())[0];
+
           setSelectedStar(reviewData.rating);
           setIsReviewed(true);
         }

@@ -13,6 +13,7 @@ import {
 import { getAuth } from "firebase/auth";
 import LoadingSpinner from "../../utils/LoadingSpinner";
 import ReviewStars from "./ReviewStars";
+import { Link } from "react-router-dom";
 
 const Reviews = () => {
   const [uniqueItems, setUniqueItems] = useState([]);
@@ -74,12 +75,14 @@ const Reviews = () => {
         <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-4 p-4">
           {uniqueItems.map((item, index) => (
             <div key={index} className="border p-4 shadow-lg">
-              <img
-                src={item.imageLink}
-                alt={item.title}
-                className="w-full h-48 object-contain mb-4"
-              />
-              <h2 className="text-xl font-bold">{item.title}</h2>
+              <Link to={`/product/${item.id}`}>
+                <img
+                  src={item.imageLink}
+                  alt={item.title}
+                  className="w-full h-48 object-contain mb-4"
+                />
+                <h2 className="text-xl font-bold">{item.title}</h2>
+              </Link>
               <ReviewStars itemId={item.id} />
             </div>
           ))}
