@@ -1,79 +1,62 @@
-<h1>Storly operates as an e-commerce platform with an array of features:</h1>
+# Storly: Your One-Stop E-commerce Platform
 
-  <h3>Link to live site: https://storly.netlify.app/</h3>
+Storly is a feature-rich e-commerce platform that brings a seamless shopping experience to both buyers and sellers. Explore a world of products at your fingertips, or set up your own store with ease.
 
-  <h3>User account creation and login capabilities.</h3>
+[Explore Storly Live](https://storly.netlify.app/)
 
-  <h3>User can use search input to search for items</h3>
+![Storly Banner](./img/Banner.png)
 
-  <h3>User can rate bought items and rating is displayed per item</h3>
+## Key Features
 
-  <h3>User can change his password and also delete his account</h3>
+- **User Authentication**: Sign up, log in, and manage your account with ease.
+- **Product Discovery**: Search and browse products, view detailed product information.
+- **Seller Dashboard**: List your items, manage orders, and interact with buyers.
+- **Rating and Reviews**: Share your experiences with products through ratings and reviews.
+- **Shopping Cart and Checkout**: Add products to your cart and breeze through our streamlined checkout process.
+- **Order Management**: View and manage your orders from your personalized user panel.
+- **Password Management**: Change or reset your password effortlessly.
+- **Piwik PRO Integration**: Monitor and analyze e-commerce activities with Piwik PRO tracking.
 
-  <h3>Forgot password functionality to restore password</h3>
+> 🚀 More features are on the horizon! Stay tuned for updates.
 
-  <h3>Browsing a primary store page featuring offers and accessing detailed pages for each product.</h3>
+## Getting Started
 
-  <h3>Listing users' own items.</h3>
+### 1. Clone the Repository
 
-  <h3>Adding products to a basket and placing orders.</h3>
-
-  <h3>Viewing a user panel that contains a list of orders.</h3>
-
-  <h3>Enabling the owner-user to edit and delete offers.</h3>
-
-  <h3>Tracking Piwik PRO ecommerce capabilties.</h3>
-
-  <h4 style='color:red'>Additional functionalities will be introduced in the future.</h4>
-
-![Alt text](./img/Banner.png)
-
-<h1>How to Use</h1>
-
-1. Clone the Repository
-
-First, clone the repository to your local machine. You can do this using the following command in your terminal:
-
-bash
-
+```bash
 git clone https://github.com/Mariusz-Lazarz/Storly.git
+```
 
-2. Install Dependencies
+### 2. Install Dependencies
 
-Navigate to the project directory and install the required dependencies using npm:
-
-bash
-
+```bash
 cd Storly
-
 npm install
+```
 
-3. Start the Development Server
+### 3. Start the Development Server
 
-Once the dependencies are installed, start the development server:
-
-bash
-
+```
 npm run start
+```
 
-This will start the development server and open the application in your default web browser at localhost:3000.
+### 4. Configure Piwik PRO
 
-4. Update Piwik PRO Credentials
+Update the Piwik PRO credentials in the index.js file located in the /src directory (line 12).
 
-Navigate to the index.js file located in the /src directory of the project. Update the Piwik PRO credentials (website ID and instance URL) in line 12.
-
+```
 PiwikPro.initialize(
 'xxxxxxxx-195d-4aae-b9ca-xxxxxxxxxxxx',
 'https://instance.piwik.pro'
 );
+```
 
-5. Explore the App
+### 5. Dive In!
 
-Now, the application should be configured and running with your Piwik PRO credentials. Explore the app functionalities!
+Now you're all set! Explore Storly's functionalities, and feel free to contribute to further enhancements!
 
-Note
+Note: Please utilize the provided database and credentials respectfully as they are hosted on a free Google hosting plan. Excessive account registrations or data usage may affect its availability for other users. Thank you!
 
-Please use the provided database and credentials respectfully. It's hosted on a free Google hosting plan, and excessive account registrations or data usage may impact its availability for other users. Thank you for your consideration!
-Contributing
+### License
 
 MIT © Mariusz Łazarz
