@@ -22,12 +22,9 @@ const ProductDetails = () => {
     const fetchProductData = async () => {
       const db = getDatabase();
       const itemRef = ref(db, `/items/${id}`);
-      console.log("Fetching item with id:", id);
       try {
         const snapshot = await get(itemRef);
-        console.log("Snapshot:", snapshot);
         if (snapshot.exists()) {
-          console.log("Item data:", snapshot.val());
           setItem(snapshot.val());
         } else {
           console.error("No data available");
