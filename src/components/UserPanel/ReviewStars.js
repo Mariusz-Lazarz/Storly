@@ -25,8 +25,8 @@ const ReviewStars = ({ itemId }) => {
         const reviewsRef = ref(db, "reviews");
         const userItemReviewsQuery = query(
           reviewsRef,
-          orderByChild("userItemKey"),
-          equalTo(`${user.uid}_${itemId}`)
+          orderByChild("userId"),
+          equalTo(user.uid)
         );
         const snapshot = await get(userItemReviewsQuery);
         if (snapshot.exists()) {

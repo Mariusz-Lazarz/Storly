@@ -5,7 +5,15 @@ import {
   EmailAuthProvider,
   deleteUser,
 } from "firebase/auth";
-import { getDatabase, ref, set } from "firebase/database";
+import {
+  getDatabase,
+  ref,
+  remove,
+  query,
+  orderByChild,
+  equalTo,
+  get,
+} from "firebase/database";
 import { useNavigate } from "react-router-dom";
 import Alert from "../Modal/Alert";
 
@@ -16,11 +24,34 @@ function DeleteAccount() {
   const [showAlert, setShowAlert] = useState(false);
   const [error, setError] = useState(null);
 
-  const handleDeleteItems = () => {
+  const handleDeleteUserSpecificData = async (path) => {
     const db = getDatabase();
     const auth = getAuth();
-    const itemRef = ref(db, `items/${auth.currentUser.uid}`);
-    set(itemRef, null);
+    const user = auth.currentUser;
+
+    if (!user) {
+      console.error("No user is currently signed in.");
+      return;
+    }
+
+    const dataRef = ref(db, path);
+    const userQuery = query(dataRef, orderByChild("userId"), equalTo(user.uid));
+
+    const snapshot = await get(userQuery);
+    if (snapshot.exists()) {
+      snapshot.forEach((childSnapshot) => {
+        const itemKey = childSnapshot.key;
+        remove(ref(db, `${path}/${itemKey}`));
+      });
+    } else {
+      console.log(`No data found for the current user under ${path}.`);
+    }
+  };
+
+  const handleDeleteUserData = () => {
+    handleDeleteUserSpecificData("items");
+    handleDeleteUserSpecificData("orders");
+    handleDeleteUserSpecificData("reviews");
   };
 
   const handleDeleteAccount = async (event) => {
@@ -32,7 +63,7 @@ function DeleteAccount() {
       const credential = EmailAuthProvider.credential(email, password);
       try {
         await reauthenticateWithCredential(user, credential);
-        handleDeleteItems();
+        handleDeleteUserData();
         await deleteUser(user);
         navigate("/");
       } catch (error) {
@@ -51,12 +82,6 @@ function DeleteAccount() {
       <h2 className="text-2xl font-bold mb-4">Delete Account</h2>
       {error && <div className="text-red-500 mt-2">{error}</div>}
       <form>
-        {/* <label
-          htmlFor="email"
-          className="block text-sm font-medium text-gray-700 mb-2"
-        >
-          Email
-        </label> */}
         <input
           type="email"
           id="email"
@@ -65,12 +90,6 @@ function DeleteAccount() {
           placeholder="Enter your email"
           className="border p-2 rounded w-full mb-4"
         />
-        {/* <label
-          htmlFor="password"
-          className="block text-sm font-medium text-gray-700 mb-2"
-        >
-          Password
-        </label> */}
         <input
           type="password"
           id="password"
