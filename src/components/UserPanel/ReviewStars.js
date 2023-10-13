@@ -83,7 +83,7 @@ const ReviewStars = ({ itemId }) => {
           onMouseLeave={() => !isReviewed && setHoveredStar(0)}
           onClick={() => handleClick(star)}
         >
-          ☆
+          ★
         </span>
       ))}
     </div>

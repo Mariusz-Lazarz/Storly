@@ -9,11 +9,14 @@ import { addToCart } from "../../store/cartSlice";
 import { Tooltip } from "react-tooltip";
 import { getDatabase, ref, get } from "firebase/database";
 import LoadingSpinner from "../../utils/LoadingSpinner";
+import StarRating from "./StarRating";
 
 const ProductDetails = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [quantity, setQuantity] = useState(1);
   const [item, setItem] = useState(null);
+  const [averageRating, setAverageRating] = useState(0);
+  const [totalReviews, setTotalReviews] = useState(0);
   const { id } = useParams();
   const dispatch = useDispatch();
   const auth = getAuth();
@@ -32,6 +35,21 @@ const ProductDetails = () => {
       } catch (error) {
         console.error("Error fetching data: ", error);
       }
+
+      const reviewsRef = ref(db, `/items/${id}/reviews`);
+      const reviewsSnapshot = await get(reviewsRef);
+      if (reviewsSnapshot.exists()) {
+        const reviews = Object.values(reviewsSnapshot.val());
+
+        const totalRating = reviews.reduce(
+          (acc, review) => acc + review.rating,
+          0
+        );
+        const avgRating = totalRating / reviews.length;
+        setAverageRating(avgRating);
+        setTotalReviews(reviews.length);
+      }
+
       setIsLoading(false);
     };
 
@@ -95,11 +113,17 @@ const ProductDetails = () => {
           </div>
 
           <div className="w-full md:w-1/2 p-4 flex flex-col">
-            <h1 className="text-2xl text-pink-500 font-bold mb-2">
-              {item.title}
-            </h1>
-            <p className="text-xl text-red-300 mb-4">${item.price}</p>
-
+            <h1 className="text-2xl text-pink-500 font-bold mb-2">{item.title}</h1>
+            <div className="flex justify-between items-center mb-2">
+              <p className="text-xl text-red-300">${item.price}</p>
+              <div className="flex items-center">
+                <span className="text-sm mr-2">{averageRating.toFixed(2)}</span>
+                <StarRating averageRating={averageRating} />
+                <span className="ml-2 text-sm">
+                  ({totalReviews} {totalReviews === 1 ? "Review" : "Reviews"})
+                </span>
+              </div>
+            </div>
             <hr className="mb-4" />
             <h2 className="text-lg text-pink-500 font-semibold mb-2">
               Description
