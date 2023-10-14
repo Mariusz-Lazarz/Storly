@@ -78,7 +78,7 @@ const Reviews = () => {
               <div key={index} className="border p-4 shadow-lg">
                 <Link to={`/product/${item.id}`}>
                   <img
-                    src={item.imageLink}
+                    src={item.imageLinks[0]}
                     alt={item.title}
                     className="w-full h-48 object-contain mb-4"
                   />

@@ -27,7 +27,7 @@ const StoreItem = ({ item, handleAddToCart, itemsInCart }) => {
       <Link to={`/product/${item.id}`}>
         <div className="flex items-center justify-center mb-2 h-24 w-24 mx-auto cursor-pointer">
           <img
-            src={item.imageLink}
+            src={item.imageLinks[0]}
             alt={item.title}
             className="object-cover w-full h-full"
           />

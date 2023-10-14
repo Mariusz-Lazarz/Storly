@@ -1,21 +1,22 @@
 import React, { useState, useEffect, useRef } from "react";
-import { getDatabase, ref as dbRef, set, push } from "firebase/database";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { v4 as uuidv4 } from "uuid";
 import {
   getStorage,
   ref as strgRef,
   uploadBytesResumable,
   getDownloadURL,
 } from "firebase/storage";
+import { getDatabase, ref as dbRef, set, push } from "firebase/database";
 import { useNavigate } from "react-router-dom";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import ImageUpload from "./ImageUpload";
 import Modal from "../Modal/Modal";
 import LoadingSpinner from "../../utils/LoadingSpinner";
 
 function AddItemForm() {
   const [title, setTitle] = useState("");
-  const [imagePreviewUrl, setImagePreviewUrl] = useState("");
-  const [imageFile, setImageFile] = useState(null);
+  const [imageFiles, setImageFiles] = useState([]);
+  const [imagePreviewUrls, setImagePreviewUrls] = useState([]);
   const [category, setCategory] = useState("");
   const [variant, setVariant] = useState("");
   const [brand, setBrand] = useState("");
@@ -24,9 +25,9 @@ function AddItemForm() {
   const [price, setPrice] = useState("");
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate();
   const [auth, setAuth] = useState(null);
   const fileInputRef = useRef();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const auth = getAuth();
@@ -37,59 +38,63 @@ function AddItemForm() {
         setAuth(null);
       }
     });
-
     return () => unsubscribe();
   }, []);
 
   const handleFileUpload = (e) => {
-    const file = e.target.files[0];
+    const files = e.target.files;
 
-    if (file) {
-      const fileSizeLimit = 5 * 1024 * 1024; // 5 MB in bytes
+    if (files.length + imageFiles.length > 10) {
+      setError("You cannot upload more than 10 images.");
+      return;
+    }
+
+    let newFiles = [];
+    let newPreviews = [];
+
+    const validateFile = (file) => {
+      const fileSizeLimit = 5 * 1024 * 1024; // 5MB
       const allowedFileTypes = ["image/jpeg", "image/png"];
 
-      if (!allowedFileTypes.includes(file.type)) {
-        setError("Please upload an image file (jpg or png).");
+      return allowedFileTypes.includes(file.type) && file.size <= fileSizeLimit;
+    };
+
+    const promises = Array.from(files).map((file) => {
+      if (!validateFile(file)) {
+        setError("Please upload a valid image file (jpg or png, < 5MB).");
         return;
       }
 
-      if (file.size > fileSizeLimit) {
-        setError("File size should be less than 5MB.");
-        return;
-      }
+      newFiles.push(file);
 
-      setError(null);
-      setImageFile(file);
+      return new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onloadend = () => resolve(reader.result);
+        reader.readAsDataURL(file);
+      });
+    });
 
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImagePreviewUrl(reader.result);
-      };
-      reader.readAsDataURL(file);
-    }
+    Promise.all(promises).then((newPreviews) => {
+      setImagePreviewUrls((prev) => [...prev, ...newPreviews]);
+      setImageFiles((prev) => [...prev, ...newFiles]);
+    });
   };
 
-  const removeImage = () => {
-    setImageFile(null);
-    setImagePreviewUrl("");
-
-    if (fileInputRef.current) {
-      fileInputRef.current.value = "";
-    }
+  const removeImage = (index) => {
+    setImageFiles((prev) => prev.filter((_, i) => i !== index));
+    setImagePreviewUrls((prev) => prev.filter((_, i) => i !== index));
   };
 
   const addItem = async (e) => {
-    console.log("addItem called");
     e.preventDefault();
-    console.log("imageFile value:", imageFile);
+
     if (!auth) {
       setError("Please login to add an item");
       return;
     }
 
-    if (!imageFile) {
-      setError("Please select an image file to upload");
-      console.log("image not added");
+    if (imageFiles.length === 0) {
+      setError("Please select at least one image file to upload");
       return;
     }
 
@@ -97,46 +102,54 @@ function AddItemForm() {
 
     try {
       const storage = getStorage();
-      const uniqueFileName = `${new Date().getTime()}-${imageFile.name}`;
-      const storageRef = strgRef(storage, `images/${uniqueFileName}`);
-      const uploadTask = uploadBytesResumable(storageRef, imageFile);
+      const downloadUrls = await Promise.all(
+        imageFiles.map((imageFile) => {
+          const uniqueFileName = `${uuidv4()}-${imageFile.name}`;
+          const storageRef = strgRef(storage, `images/${uniqueFileName}`);
+          const uploadTask = uploadBytesResumable(storageRef, imageFile);
 
-      uploadTask.on(
-        "state_changed",
-        (snapshot) => {},
-        (error) => {
-          setError(error.message);
-          console.log(error.message);
-        },
-        async () => {
-          const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-
-          const db = getDatabase();
-          const newItemRef = push(dbRef(db, "items"));
-          await set(newItemRef, {
-            title,
-            imageLink: downloadURL,
-            category,
-            variant,
-            brand,
-            description,
-            quantity: parseInt(quantity, 10),
-            price: parseFloat(price).toFixed(2),
-            userId: auth.uid,
+          return new Promise((resolve, reject) => {
+            uploadTask.on(
+              "state_changed",
+              (snapshot) => {},
+              (error) => reject(error),
+              async () => {
+                const downloadURL = await getDownloadURL(
+                  uploadTask.snapshot.ref
+                );
+                resolve(downloadURL);
+              }
+            );
           });
-
-          console.log("Item added successfully");
-          setTitle("");
-          setImageFile(null);
-          setImagePreviewUrl("");
-          setDescription("");
-          setQuantity("");
-          setPrice("");
-          setError(null);
-          setIsLoading(false);
-          navigate("/store");
-        }
+        })
       );
+
+      const db = getDatabase();
+      const newItemRef = push(dbRef(db, "items"));
+      await set(newItemRef, {
+        title,
+        imageLinks: downloadUrls,
+        category,
+        variant,
+        brand,
+        description,
+        quantity: parseInt(quantity, 10),
+        price: parseFloat(price).toFixed(2),
+        userId: auth.uid,
+      });
+
+      setTitle("");
+      setImageFiles([]);
+      setImagePreviewUrls([]);
+      setDescription("");
+      setBrand("");
+      setCategory("");
+      setVariant("");
+      setQuantity("");
+      setPrice("");
+      setError(null);
+      setIsLoading(false);
+      navigate("/store");
     } catch (error) {
       setIsLoading(false);
       setError(error.message);
@@ -156,6 +169,7 @@ function AddItemForm() {
           className="p-2 border rounded"
           required
         />
+        {/* ... other input fields ... */}
         <input
           type="text"
           placeholder="Category"
@@ -207,7 +221,7 @@ function AddItemForm() {
         <ImageUpload
           onUpload={handleFileUpload}
           onRemove={removeImage}
-          imagePreviewUrl={imagePreviewUrl}
+          imagePreviewUrls={imagePreviewUrls}
           fileInputRef={fileInputRef}
         />
         <button type="submit" className="bg-light-pink text-white p-2 rounded">

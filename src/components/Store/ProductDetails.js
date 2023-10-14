@@ -106,7 +106,7 @@ const ProductDetails = () => {
         <div className="flex flex-wrap justify-center items-center">
           <div className="w-full md:w-1/2 p-4 flex items-center justify-center">
             <img
-              src={item.imageLink}
+              src={item.imageLinks[0]}
               alt={item.title}
               className="w-1/2 object-cover"
             />

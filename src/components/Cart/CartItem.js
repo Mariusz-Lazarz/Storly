@@ -36,7 +36,7 @@ export function CartItem({ item }) {
         <div className="flex items-center gap-2">
           {" "}
           <img
-            src={item.imageLink}
+            src={item.imageLinks[0]}
             alt={`${item.title}`}
             className="w-16 h-16 object-cover mr-4"
           />{" "}

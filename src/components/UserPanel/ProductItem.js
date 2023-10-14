@@ -6,7 +6,7 @@ function ProductItem({ product, handleEditClick, handleRemoveItem }) {
     <div className="grid grid-cols-4 md:grid-cols-7 items-center">
       <div className="col-span-1">
         <img
-          src={product.imageLink}
+          src={product.imageLinks[0]}
           alt={product.title}
           className="w-16 h-16 object-cover"
         />
