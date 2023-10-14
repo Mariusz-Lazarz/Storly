@@ -2,8 +2,13 @@ import { useParams } from "react-router-dom";
 import { DataLayer } from "@piwikpro/react-piwik-pro";
 import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faMinus, faHeart } from "@fortawesome/free-solid-svg-icons";
-import { getAuth } from "firebase/auth";
+import {
+  faPlus,
+  faMinus,
+  faHeart,
+  faCartShopping,
+} from "@fortawesome/free-solid-svg-icons";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../store/cartSlice";
 import { Tooltip } from "react-tooltip";
@@ -21,9 +26,21 @@ const ProductDetails = () => {
   const [averageRating, setAverageRating] = useState(0);
   const [totalReviews, setTotalReviews] = useState(0);
   const [isFavourite, setIsFavourite] = useState(false);
+  const [auth, setAuth] = useState(null);
   const { id } = useParams();
   const dispatch = useDispatch();
-  const auth = getAuth();
+
+  useEffect(() => {
+    const auth = getAuth();
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setAuth(user);
+      } else {
+        setAuth(null);
+      }
+    });
+    return () => unsubscribe();
+  }, []);
 
   useEffect(() => {
     const fetchProductData = async () => {
@@ -137,13 +154,15 @@ const ProductDetails = () => {
   useEffect(() => {
     const checkIfFavourite = async () => {
       try {
-        const db = getDatabase();
-        const favRef = ref(db, `userFavourites/${auth.currentUser.uid}/${id}`);
-        const snapshot = await get(favRef);
-        if (snapshot.exists() && snapshot.val().isFavourite) {
-          setIsFavourite(true);
-        } else {
-          setIsFavourite(false);
+        if (auth) {
+          const db = getDatabase();
+          const favRef = ref(db, `userFavourites/${auth.uid}/${id}`);
+          const snapshot = await get(favRef);
+          if (snapshot.exists() && snapshot.val().isFavourite) {
+            setIsFavourite(true);
+          } else {
+            setIsFavourite(false);
+          }
         }
       } catch (error) {
         console.log("Error checking favourite status:", error);
@@ -151,7 +170,7 @@ const ProductDetails = () => {
     };
 
     checkIfFavourite();
-  }, [id, auth.currentUser.uid]);
+  }, [id, auth]);
 
   const settings = {
     dots: true,
@@ -240,7 +259,11 @@ const ProductDetails = () => {
                     isInCart ? "Item already in cart" : null
                   }
                 >
-                  Add to cart
+                  <span className="hidden md:inline">Add to cart</span>
+                  <FontAwesomeIcon
+                    icon={faCartShopping}
+                    className="md:hidden"
+                  />
                 </button>
                 <Tooltip
                   id="my-tooltip"
@@ -251,13 +274,13 @@ const ProductDetails = () => {
                   }}
                 />
                 <button
-                  className={`border p-2 rounded ${
+                  className={`border py-2 px-3 rounded border-gray-500 ${
                     isFavourite ? "bg-yellow-400" : ""
                   }`}
                   onClick={handleFavouriteItem}
                 >
-                  <FontAwesomeIcon icon={faHeart}></FontAwesomeIcon>
-                  Add to faviourite
+                  <FontAwesomeIcon icon={faHeart} />
+                  <span className="hidden md:inline"> Add to faviourite</span>
                 </button>
               </div>
               <div>

@@ -29,6 +29,8 @@ function AddItemForm() {
   const fileInputRef = useRef();
   const navigate = useNavigate();
 
+  console.log(auth)
+
   useEffect(() => {
     const auth = getAuth();
     const unsubscribe = onAuthStateChanged(auth, (user) => {
