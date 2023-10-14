@@ -1,19 +1,18 @@
 import { useParams } from "react-router-dom";
 import { DataLayer } from "@piwikpro/react-piwik-pro";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faMinus, faHeart } from "@fortawesome/free-solid-svg-icons";
 import { getAuth } from "firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../store/cartSlice";
 import { Tooltip } from "react-tooltip";
-import { getDatabase, ref, get } from "firebase/database";
+import { getDatabase, ref, get, set, update } from "firebase/database";
 import LoadingSpinner from "../../utils/LoadingSpinner";
 import StarRating from "./StarRating";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import "../../App.css";
 
 const ProductDetails = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -21,6 +20,7 @@ const ProductDetails = () => {
   const [item, setItem] = useState(null);
   const [averageRating, setAverageRating] = useState(0);
   const [totalReviews, setTotalReviews] = useState(0);
+  const [isFavourite, setIsFavourite] = useState(false);
   const { id } = useParams();
   const dispatch = useDispatch();
   const auth = getAuth();
@@ -102,6 +102,57 @@ const ProductDetails = () => {
     }
   }, [item]);
 
+  const handleFavouriteItem = () => {
+    setIsFavourite((prevState) => {
+      const newFavouriteState = !prevState;
+
+      const addOrUpdateFav = async () => {
+        try {
+          const db = getDatabase();
+          const itemRef = ref(
+            db,
+            `userFavourites/${auth.currentUser.uid}/${item.id}/`
+          );
+          const snapshot = await get(itemRef);
+
+          if (snapshot.exists()) {
+            await update(itemRef, {
+              isFavourite: newFavouriteState,
+            });
+          } else {
+            await set(itemRef, {
+              isFavourite: newFavouriteState,
+            });
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      };
+
+      addOrUpdateFav();
+      return newFavouriteState;
+    });
+  };
+
+  useEffect(() => {
+    const checkIfFavourite = async () => {
+      try {
+        const db = getDatabase();
+        const favRef = ref(db, `userFavourites/${auth.currentUser.uid}/${id}`);
+        const snapshot = await get(favRef);
+        if (snapshot.exists() && snapshot.val().isFavourite) {
+          setIsFavourite(true);
+        } else {
+          setIsFavourite(false);
+        }
+      } catch (error) {
+        console.log("Error checking favourite status:", error);
+      }
+    };
+
+    checkIfFavourite();
+  }, [id, auth.currentUser.uid]);
+
   const settings = {
     dots: true,
     infinite: true,
@@ -112,7 +163,6 @@ const ProductDetails = () => {
     autoplaySpeed: 3000,
     arrows: false,
   };
-
   return (
     <div className="container mx-auto p-4">
       {isLoading ? (
@@ -176,9 +226,9 @@ const ProductDetails = () => {
             </div>
             <hr className="mb-4" />
             <div className="mb-4 flex justify-between items-center">
-              <div>
+              <div className="flex gap-2">
                 <button
-                  className={`py-2 px-3 rounded-full text-white ${
+                  className={`py-2 px-3 rounded text-white ${
                     isInCart
                       ? "bg-gray-400 cursor-not-allowed"
                       : "bg-light-pink "
@@ -200,17 +250,26 @@ const ProductDetails = () => {
                     zIndex: "999",
                   }}
                 />
+                <button
+                  className={`border p-2 rounded ${
+                    isFavourite ? "bg-yellow-400" : ""
+                  }`}
+                  onClick={handleFavouriteItem}
+                >
+                  <FontAwesomeIcon icon={faHeart}></FontAwesomeIcon>
+                  Add to faviourite
+                </button>
               </div>
               <div>
                 <span>Quantity: {quantity}</span>
                 <button
-                  className="bg-blue-500 text-white rounded-full py-.5 px-1 mx-2"
+                  className="bg-blue-500 text-white rounded py-.5 px-1 mx-2"
                   onClick={handleIncrement}
                 >
                   <FontAwesomeIcon icon={faPlus} />
                 </button>
                 <button
-                  className="bg-red-500 text-white rounded-full py-.5 px-1"
+                  className="bg-red-500 text-white rounded py-.5 px-1"
                   onClick={handleDecrement}
                 >
                   <FontAwesomeIcon icon={faMinus} />

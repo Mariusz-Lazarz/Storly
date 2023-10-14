@@ -111,7 +111,7 @@ function AddItemForm() {
           return new Promise((resolve, reject) => {
             uploadTask.on(
               "state_changed",
-              (snapshot) => {},
+              null,
               (error) => reject(error),
               async () => {
                 const downloadURL = await getDownloadURL(

@@ -11,7 +11,9 @@ import {
   faEdit,
   faStar,
   faUser,
+  faHeart,
 } from "@fortawesome/free-solid-svg-icons";
+import Favourites from "./Favourites";
 
 function UserPanel() {
   const [activeTab, setActiveTab] = useState("orderHistory");
@@ -84,12 +86,28 @@ function UserPanel() {
               aria-hidden="true"
             />
           </button>
+          <button
+            onClick={() => setActiveTab("userFavourites")}
+            className={`transition duration-300 ease-in-out px-4 py-2 ${
+              activeTab === "userFavourites"
+                ? "bg-white text-gray-800 border-b-4 border-blue-500"
+                : "bg-gray-200 text-gray-600"
+            }`}
+          >
+            <span className="hidden md:inline">User Favourites</span>
+            <FontAwesomeIcon
+              icon={faHeart}
+              className="md:hidden"
+              aria-hidden="true"
+            />
+          </button>
         </div>
         <div className="p-2 bg-white rounded shadow-lg">
           {activeTab === "orderHistory" && <OrderHistory />}
           {activeTab === "editProducts" && <EditProducts />}
           {activeTab === "reviews" && <Reviews />}
           {activeTab === "userData" && <UserData />}
+          {activeTab === "userFavourites" && <Favourites />}
         </div>
       </div>
     </div>
