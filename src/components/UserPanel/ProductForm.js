@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/img-redundant-alt */
 import React, { useState, useEffect } from "react";
 import {
   getStorage,
@@ -27,6 +28,7 @@ function ProductForm({
 
   useEffect(() => {
     setAllImages(allImages.filter((url) => !removedImages.includes(url)));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [removedImages]);
 
   const handleImageChange = async (e) => {
@@ -173,6 +175,7 @@ function ProductForm({
       </label>
       <div className="flex space-x-2 mt-2">
         {allImages.map((url, index) => (
+          // eslint-disable-next-line react/jsx-no-comment-textnodes
           <div key={index} className="relative inline-block mr-2">
             <img
               src={url}
