@@ -1,11 +1,21 @@
-import React, { useState, useEffect } from "react";
-import { getDatabase, ref, set, push } from "firebase/database";
+import React, { useState, useEffect, useRef } from "react";
+import { getDatabase, ref as dbRef, set, push } from "firebase/database";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import {
+  getStorage,
+  ref as strgRef,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "firebase/storage";
 import { useNavigate } from "react-router-dom";
+import ImageUpload from "./ImageUpload";
+import Modal from "../Modal/Modal";
+import LoadingSpinner from "../../utils/LoadingSpinner";
 
 function AddItemForm() {
   const [title, setTitle] = useState("");
-  const [imageLink, setImageLink] = useState("");
+  const [imagePreviewUrl, setImagePreviewUrl] = useState("");
+  const [imageFile, setImageFile] = useState(null);
   const [category, setCategory] = useState("");
   const [variant, setVariant] = useState("");
   const [brand, setBrand] = useState("");
@@ -13,8 +23,10 @@ function AddItemForm() {
   const [quantity, setQuantity] = useState("");
   const [price, setPrice] = useState("");
   const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const [auth, setAuth] = useState(null);
+  const fileInputRef = useRef();
 
   useEffect(() => {
     const auth = getAuth();
@@ -29,37 +41,104 @@ function AddItemForm() {
     return () => unsubscribe();
   }, []);
 
-  const addItem = async (e) => {
-    e.preventDefault();
+  const handleFileUpload = (e) => {
+    const file = e.target.files[0];
 
-    if (!auth.currentUser) {
+    if (file) {
+      const fileSizeLimit = 5 * 1024 * 1024; // 5 MB in bytes
+      const allowedFileTypes = ["image/jpeg", "image/png"];
+
+      if (!allowedFileTypes.includes(file.type)) {
+        setError("Please upload an image file (jpg or png).");
+        return;
+      }
+
+      if (file.size > fileSizeLimit) {
+        setError("File size should be less than 5MB.");
+        return;
+      }
+
+      setError(null);
+      setImageFile(file);
+
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreviewUrl(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const removeImage = () => {
+    setImageFile(null);
+    setImagePreviewUrl("");
+
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+  };
+
+  const addItem = async (e) => {
+    console.log("addItem called");
+    e.preventDefault();
+    console.log("imageFile value:", imageFile);
+    if (!auth) {
       setError("Please login to add an item");
       return;
     }
 
+    if (!imageFile) {
+      setError("Please select an image file to upload");
+      console.log("image not added");
+      return;
+    }
+
+    setIsLoading(true);
+
     try {
-      const db = getDatabase();
-      const newItemRef = push(ref(db, "items"));
-      await set(newItemRef, {
-        title,
-        imageLink,
-        category,
-        variant,
-        brand,
-        description,
-        quantity: parseInt(quantity, 10),
-        price: parseFloat(price).toFixed(2),
-        userId: auth.currentUser.uid,
-      });
-      console.log("Item added successfully");
-      setTitle("");
-      setImageLink("");
-      setDescription("");
-      setQuantity("");
-      setPrice("");
-      setError(null);
-      navigate("/store");
+      const storage = getStorage();
+      const uniqueFileName = `${new Date().getTime()}-${imageFile.name}`;
+      const storageRef = strgRef(storage, `images/${uniqueFileName}`);
+      const uploadTask = uploadBytesResumable(storageRef, imageFile);
+
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {},
+        (error) => {
+          setError(error.message);
+          console.log(error.message);
+        },
+        async () => {
+          const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+
+          const db = getDatabase();
+          const newItemRef = push(dbRef(db, "items"));
+          await set(newItemRef, {
+            title,
+            imageLink: downloadURL,
+            category,
+            variant,
+            brand,
+            description,
+            quantity: parseInt(quantity, 10),
+            price: parseFloat(price).toFixed(2),
+            userId: auth.uid,
+          });
+
+          console.log("Item added successfully");
+          setTitle("");
+          setImageFile(null);
+          setImagePreviewUrl("");
+          setDescription("");
+          setQuantity("");
+          setPrice("");
+          setError(null);
+          setIsLoading(false);
+          navigate("/store");
+        }
+      );
     } catch (error) {
+      setIsLoading(false);
       setError(error.message);
     }
   };
@@ -77,15 +156,6 @@ function AddItemForm() {
           className="p-2 border rounded"
           required
         />
-        <input
-          type="url"
-          placeholder="Image Link"
-          value={imageLink}
-          onChange={(e) => setImageLink(e.target.value)}
-          className="p-2 border rounded"
-          required
-        />
-
         <input
           type="text"
           placeholder="Category"
@@ -134,13 +204,19 @@ function AddItemForm() {
           step="0.01"
           required
         />
-        <button
-          type="submit"
-          className="bg-light-pink text-white p-2 rounded-full"
-        >
+        <ImageUpload
+          onUpload={handleFileUpload}
+          onRemove={removeImage}
+          imagePreviewUrl={imagePreviewUrl}
+          fileInputRef={fileInputRef}
+        />
+        <button type="submit" className="bg-light-pink text-white p-2 rounded">
           Add Item
         </button>
       </form>
+      <Modal isOpen={isLoading} onClose={null}>
+        <LoadingSpinner />
+      </Modal>
     </div>
   );
 }
