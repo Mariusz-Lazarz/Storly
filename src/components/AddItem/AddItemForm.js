@@ -169,7 +169,6 @@ function AddItemForm() {
           className="p-2 border rounded"
           required
         />
-        {/* ... other input fields ... */}
         <input
           type="text"
           placeholder="Category"

@@ -13,12 +13,15 @@ import {
 import { getAuth } from "firebase/auth";
 import Alert from "../Modal/Alert";
 import LoadingSpinner from "../../utils/LoadingSpinner";
+import Modal from "../Modal/Modal";
 import ProductForm from "./ProductForm";
 import ProductItem from "./ProductItem";
+
 
 function EditProducts() {
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [updating, setIsUpdating] = useState(false);
   const [editingProductId, setEditingProductId] = useState(null);
   const [editFormData, setEditFormData] = useState({});
   const [showAlert, setShowAlert] = useState(false);
@@ -58,12 +61,21 @@ function EditProducts() {
     };
   }, []);
 
-  const handleFormSubmit = async (e) => {
+  const handleFormSubmit = async (e, updatedFormData) => {
     e.preventDefault();
+    setIsUpdating(true);
     const db = getDatabase();
     const productRef = ref(db, `items/${editingProductId}`);
-    await update(productRef, editFormData);
-    setEditingProductId(null);
+
+    try {
+      await update(productRef, updatedFormData);
+      console.log("Update Successful", updatedFormData);
+      setEditingProductId(null);
+      setIsUpdating(false);
+    } catch (error) {
+      console.error("Firebase Update Error: ", error);
+      setIsUpdating(false);
+    }
   };
 
   const handleEditClick = (product) => {
@@ -136,6 +148,9 @@ function EditProducts() {
         onConfirm={handleModalConfirm}
         onCancel={handleModalCancel}
       ></Alert>
+      <Modal isOpen={updating} onClose={null}>
+        <LoadingSpinner />
+      </Modal>
     </div>
   );
 }
