@@ -5,6 +5,14 @@ import EditProducts from "./EditProducts";
 import Reviews from "./Reviews";
 import useRedirect from "../../hooks/useRedirect";
 import { useLocation } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faHistory,
+  faEdit,
+  faStar,
+  faUser,
+} from "@fortawesome/free-solid-svg-icons";
+import { faOrcid } from "@fortawesome/free-brands-svg-icons";
 
 function UserPanel() {
   const [activeTab, setActiveTab] = useState("orderHistory");
@@ -25,7 +33,12 @@ function UserPanel() {
                 : "bg-gray-200 text-gray-600"
             }`}
           >
-            Order History
+            <span className="hidden md:inline">Order History</span>
+            <FontAwesomeIcon
+              icon={faHistory}
+              className="md:hidden"
+              aria-hidden="true"
+            />
           </button>
           <button
             onClick={() => setActiveTab("editProducts")}
@@ -35,7 +48,12 @@ function UserPanel() {
                 : "bg-gray-200 text-gray-600"
             }`}
           >
-            Edit Products
+            <span className="hidden md:inline">Edit Products</span>
+            <FontAwesomeIcon
+              icon={faEdit}
+              className="md:hidden"
+              aria-hidden="true"
+            />
           </button>
           <button
             onClick={() => setActiveTab("reviews")}
@@ -45,7 +63,12 @@ function UserPanel() {
                 : "bg-gray-200 text-gray-600"
             }`}
           >
-            Reviews
+            <span className="hidden md:inline">Reviews</span>
+            <FontAwesomeIcon
+              icon={faStar}
+              className="md:hidden"
+              aria-hidden="true"
+            />
           </button>
           <button
             onClick={() => setActiveTab("userData")}
@@ -55,7 +78,12 @@ function UserPanel() {
                 : "bg-gray-200 text-gray-600"
             }`}
           >
-            User Data
+            <span className="hidden md:inline">User Data</span>
+            <FontAwesomeIcon
+              icon={faUser}
+              className="md:hidden"
+              aria-hidden="true"
+            />
           </button>
         </div>
         <div className="p-2 bg-white rounded shadow-lg">
