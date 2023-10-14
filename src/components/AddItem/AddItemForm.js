@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { getDatabase, ref, set, push } from "firebase/database";
-import { getAuth } from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
 function AddItemForm() {
@@ -14,25 +14,22 @@ function AddItemForm() {
   const [price, setPrice] = useState("");
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-  // const [auth, setAuth] = useState(null);
+  const [auth, setAuth] = useState(null);
 
-  // console.log(auth);
+  useEffect(() => {
+    const auth = getAuth();
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setAuth(user);
+      } else {
+        setAuth(null);
+      }
+    });
 
-  // useEffect(() => {
-  //   const auth = getAuth();
-  //   const unsubscribe = onAuthStateChanged(auth, (user) => {
-  //     if (user) {
-  //       setAuth(user);
-  //     } else {
-  //       setAuth(null);
-  //     }
-  //   });
-
-  //   return () => unsubscribe();
-  // }, []);
+    return () => unsubscribe();
+  }, []);
 
   const addItem = async (e) => {
-    const auth = getAuth();
     e.preventDefault();
 
     if (!auth.currentUser) {

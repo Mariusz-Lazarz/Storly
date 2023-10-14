@@ -12,7 +12,6 @@ import {
   faStar,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
-import { faOrcid } from "@fortawesome/free-brands-svg-icons";
 
 function UserPanel() {
   const [activeTab, setActiveTab] = useState("orderHistory");
