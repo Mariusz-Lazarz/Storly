@@ -73,19 +73,25 @@ const Reviews = () => {
         <LoadingSpinner />
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-4 p-4">
-          {uniqueItems.map((item, index) => (
-            <div key={index} className="border p-4 shadow-lg">
-              <Link to={`/product/${item.id}`}>
-                <img
-                  src={item.imageLink}
-                  alt={item.title}
-                  className="w-full h-48 object-contain mb-4"
-                />
-                <h2 className="text-xl font-bold">{item.title}</h2>
-              </Link>
-              <ReviewStars itemId={item.id} />
+          {uniqueItems && uniqueItems.length > 0 ? (
+            uniqueItems.map((item, index) => (
+              <div key={index} className="border p-4 shadow-lg">
+                <Link to={`/product/${item.id}`}>
+                  <img
+                    src={item.imageLink}
+                    alt={item.title}
+                    className="w-full h-48 object-contain mb-4"
+                  />
+                  <h2 className="text-xl font-bold">{item.title}</h2>
+                </Link>
+                <ReviewStars itemId={item.id} />
+              </div>
+            ))
+          ) : (
+            <div className="p-4 mb-6 text-center text-red-600 col-span-full">
+              <p>You have no products currently to review.</p>
             </div>
-          ))}
+          )}
         </div>
       )}
     </div>

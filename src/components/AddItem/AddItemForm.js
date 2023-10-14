@@ -63,7 +63,6 @@ function AddItemForm() {
       setError(null);
       navigate("/store");
     } catch (error) {
-      console.error("Error adding item", error);
       setError(error.message);
     }
   };
@@ -72,7 +71,7 @@ function AddItemForm() {
     <div className="bg-white p-6 rounded shadow-lg my-4 w-full md:w-11/12 lg:w-1/4 mx-auto">
       <form onSubmit={addItem} className="flex flex-col space-y-4">
         <h2 className="text-2xl font-bold text-center mb-4">Add Item</h2>
-        {error && <p className="text-red-500 text-sm">{error}</p>}
+        {error && <p className="text-red-500 text-lg">{error}</p>}
         <input
           type="text"
           placeholder="Title"

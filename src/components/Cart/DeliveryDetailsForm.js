@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function DeliveryDetailsForm({ onPlaceOrder }) {
+function DeliveryDetailsForm({ onPlaceOrder, cartIsEmpty }) {
   const [deliveryDetails, setDeliveryDetails] = useState({
     name: "",
     address: "",
@@ -93,7 +93,10 @@ function DeliveryDetailsForm({ onPlaceOrder }) {
       </div>
       <button
         type="submit"
-        className="bg-light-pink text-white py-2 px-4 rounded-full mt-4"
+        disabled={cartIsEmpty}
+        className={`${
+          cartIsEmpty ? "bg-gray-400 cursor-not-allowed" : "bg-light-pink"
+        } text-white py-2 px-4 rounded-full mt-4`}
       >
         Place Order
       </button>

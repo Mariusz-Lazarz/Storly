@@ -19,7 +19,6 @@ function OrderHistory() {
   const [expandedOrderId, setExpandedOrderId] = useState(null);
   const [sortOrder, setSortOrder] = useState("desc");
 
-
   const sortOrders = (orderArray, order) => {
     const sortedArray = [...orderArray].sort((a, b) => {
       return order === "asc"
@@ -92,56 +91,62 @@ function OrderHistory() {
             <span className="text-center">Value</span>
             <span className="text-center">Details</span>
           </div>
-          {orders.map((order) => (
-            <div
-              key={order.id}
-              className="border-l-4 border-green-500 p-4 mb-6 shadow-lg"
-            >
+          {orders && orders.length > 0 ? (
+            orders.map((order) => (
               <div
-                className="grid grid-cols-1 sm:grid-cols-4 gap-4 cursor-pointer p-4"
-                onClick={() =>
-                  setExpandedOrderId((prevId) =>
-                    prevId === order.id ? null : order.id
-                  )
-                }
+                key={order.id}
+                className="border-l-4 border-green-500 p-4 mb-6 shadow-lg"
               >
-                <span className="text-center text-blue-600">{order.id}</span>
-                <span className="text-center">
-                  {new Date(order.date).toLocaleString()}
-                </span>
-                <span className="text-center">$ {order.value}</span>
-                <span
-                  className={`text-center transform transition-transform ${
-                    order.id === expandedOrderId ? "rotate-180" : ""
-                  }`}
+                <div
+                  className="grid grid-cols-1 sm:grid-cols-4 gap-4 cursor-pointer p-4"
+                  onClick={() =>
+                    setExpandedOrderId((prevId) =>
+                      prevId === order.id ? null : order.id
+                    )
+                  }
                 >
-                  <FontAwesomeIcon
-                    icon={faChevronDown}
-                    className={
-                      order.id === expandedOrderId ? "fa-rotate-180" : ""
-                    }
-                  />
-                </span>
-              </div>
-              {order.id === expandedOrderId && (
-                <div className="mt-4">
-                  {order.items.map((item, index) => (
-                    <div
-                      key={index}
-                      className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4 p-2 border-b"
-                    >
-                      <span>{item.item_title}</span>
-                      <span>ID: {item.item_id}</span>
-                      <span>Price: ${item.price}</span>
-                      <span>Category: {item.item_category}</span>
-                      <span>Brand: {item.item_brand}</span>
-                      <span>Quantity: {item.quantity}</span>
-                    </div>
-                  ))}
+                  <span className="text-center text-blue-600">{order.id}</span>
+                  <span className="text-center">
+                    {new Date(order.date).toLocaleString()}
+                  </span>
+                  <span className="text-center">$ {order.value}</span>
+                  <span
+                    className={`text-center transform transition-transform ${
+                      order.id === expandedOrderId ? "rotate-180" : ""
+                    }`}
+                  >
+                    <FontAwesomeIcon
+                      icon={faChevronDown}
+                      className={
+                        order.id === expandedOrderId ? "fa-rotate-180" : ""
+                      }
+                    />
+                  </span>
                 </div>
-              )}
+                {order.id === expandedOrderId && (
+                  <div className="mt-4">
+                    {order.items.map((item, index) => (
+                      <div
+                        key={index}
+                        className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4 p-2 border-b"
+                      >
+                        <span>{item.item_title}</span>
+                        <span>ID: {item.item_id}</span>
+                        <span>Price: ${item.price}</span>
+                        <span>Category: {item.item_category}</span>
+                        <span>Brand: {item.item_brand}</span>
+                        <span>Quantity: {item.quantity}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))
+          ) : (
+            <div className="p-4 mb-6 shadow-lg text-center text-red-600">
+              <p>You have no orders at the moment.</p>
             </div>
-          ))}
+          )}
         </div>
       )}
     </div>

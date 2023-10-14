@@ -102,7 +102,7 @@ function EditProducts() {
     <div className="p-2">
       {isLoading ? (
         <LoadingSpinner />
-      ) : (
+      ) : products && products.length > 0 ? (
         products.map((product) => (
           <div
             key={product.id}
@@ -124,6 +124,10 @@ function EditProducts() {
             )}
           </div>
         ))
+      ) : (
+        <div className="p-4 mb-6 text-center text-red-600">
+          <p>You have no products currently listed.</p>
+        </div>
       )}
       <Alert
         isOpen={showAlert}

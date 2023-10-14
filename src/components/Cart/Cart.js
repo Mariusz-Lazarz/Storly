@@ -61,7 +61,6 @@ function Cart() {
       shipping: 5.0,
       items: orderItems,
       deliveryDetails,
-
     });
 
     DataLayer.push({
@@ -93,7 +92,11 @@ function Cart() {
       {isOverlayVisible && <Overlay />}
       <div className="w-full md:w-1/2 mb-4 md:mb-0 md:pr-4">
         <h2 className="text-2xl font-semibold mb-4">Your Cart</h2>
-        {cartItems.length === 0 && <p>Your cart is empty. Please add items!</p>}
+        {cartItems.length === 0 && (
+          <p className="text-lg text-red-500">
+            Your cart is empty. Please add items!
+          </p>
+        )}
         {cartItems.length > 0 && (
           <ul>
             {cartItems.map((item) => (
@@ -112,7 +115,10 @@ function Cart() {
       </div>
       <div className="w-full md:w-1/2 md:pl-4">
         <h2 className="text-2xl font-semibold mb-4">Delivery Details</h2>
-        <DeliveryDetailsForm onPlaceOrder={handlePlaceOrder} />
+        <DeliveryDetailsForm
+          onPlaceOrder={handlePlaceOrder}
+          cartIsEmpty={cartItems.length === 0}
+        />
       </div>
       {isAlertVisible && (
         <Alert
