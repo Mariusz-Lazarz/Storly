@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { DataLayer } from "@piwikpro/react-piwik-pro";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
 import { getAuth } from "firebase/auth";
@@ -10,6 +10,10 @@ import { Tooltip } from "react-tooltip";
 import { getDatabase, ref, get } from "firebase/database";
 import LoadingSpinner from "../../utils/LoadingSpinner";
 import StarRating from "./StarRating";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import "../../App.css";
 
 const ProductDetails = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -98,6 +102,17 @@ const ProductDetails = () => {
     }
   }, [item]);
 
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    arrows: false,
+  };
+
   return (
     <div className="container mx-auto p-4">
       {isLoading ? (
@@ -105,15 +120,23 @@ const ProductDetails = () => {
       ) : (
         <div className="flex flex-wrap justify-center items-center">
           <div className="w-full md:w-1/2 p-4 flex items-center justify-center">
-            <img
-              src={item.imageLinks[0]}
-              alt={item.title}
-              className="w-1/2 object-cover"
-            />
+            <Slider {...settings} className="w-full md:w-1/2">
+              {item.imageLinks.map((imgLink, index) => (
+                <div key={index} className="w-full h-64 md:h-96">
+                  <img
+                    src={imgLink}
+                    alt={`${item.title} ${index}`}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              ))}
+            </Slider>
           </div>
 
           <div className="w-full md:w-1/2 p-4 flex flex-col">
-            <h1 className="text-2xl text-pink-500 font-bold mb-2">{item.title}</h1>
+            <h1 className="text-2xl text-pink-500 font-bold mb-2">
+              {item.title}
+            </h1>
             <div className="flex justify-between items-center mb-2">
               <p className="text-xl text-red-300">${item.price}</p>
               <div className="flex items-center">
