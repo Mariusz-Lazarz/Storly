@@ -50,6 +50,7 @@ function AddItemForm() {
     }
 
     let newFiles = [];
+    // eslint-disable-next-line no-unused-vars
     let newPreviews = [];
 
     const validateFile = (file) => {
@@ -62,6 +63,7 @@ function AddItemForm() {
     const promises = Array.from(files).map((file) => {
       if (!validateFile(file)) {
         setError("Please upload a valid image file (jpg or png, < 5MB).");
+        // eslint-disable-next-line array-callback-return
         return;
       }
 
