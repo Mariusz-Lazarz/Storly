@@ -111,13 +111,19 @@ const BotChat = () => {
         unmountOnExit
       >
         <div className="fixed bottom-4 right-4 z-50 bg-gray-200 p-4 rounded-md w-80 md:w-96 max-w-sm shadow-lg flex flex-col h-[60vh]">
-          <div className="flex gap-2 justify-end">
-            <button onClick={minimizeChat} className="mb-2 self-start">
-              <FontAwesomeIcon icon={faMinus} />
-            </button>
-            <button onClick={closeChat} className="mb-2 self-end">
-              <FontAwesomeIcon icon={faTimes} />
-            </button>
+          <div className="flex gap-2 justify-between">
+            <div className="flex gap-2">
+              <div className="yellow-glow w-5 h-5 bg-gradient-to-br from-green-400 to-green-600 rounded-full animate-pulse shadow-lg"></div>
+              <span>Online</span>
+            </div>
+            <div className="flex gap-2">
+              <button onClick={minimizeChat} className="mb-2 self-start">
+                <FontAwesomeIcon icon={faMinus} />
+              </button>
+              <button onClick={closeChat} className="mb-2 self-end">
+                <FontAwesomeIcon icon={faTimes} />
+              </button>
+            </div>
           </div>
           <div className="overflow-y-auto flex-1">
             {chatHistory.map((chat, index) => (
@@ -159,13 +165,13 @@ const BotChat = () => {
             <input
               type="text"
               placeholder="Type a message..."
-              className="w-full px-4 py-2 border rounded-l-md focus:outline-none focus:border-blue-500"
+              className="w-full px-4 py-2 border rounded-l-full focus:outline-none focus:border-blue-500"
               value={userMessage}
               onChange={handleUserMessageChange}
             />
             <button
               type="submit"
-              className="bg-blue-500 text-white p-2 rounded-r-md hover:bg-blue-600 focus:outline-none"
+              className="bg-blue-500 text-white p-2 rounded-r-full hover:bg-blue-600 focus:outline-none w-10"
             >
               <FontAwesomeIcon icon={faArrowRight} />
             </button>
@@ -175,7 +181,7 @@ const BotChat = () => {
 
       {(!isChatOpen || isChatMinimized) && (
         <div
-          className="fixed bottom-20 right-5 flex items-center justify-center p-4 rounded-full bg-blue-500 text-white cursor-pointer animate-pulse z-50"
+          className="fixed bottom-20 right-10 flex items-center justify-center p-4 rounded-full bg-blue-500 text-white cursor-pointer animate-pulse z-50"
           onClick={() => {
             setIsChatOpen(true);
             setIsChatMinimized(false);

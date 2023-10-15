@@ -32,7 +32,6 @@
   animation-delay: 0.4s;
 }
 
-
 .chat-transition-enter {
   opacity: 0;
   transform: scale(0.9);
@@ -57,4 +56,8 @@
   right: 1em;
   font-size: 2em;
   cursor: pointer;
+}
+
+.yellow-glow {
+  box-shadow: 0 0 5px 2px rgba(255, 255, 0, 0.4);
 }
