@@ -35,7 +35,7 @@ const BotChat = () => {
       "To manage your products, kindly click on the user icon located at the right of the navigation bar, then proceed to the editing panel.",
     "how,can,i,see,my,orders,order,history,bought,products,items":
       "To check list of your orders, kindly click on the user icon located at the right of the navigation bar, then proceed to the order history panel.",
-    "how,can,i,add,item,to,favourites,wishlist,favourite,like,loved,":
+    "how,can,i,add,item,to,favourites,wishlist,favourite,like,loved":
       "To include a specific item in your favorites, visit the product's detail page and select the `Add to Favorite` button. Following this action, the items will appear in your wishlist, accessible via the user panel.",
   };
 
@@ -173,25 +173,13 @@ const BotChat = () => {
         </div>
       </CSSTransition>
 
-      {!isChatOpen && (
+      {(!isChatOpen || isChatMinimized) && (
         <div
-          className="fixed bottom-10 right-5 flex items-center justify-center p-4 rounded-full bg-blue-500 text-white cursor-pointer animate-pulse z-50"
+          className="fixed bottom-20 right-5 flex items-center justify-center p-4 rounded-full bg-blue-500 text-white cursor-pointer animate-pulse z-50"
           onClick={() => {
             setIsChatOpen(true);
             setIsChatMinimized(false);
           }}
-        >
-          <FontAwesomeIcon icon={faComments} size="2x" />
-          <span className="absolute top-0 right-0 py-1 px-2 bg-red-500 rounded-full text-xs">
-            {chatHistory.length}
-          </span>
-        </div>
-      )}
-
-      {isChatMinimized && (
-        <div
-          className="fixed bottom-20 right-5 flex items-center justify-center p-4 rounded-full bg-red-500 text-white cursor-pointer animate-pulse z-50"
-          onClick={() => setIsChatMinimized(false)}
         >
           <FontAwesomeIcon icon={faComments} size="2x" />
           <span className="absolute top-0 right-0 py-1 px-2 bg-red-500 rounded-full text-xs">
