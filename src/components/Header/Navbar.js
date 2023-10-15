@@ -19,7 +19,7 @@ import useAuth from "../../hooks/useAuth";
 function Navbar() {
   const [openModal, setOpenModal] = useState(null);
   const navigate = useNavigate();
-  const auth = useAuth();
+  const { auth } = useAuth();
 
   const cartItems = useSelector((state) => state.cart.items);
   const cartItemCount = cartItems.reduce(
@@ -27,11 +27,11 @@ function Navbar() {
     0
   );
 
-  useEffect(() => {
-    if (auth) {
-      UserManagement.setUserId(auth.email);
-    }
-  }, [auth]);
+  // useEffect(() => {
+  //   if (auth) {
+  //     UserManagement.setUserId(auth.email);
+  //   }
+  // }, [auth]);
 
   const openSignUp = (e) => {
     e.stopPropagation();

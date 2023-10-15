@@ -32,10 +32,10 @@ const SignInModal = ({ isOpen, onClose, onForgotPasswordClick }) => {
       setPassword("");
       onClose();
     } catch (error) {
-      isLoading(false);
       setError(
         "Failed to login. Please check your email and password and try again."
       );
+      setIsLoading(false);
     }
   };
 

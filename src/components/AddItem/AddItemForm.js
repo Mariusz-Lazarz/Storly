@@ -27,7 +27,7 @@ function AddItemForm() {
   const [isLoading, setIsLoading] = useState(false);
   const fileInputRef = useRef();
   const navigate = useNavigate();
-  const auth = useAuth();
+  const { auth } = useAuth();
 
   const handleFileUpload = (e) => {
     const files = e.target.files;
