@@ -14,11 +14,11 @@ import useRedirect from "../../hooks/useRedirect";
 import Modal from "../Modal/Modal";
 
 function Cart() {
-  useRedirect();
   const cartItems = useSelector((state) => state.cart.items);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const auth = useAuth();
+  const { auth, loading } = useAuth();
+  useRedirect(auth, loading);
   const [isOrderPlaced, setIsOrderPlaced] = useState(false);
   const [isOverlayVisible, setIsOverlayVisible] = useState(false);
   const [isAlertVisible, setIsAlertVisible] = useState(false);

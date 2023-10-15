@@ -28,7 +28,7 @@ function ProductForm({
 
   useEffect(() => {
     setAllImages(allImages.filter((url) => !removedImages.includes(url)));
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [removedImages]);
 
   const handleImageChange = async (e) => {
@@ -59,7 +59,12 @@ function ProductForm({
         setAllImages((prev) => [...prev, newImageUrl]);
         setIsLoading(false);
       } else {
-        alert("Invalid file(s) skipped (must be jpg/png and less than 5MB).");
+        setAlert({
+          isOpen: true,
+          title: "Upload Error",
+          message:
+            "Invalid file(s) skipped (must be jpg/png and less than 5MB).",
+        });
       }
     }
   };
@@ -180,7 +185,7 @@ function ProductForm({
             <img
               src={url}
               alt={`Image ${index}`}
-              className="w-24 h-24 object-cover border border-gray-300 rounded-md"
+              className="w-24 h-24 object-cover rounded-md"
             />
             <button
               type="button"

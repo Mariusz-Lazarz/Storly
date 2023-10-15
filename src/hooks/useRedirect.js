@@ -1,16 +1,14 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { getAuth } from "firebase/auth";
 
-const useRedirect = () => {
+const useRedirect = (auth, loading) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const auth = getAuth();
-    if (!auth.currentUser) {
+    if (!loading && !auth) {
       navigate("/");
     }
-  }, [navigate]);
+  }, [navigate, auth, loading]);
 };
 
 export default useRedirect;

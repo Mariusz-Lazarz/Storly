@@ -30,7 +30,7 @@ const ImageUpload = ({
             <img
               src={url}
               alt={`Preview ${index}`}
-              className="w-24 h-24 object-cover border border-gray-300 rounded-md"
+              className="w-24 h-24 object-cover rounded-md"
             />
             <button
               onClick={() => onRemove(index)}
