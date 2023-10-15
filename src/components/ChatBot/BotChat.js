@@ -110,7 +110,7 @@ const BotChat = () => {
         classNames="chat-transition"
         unmountOnExit
       >
-        <div className="fixed bottom-4 right-4 z-50 bg-gray-200 p-4 rounded-md w-96 max-w-sm shadow-lg flex flex-col h-[60vh]">
+        <div className="fixed bottom-4 right-4 z-50 bg-gray-200 p-4 rounded-md w-80 md:w-96 max-w-sm shadow-lg flex flex-col h-[60vh]">
           <div className="flex gap-2 justify-end">
             <button onClick={minimizeChat} className="mb-2 self-start">
               <FontAwesomeIcon icon={faMinus} />
@@ -190,7 +190,7 @@ const BotChat = () => {
 
       {isChatMinimized && (
         <div
-          className="fixed bottom-10 right-5 flex items-center justify-center p-4 rounded-full bg-blue-500 text-white cursor-pointer animate-pulse z-50"
+          className="fixed bottom-20 right-5 flex items-center justify-center p-4 rounded-full bg-red-500 text-white cursor-pointer animate-pulse z-50"
           onClick={() => setIsChatMinimized(false)}
         >
           <FontAwesomeIcon icon={faComments} size="2x" />
