@@ -19,7 +19,7 @@ import useAuth from "../../hooks/useAuth";
 function Navbar() {
   const [openModal, setOpenModal] = useState(null);
   const navigate = useNavigate();
-  const { auth } = useAuth();
+  const { auth, loading } = useAuth();
 
   const cartItems = useSelector((state) => state.cart.items);
   const cartItemCount = cartItems.reduce(
@@ -66,7 +66,9 @@ function Navbar() {
             </Link>
           </div>
           <div className="flex items-center">
-            {!auth ? (
+            {loading ? (
+              <LoadingSpinner />
+            ) : !auth ? (
               <>
                 <button
                   onClick={openSignUp}
@@ -81,7 +83,7 @@ function Navbar() {
                   Sign In
                 </button>
               </>
-            ) : auth ? (
+            ) : (
               <>
                 <Link
                   to="/userPanel"
@@ -117,8 +119,6 @@ function Navbar() {
                   />
                 </button>
               </>
-            ) : (
-              <LoadingSpinner />
             )}
           </div>
         </div>

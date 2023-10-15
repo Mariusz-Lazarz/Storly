@@ -12,6 +12,7 @@ import About from "./components/Home/About";
 import Contact from "./components/Home/Contact";
 import UserPanel from "./components/UserPanel/UserPanel";
 import ProductDetails from "./components/Store/ProductDetails";
+import BotChat from "./components/ChatBot/BotChat";
 
 function App() {
   return (
@@ -26,12 +27,14 @@ function App() {
             <Route path="/cart" element={<Cart />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
+            {/* <Route path="/bot" element={<BotChat />} /> */}
             <Route path="/userPanel" element={<UserPanel />} />
             <Route path="/product/:id" element={<ProductDetails />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
         <Footer />
+        <BotChat/>
       </div>
     </Router>
   );
