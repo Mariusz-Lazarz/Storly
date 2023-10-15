@@ -11,7 +11,6 @@ const SignInModal = ({ isOpen, onClose, onForgotPasswordClick }) => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const auth = getAuth();
 
   useEffect(() => {
     if (!isOpen) {
@@ -23,6 +22,7 @@ const SignInModal = ({ isOpen, onClose, onForgotPasswordClick }) => {
   }, [isOpen]);
 
   const login = async (e) => {
+    const auth = getAuth();
     e.preventDefault();
     setIsLoading(true);
     try {
@@ -36,7 +36,7 @@ const SignInModal = ({ isOpen, onClose, onForgotPasswordClick }) => {
       setError(
         "Failed to login. Please check your email and password and try again."
       );
-    } 
+    }
   };
 
   return (

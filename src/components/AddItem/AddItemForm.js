@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 import { v4 as uuidv4 } from "uuid";
 import {
   getStorage,
@@ -8,10 +8,10 @@ import {
 } from "firebase/storage";
 import { getDatabase, ref as dbRef, set, push } from "firebase/database";
 import { useNavigate } from "react-router-dom";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
 import ImageUpload from "./ImageUpload";
 import Modal from "../Modal/Modal";
 import LoadingSpinner from "../../utils/LoadingSpinner";
+import useAuth from "../../hooks/useAuth";
 
 function AddItemForm() {
   const [title, setTitle] = useState("");
@@ -25,23 +25,9 @@ function AddItemForm() {
   const [price, setPrice] = useState("");
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [auth, setAuth] = useState(null);
   const fileInputRef = useRef();
   const navigate = useNavigate();
-
-  console.log(auth)
-
-  useEffect(() => {
-    const auth = getAuth();
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setAuth(user);
-      } else {
-        setAuth(null);
-      }
-    });
-    return () => unsubscribe();
-  }, []);
+  const auth = useAuth();
 
   const handleFileUpload = (e) => {
     const files = e.target.files;

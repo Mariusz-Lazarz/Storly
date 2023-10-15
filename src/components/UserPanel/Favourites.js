@@ -33,7 +33,7 @@ const Favourites = () => {
 
       onValue(userFavouritesRef, handleData);
 
-      return () => off(userFavouritesRef, "value", handleData); // Correct off() usage
+      return () => off(userFavouritesRef, "value", handleData);
     }
   }, [user]);
 

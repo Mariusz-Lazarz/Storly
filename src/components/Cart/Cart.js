@@ -7,7 +7,7 @@ import { clearCart } from "../../store/cartSlice";
 import { CartItem } from "./CartItem";
 import DeliveryDetailsForm from "./DeliveryDetailsForm";
 import Overlay from "../Modal/Overlay";
-import { getAuth } from "firebase/auth";
+import useAuth from "../../hooks/useAuth";
 import LoadingSpinner from "../../utils/LoadingSpinner";
 import Alert from "../Modal/Alert";
 import useRedirect from "../../hooks/useRedirect";
@@ -18,7 +18,7 @@ function Cart() {
   const cartItems = useSelector((state) => state.cart.items);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const auth = getAuth();
+  const auth = useAuth();
   const [isOrderPlaced, setIsOrderPlaced] = useState(false);
   const [isOverlayVisible, setIsOverlayVisible] = useState(false);
   const [isAlertVisible, setIsAlertVisible] = useState(false);
@@ -38,10 +38,6 @@ function Cart() {
     .toFixed(2);
 
   const handlePlaceOrder = async (deliveryDetails) => {
-    if (cartItems.length === 0) {
-      alert("Your cart is empty. Please add items to your cart.");
-      return;
-    }
     setIsOrderPlaced(true);
     setIsOverlayVisible(true);
 
@@ -53,7 +49,7 @@ function Cart() {
     const dateString = currentDate.toUTCString();
 
     await set(newOrderRef, {
-      userId: auth.currentUser.uid,
+      userId: auth.uid,
       transaction_id: uniqueKey,
       date: dateString,
       value: totalAmount,
@@ -74,11 +70,9 @@ function Cart() {
         items: orderItems,
       },
     });
-    setTimeout(() => {
-      setIsOrderPlaced(false);
-      setIsOverlayVisible(false);
-      setIsAlertVisible(true);
-    }, 2000);
+    setIsOrderPlaced(false);
+    setIsOverlayVisible(false);
+    setIsAlertVisible(true);
   };
 
   const handleAlertConfirm = () => {

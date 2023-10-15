@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+import { getAuth, signOut } from "firebase/auth";
 import { Link } from "react-router-dom";
 import SignUpModal from "../UserAuth/SignUpModal";
 import SignInModal from "../UserAuth/SignInModal";
@@ -14,12 +14,12 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { UserManagement } from "@piwikpro/react-piwik-pro";
 import LoadingSpinner from "../../utils/LoadingSpinner";
+import useAuth from "../../hooks/useAuth";
 
 function Navbar() {
   const [openModal, setOpenModal] = useState(null);
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const auth = useAuth();
 
   const cartItems = useSelector((state) => state.cart.items);
   const cartItemCount = cartItems.reduce(
@@ -28,36 +28,10 @@ function Navbar() {
   );
 
   useEffect(() => {
-    if (user) {
-      UserManagement.setUserId(user.email);
+    if (auth) {
+      UserManagement.setUserId(auth.email);
     }
-  }, [user]);
-
-  // useEffect(() => {
-  //   const auth = getAuth();
-  //   const autoLogoutTimer = setTimeout(async () => {
-  //     if (user) {
-  //       try {
-  //         await signOut(auth);
-  //         console.log("Auto logged out due to inactivity");
-  //       } catch (error) {
-  //         console.error("Error logging out", error);
-  //       }
-  //     }
-  //   }, 1800000);
-
-  //   return () => clearTimeout(autoLogoutTimer);
-  // }, [user]);
-
-  useEffect(() => {
-    const auth = getAuth();
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setUser(user);
-      setLoading(false);
-    });
-
-    return () => unsubscribe();
-  }, []);
+  }, [auth]);
 
   const openSignUp = (e) => {
     e.stopPropagation();
@@ -79,10 +53,7 @@ function Navbar() {
     try {
       await signOut(auth);
       navigate("/");
-      console.log("Logged out successfully");
-    } catch (error) {
-      console.error("Error logging out", error);
-    }
+    } catch (error) {}
   };
 
   return (
@@ -95,13 +66,26 @@ function Navbar() {
             </Link>
           </div>
           <div className="flex items-center">
-            {loading ? (
-              <LoadingSpinner />
-            ) : user ? (
+            {!auth ? (
+              <>
+                <button
+                  onClick={openSignUp}
+                  className="bg-light-pink text-white py-2 px-4 rounded-full mr-2"
+                >
+                  Sign Up
+                </button>
+                <button
+                  onClick={openSignIn}
+                  className="bg-light-pink text-white py-2 px-4 rounded-full"
+                >
+                  Sign In
+                </button>
+              </>
+            ) : auth ? (
               <>
                 <Link
                   to="/userPanel"
-                  state={user.email}
+                  state={auth.email}
                   className="text-blue-500 hover:underline"
                 >
                   <FontAwesomeIcon
@@ -134,20 +118,7 @@ function Navbar() {
                 </button>
               </>
             ) : (
-              <>
-                <button
-                  onClick={openSignUp}
-                  className="bg-light-pink text-white py-2 px-4 rounded-full mr-2"
-                >
-                  Sign Up
-                </button>
-                <button
-                  onClick={openSignIn}
-                  className="bg-light-pink text-white py-2 px-4 rounded-full"
-                >
-                  Sign In
-                </button>
-              </>
+              <LoadingSpinner />
             )}
           </div>
         </div>

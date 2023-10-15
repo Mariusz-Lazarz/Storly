@@ -10,9 +10,8 @@ const ResetPassword = ({ isOpen, onClose }) => {
   const [message, setMessage] = useState(null);
   const [error, setError] = useState(null);
 
-  const auth = getAuth();
-
   const handlePasswordReset = async (e) => {
+    const auth = getAuth();
     e.preventDefault();
     try {
       await sendPasswordResetEmail(auth, email);
@@ -22,7 +21,6 @@ const ResetPassword = ({ isOpen, onClose }) => {
       setEmail("");
       setError(null);
     } catch (error) {
-      console.error("Error sending password reset email", error);
       setError("Error sending password reset email. Please try again later.");
     }
   };
@@ -54,8 +52,8 @@ const ResetPassword = ({ isOpen, onClose }) => {
           <h2 className="text-2xl font-bold text-center mb-4">
             Reset Password
           </h2>
-          {message && <p className="text-green-500 text-sm">{message}</p>}
-          {error && <p className="text-red-500 text-sm">{error}</p>}
+          {message && <p className="text-green-500 text-lg">{message}</p>}
+          {error && <p className="text-red-500 text-lg">{error}</p>}
           <input
             type="email"
             className="p-2 border rounded"

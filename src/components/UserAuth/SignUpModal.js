@@ -11,7 +11,6 @@ const SignUpModal = ({ isOpen, onClose }) => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const auth = getAuth();
 
   useEffect(() => {
     if (!isOpen) {
@@ -23,6 +22,7 @@ const SignUpModal = ({ isOpen, onClose }) => {
   }, [isOpen]);
 
   const register = async (e) => {
+    const auth = getAuth();
     setIsLoading(true);
     e.preventDefault();
     try {

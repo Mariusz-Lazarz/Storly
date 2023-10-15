@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getDatabase, ref, onValue, off } from "firebase/database";
 import { addToCart } from "../../store/cartSlice";
-import { getAuth } from "firebase/auth";
 import StoreItem from "./StoreItem";
 import { DataLayer } from "@piwikpro/react-piwik-pro";
 import LoadingSpinner from "../../utils/LoadingSpinner";
 import Search from "./Search";
 import { useSearchParams } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
+import Alert from "../Modal/Alert";
+import useAlert from "../../hooks/useAlert";
 
 const Store = () => {
   const [items, setItems] = useState([]);
@@ -15,8 +17,8 @@ const Store = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [searchQuery, setSearchQuery] = useState(searchParams.get("q") || "");
   const dispatch = useDispatch();
-  const auth = getAuth();
-
+  const auth = useAuth();
+  const { alert, showAlert, hideAlert } = useAlert();
   const itemsInCart = useSelector((state) => state.cart.items);
   const itemIdsInCart = itemsInCart.map((item) => item.id);
 
@@ -46,9 +48,7 @@ const Store = () => {
   );
 
   const handleAddToCart = (item, quantity) => {
-    const user = auth.currentUser;
-
-    if (user) {
+    if (auth) {
       dispatch(addToCart({ item, quantity: Number(quantity) }));
       DataLayer.push({
         event: "add_to_cart",
@@ -69,7 +69,10 @@ const Store = () => {
         },
       });
     } else {
-      alert("You must be logged in to add items to your cart.");
+      showAlert(
+        "Authentication error",
+        "Kindly sign in to add items to your cart"
+      );
     }
   };
 
@@ -101,6 +104,12 @@ const Store = () => {
           )}
         </div>
       )}
+      <Alert
+        isOpen={alert.isOpen}
+        title={alert.title}
+        message={alert.message}
+        onConfirm={hideAlert}
+      />
     </div>
   );
 };

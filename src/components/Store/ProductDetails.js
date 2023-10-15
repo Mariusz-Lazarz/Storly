@@ -8,7 +8,6 @@ import {
   faHeart,
   faCartShopping,
 } from "@fortawesome/free-solid-svg-icons";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../store/cartSlice";
 import { Tooltip } from "react-tooltip";
@@ -18,6 +17,7 @@ import StarRating from "./StarRating";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import useAuth from "../../hooks/useAuth";
 
 const ProductDetails = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -26,21 +26,10 @@ const ProductDetails = () => {
   const [averageRating, setAverageRating] = useState(0);
   const [totalReviews, setTotalReviews] = useState(0);
   const [isFavourite, setIsFavourite] = useState(false);
-  const [auth, setAuth] = useState(null);
   const { id } = useParams();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    const auth = getAuth();
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setAuth(user);
-      } else {
-        setAuth(null);
-      }
-    });
-    return () => unsubscribe();
-  }, []);
+  const auth = useAuth();
 
   useEffect(() => {
     const fetchProductData = async () => {
