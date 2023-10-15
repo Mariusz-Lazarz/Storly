@@ -5,6 +5,7 @@ import {
   ref as storageRef,
   uploadBytes,
   getDownloadURL,
+  deleteObject,
 } from "firebase/storage";
 import { v4 as uuidv4 } from "uuid";
 import LoadingSpinner from "../../utils/LoadingSpinner";
@@ -77,6 +78,34 @@ function ProductForm({
     }
   };
 
+  const extractFilePath = (url) => {
+    try {
+      const decodedUrl = decodeURIComponent(url);
+      const match = decodedUrl.match(/o\/(.+?)\?/);
+      return match ? match[1] : null;
+    } catch (error) {
+      console.error("Failed to extract file path from URL:", error);
+      return null;
+    }
+  };
+
+  const deleteUnusedImages = async (removedImages) => {
+    const storage = getStorage();
+    for (const imageUrl of removedImages) {
+      const filePath = extractFilePath(imageUrl);
+
+      if (!filePath) {
+        console.error(`Failed to extract file path for ${imageUrl}`);
+        continue;
+      }
+
+      try {
+        await deleteObject(storageRef(storage, filePath));
+      } catch (error) {
+      }
+    }
+  };
+
   const handleEnhancedFormSubmit = async (e) => {
     e.preventDefault();
 
@@ -85,7 +114,18 @@ function ProductForm({
       imageLinks: allImages,
     };
 
-    handleFormSubmit(e, updatedFormData, removedImages);
+    try {
+      await handleFormSubmit(e, updatedFormData, removedImages);
+      await deleteUnusedImages(removedImages);
+      setRemovedImages([]);
+    } catch (error) {
+      console.error("Failed to update data or delete images:", error);
+      setAlert({
+        isOpen: true,
+        title: "Error",
+        message: "Failed to update data or delete images. Please try again.",
+      });
+    }
   };
 
   return (
