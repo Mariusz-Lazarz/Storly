@@ -26,6 +26,7 @@ function EditProducts() {
   const [editFormData, setEditFormData] = useState({});
   const [showAlert, setShowAlert] = useState(false);
   const [modalProduct, setModalProduct] = useState(null);
+
   useEffect(() => {
     const auth = getAuth();
     const db = getDatabase();

@@ -31,6 +31,14 @@ function ProductForm({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [removedImages]);
 
+  const handleRemoveImage = (url, isExisting) => {
+    if (isExisting && allImages.length - removedImages.length > 1) {
+      setRemovedImages([...removedImages, url]);
+    } else {
+      setAllImages((prev) => prev.filter((img) => img !== url));
+    }
+  };
+
   const handleImageChange = async (e) => {
     const files = Array.from(e.target.files);
     const maxFiles = 10;
@@ -66,14 +74,6 @@ function ProductForm({
             "Invalid file(s) skipped (must be jpg/png and less than 5MB).",
         });
       }
-    }
-  };
-
-  const handleRemoveImage = (url, isExisting) => {
-    if (isExisting && allImages.length - removedImages.length > 1) {
-      setRemovedImages([...removedImages, url]);
-    } else {
-      setAllImages((prev) => prev.filter((img) => img !== url));
     }
   };
 

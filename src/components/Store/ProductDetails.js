@@ -28,8 +28,8 @@ const ProductDetails = () => {
   const [isFavourite, setIsFavourite] = useState(false);
   const { id } = useParams();
   const dispatch = useDispatch();
+  const { auth } = useAuth();
 
-  const auth = useAuth();
 
   useEffect(() => {
     const fetchProductData = async () => {
@@ -117,7 +117,7 @@ const ProductDetails = () => {
           const db = getDatabase();
           const itemRef = ref(
             db,
-            `userFavourites/${auth.currentUser.uid}/${item.id}/`
+            `userFavourites/${auth.uid}/${item.id}/`
           );
           const snapshot = await get(itemRef);
 
