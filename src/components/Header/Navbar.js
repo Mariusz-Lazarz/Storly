@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { getAuth, signOut } from "firebase/auth";
 import { Link } from "react-router-dom";
 import SignUpModal from "../UserAuth/SignUpModal";
@@ -12,7 +12,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { UserManagement } from "@piwikpro/react-piwik-pro";
 import LoadingSpinner from "../../utils/LoadingSpinner";
 import useAuth from "../../hooks/useAuth";
 

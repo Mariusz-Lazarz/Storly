@@ -10,12 +10,14 @@ Storly is a feature-rich e-commerce platform that brings a seamless shopping exp
 
 - **User Authentication**: Sign up, log in, and manage your account with ease.
 - **Product Discovery**: Search and browse products, view detailed product information.
+- **Wishlist Management**: Add and keep track of your favorite items in a specialized wishlist.
 - **Seller Dashboard**: List your items, manage orders, and interact with buyers.
 - **Rating and Reviews**: Share your experiences with products through ratings and reviews.
 - **Shopping Cart and Checkout**: Add products to your cart and breeze through our streamlined checkout process.
 - **Order Management**: View and manage your orders from your personalized user panel.
 - **Password Management**: Change or reset your password effortlessly.
 - **Piwik PRO Integration**: Monitor and analyze e-commerce activities with Piwik PRO tracking.
+- **Simple Chat Bot**: Engage with our simple chat bot for basic interactions and support.
 
 > 🚀 More features are on the horizon! Stay tuned for updates.
 
