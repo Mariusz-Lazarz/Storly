@@ -31,7 +31,7 @@ const Modal = ({ children, onClose, isOpen }) => {
         <div
           ref={modalContent}
           onClick={(e) => e.stopPropagation()}
-          className="bg-white p-6 rounded shadow-lg relative md:w-11/12 lg:w-1/3 mx-auto modal-content"
+          className="bg-white p-6 rounded shadow-lg relative w-11/12 lg:w-1/3 mx-auto modal-content"
         >
           {children}
         </div>

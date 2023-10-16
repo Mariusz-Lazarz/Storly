@@ -184,7 +184,7 @@ const ProductDetails = () => {
                   <img
                     src={imgLink}
                     alt={`${item.title} ${index}`}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-fit"
                   />
                 </div>
               ))}
