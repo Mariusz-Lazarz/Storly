@@ -149,7 +149,7 @@ const BotChat = () => {
             ))}
             {typing && (
               <div className="flex flex-col items-start">
-                <span className="mb-1 font-bold">Bot</span>
+                <span className="mb-1 font-bold">Mano</span>
                 <p className="bg-gray-300 p-2 rounded-md max-w-xs">
                   <span className="dots">
                     <span>.</span>

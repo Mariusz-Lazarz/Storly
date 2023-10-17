@@ -12,6 +12,7 @@ import ImageUpload from "./ImageUpload";
 import Modal from "../Modal/Modal";
 import LoadingSpinner from "../../utils/LoadingSpinner";
 import useAuth from "../../hooks/useAuth";
+import PreviewItem from "./PreviewItem";
 
 function AddItemForm() {
   const [title, setTitle] = useState("");
@@ -25,9 +26,11 @@ function AddItemForm() {
   const [price, setPrice] = useState("");
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isPreviewd, setIsPreviewd] = useState(false);
   const fileInputRef = useRef();
   const navigate = useNavigate();
   const { auth } = useAuth();
+
 
   const handleFileUpload = (e) => {
     const files = e.target.files;
@@ -213,13 +216,39 @@ function AddItemForm() {
           imagePreviewUrls={imagePreviewUrls}
           fileInputRef={fileInputRef}
         />
-        <button type="submit" className="bg-light-pink text-white p-2 rounded">
-          Add Item
-        </button>
+        <div className="flex gap-2">
+          <button
+            type="submit"
+            className="bg-light-pink text-white p-2 rounded flex-1"
+          >
+            Add Item
+          </button>
+          <button
+            type="button"
+            onClick={() => setIsPreviewd(true)}
+            className="bg-blue-300 text-white p-2 rounded flex-1"
+          >
+            Preview Item
+          </button>
+        </div>
       </form>
       <Modal isOpen={isLoading} onClose={null}>
         <LoadingSpinner />
       </Modal>
+      <PreviewItem
+        isOpen={isPreviewd}
+        onClose={() => setIsPreviewd(false)}
+        item={{
+          title,
+          imagePreviewUrls,
+          description,
+          category,
+          variant,
+          brand,
+          quantity,
+          price,
+        }}
+      />
     </div>
   );
 }

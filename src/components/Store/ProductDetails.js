@@ -30,7 +30,6 @@ const ProductDetails = () => {
   const dispatch = useDispatch();
   const { auth } = useAuth();
 
-
   useEffect(() => {
     const fetchProductData = async () => {
       const db = getDatabase();
@@ -115,10 +114,7 @@ const ProductDetails = () => {
       const addOrUpdateFav = async () => {
         try {
           const db = getDatabase();
-          const itemRef = ref(
-            db,
-            `userFavourites/${auth.uid}/${item.id}/`
-          );
+          const itemRef = ref(db, `userFavourites/${auth.uid}/${item.id}/`);
           const snapshot = await get(itemRef);
 
           if (snapshot.exists()) {
@@ -272,18 +268,12 @@ const ProductDetails = () => {
                   <span className="hidden md:inline"> Add to faviourite</span>
                 </button>
               </div>
-              <div>
-                <span>Quantity: {quantity}</span>
-                <button
-                  className="bg-blue-500 text-white rounded py-.5 px-1 mx-2"
-                  onClick={handleIncrement}
-                >
+              <div className="flex gap-2 bg-gray-100 py-1 px-4">
+                <button className="text-orange-500" onClick={handleIncrement}>
                   <FontAwesomeIcon icon={faPlus} />
                 </button>
-                <button
-                  className="bg-red-500 text-white rounded py-.5 px-1"
-                  onClick={handleDecrement}
-                >
+                <span>{quantity}</span>
+                <button className="text-orange-500" onClick={handleDecrement}>
                   <FontAwesomeIcon icon={faMinus} />
                 </button>
               </div>
