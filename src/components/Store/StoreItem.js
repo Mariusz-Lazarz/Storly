@@ -30,26 +30,23 @@ const StoreItem = ({ item, handleAddToCart, itemsInCart }) => {
             src={item.imageLinks[0]}
             alt={item.title}
             className="object-fit w-full h-full"
+            loading="lazy"
           />
         </div>
         <h3 className="font-semibold">{item.title}</h3>
         <span className="text-orange-600">${item.price}</span>
       </Link>
       <div className="flex items-center justify-between m-1">
-        <div>
-          <span>{quantity}</span>
+        <div className="flex gap-2 bg-gray-100 py-1 px-2">
           <button
-            className="bg-blue-300 text-white rounded py-.5 px-1 mx-2"
+            className="text-orange-500"
             onClick={() => handleIncrement(item)}
           >
-            <FontAwesomeIcon icon={faPlus} size="xs" />
+            <FontAwesomeIcon icon={faPlus} />
           </button>
-          <button className="bg-light-pink text-white rounded py-.5 px-1">
-            <FontAwesomeIcon
-              icon={faMinus}
-              size="xs"
-              onClick={handleDecrement}
-            />
+          <span>{quantity}</span>
+          <button className="text-orange-500" onClick={handleDecrement}>
+            <FontAwesomeIcon icon={faMinus} />
           </button>
         </div>
         <button
