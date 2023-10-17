@@ -31,45 +31,42 @@ function AddItemForm() {
   const navigate = useNavigate();
   const { auth } = useAuth();
 
+  const validateFile = (file) => {
+    const fileSizeLimit = 5 * 1024 * 1024; // 5MB
+    const allowedFileTypes = ["image/jpeg", "image/png"];
+    return allowedFileTypes.includes(file.type) && file.size <= fileSizeLimit;
+  };
+
+  const createPreview = (file) => {
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result);
+      reader.readAsDataURL(file);
+    });
+  };
 
   const handleFileUpload = (e) => {
-    const files = e.target.files;
+    const files = Array.from(e.target.files);
+    const validFiles = files.filter(validateFile);
+    const invalidFileCount = files.length - validFiles.length;
 
-    if (files.length + imageFiles.length > 10) {
+    if (invalidFileCount > 0) {
+      setError(
+        `Please upload valid image files (jpg or png, < 5MB). ${invalidFileCount} invalid file(s) were ignored.`
+      );
+      return;
+    }
+
+    if (validFiles.length + imageFiles.length > 10) {
       setError("You cannot upload more than 10 images.");
       return;
     }
 
-    let newFiles = [];
-    // eslint-disable-next-line no-unused-vars
-    let newPreviews = [];
+    const previewPromises = validFiles.map(createPreview);
 
-    const validateFile = (file) => {
-      const fileSizeLimit = 5 * 1024 * 1024; // 5MB
-      const allowedFileTypes = ["image/jpeg", "image/png"];
-
-      return allowedFileTypes.includes(file.type) && file.size <= fileSizeLimit;
-    };
-
-    const promises = Array.from(files).map((file) => {
-      if (!validateFile(file)) {
-        setError("Please upload a valid image file (jpg or png, < 5MB).");
-        // eslint-disable-next-line array-callback-return
-        return;
-      }
-
-      newFiles.push(file);
-
-      return new Promise((resolve) => {
-        const reader = new FileReader();
-        reader.onloadend = () => resolve(reader.result);
-        reader.readAsDataURL(file);
-      });
-    });
-
-    Promise.all(promises).then((newPreviews) => {
+    Promise.all(previewPromises).then((newPreviews) => {
       setImagePreviewUrls((prev) => [...prev, ...newPreviews]);
-      setImageFiles((prev) => [...prev, ...newFiles]);
+      setImageFiles((prev) => [...prev, ...validFiles]);
     });
   };
 
