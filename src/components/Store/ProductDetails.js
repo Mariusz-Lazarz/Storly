@@ -244,10 +244,10 @@ const ProductDetails = () => {
                     isInCart ? "Item already in cart" : null
                   }
                 >
-                  <span className="hidden md:inline">Add to cart</span>
+                  <span className="hidden xl:inline">Add to cart</span>
                   <FontAwesomeIcon
                     icon={faCartShopping}
-                    className="md:hidden"
+                    className="xl:hidden"
                   />
                 </button>
                 <Tooltip
@@ -265,7 +265,7 @@ const ProductDetails = () => {
                   onClick={handleFavouriteItem}
                 >
                   <FontAwesomeIcon icon={faHeart} />
-                  <span className="hidden md:inline"> Add to faviourite</span>
+                  <span className="hidden xl:inline"> Add to faviourite</span>
                 </button>
               </div>
               <div className="flex gap-2 bg-gray-100 py-1 px-4">
