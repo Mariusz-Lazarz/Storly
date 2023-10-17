@@ -37,12 +37,7 @@ function HomePage() {
               </div>
             </Link>
           </div>
-          <div className="mt-8 mb-8">
-            <h2 className="text-2xl font-bold mb-4">
-              Real Feedback from Happy Shoppers
-            </h2>
-            <ReviewCarousel />
-          </div>
+          <ReviewCarousel />
         </div>
       </div>
     </>

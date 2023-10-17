@@ -18,24 +18,29 @@ function ReviewCarousel() {
   };
 
   return (
-    <Slider {...settings}>
-      {renderSlide(
-        "Ten sklep jest najlepszy woooooooooow!!!!!!!!!",
-        "Lipski Bartek"
-      )}
-      {renderSlide(
-        "My tracking is working in GA but not in Piwik!!!!!!!!",
-        "Google Analytics"
-      )}
-      {renderSlide(
-        "Swojego macbooka kupywalem wlasnie tutaj :OO !!!!!",
-        "Grucha"
-      )}
-      {renderSlide(
-        "Looker studtio a co to takiego? Nie polecam!",
-        "Loyal Customer"
-      )}
-    </Slider>
+    <div className="mt-8 mb-8">
+      <h2 className="text-2xl font-bold mb-4">
+        Real Feedback from Happy Shoppers
+      </h2>
+      <Slider {...settings}>
+        {renderSlide(
+          "Ten sklep jest najlepszy woooooooooow!!!!!!!!!",
+          "Lipski Bartek"
+        )}
+        {renderSlide(
+          "My tracking is working in GA but not in Piwik!!!!!!!!",
+          "Google Analytics"
+        )}
+        {renderSlide(
+          "Swojego macbooka kupywalem wlasnie tutaj :OO !!!!!",
+          "Grucha"
+        )}
+        {renderSlide(
+          "Looker studtio a co to takiego? Nie polecam!",
+          "Loyal Customer"
+        )}
+      </Slider>
+    </div>
   );
 }
 
