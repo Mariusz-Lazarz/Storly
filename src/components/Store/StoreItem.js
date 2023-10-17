@@ -29,7 +29,7 @@ const StoreItem = ({ item, handleAddToCart, itemsInCart }) => {
           <img
             src={item.imageLinks[0]}
             alt={item.title}
-            className="object-cover w-full h-full"
+            className="object-fit w-full h-full"
           />
         </div>
         <h3 className="font-semibold">{item.title}</h3>
