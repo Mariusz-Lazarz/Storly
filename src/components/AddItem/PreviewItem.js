@@ -79,15 +79,15 @@ const PreviewItem = ({ isOpen, onClose, item }) => {
                 <button
                   className={`py-2 px-3 rounded text-white bg-light-pink $`}
                 >
-                  <span className="hidden md:inline">Add to cart</span>
+                  <span className="hidden xl:inline">Add to cart</span>
                   <FontAwesomeIcon
                     icon={faCartShopping}
-                    className="md:hidden"
+                    className="xl:hidden"
                   />
                 </button>
                 <button className={`border py-2 px-3 rounded border-gray-500`}>
                   <FontAwesomeIcon icon={faHeart} />
-                  <span className="hidden md:inline"> Add to faviourite</span>
+                  <span className="hidden xl:inline"> Add to faviourite</span>
                 </button>
               </div>
               <div className="flex gap-2 bg-gray-100 py-1 px-4">
