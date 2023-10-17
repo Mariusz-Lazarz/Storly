@@ -1,3 +1,4 @@
+import React from "react";
 import "../../App.css";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -16,6 +17,19 @@ function ReviewCarousel() {
     autoplaySpeed: 3000,
     arrows: false,
   };
+
+  function renderSlide(reviewText, reviewerName) {
+    return (
+      <div className="flex flex-col items-center p-4">
+        <FontAwesomeIcon
+          icon={faUser}
+          className="w-12 h-12 rounded-full mb-2"
+        />
+        <span className="block mb-2 text-center">- {reviewerName}</span>
+        <p className="text-center">{reviewText}</p>
+      </div>
+    );
+  }
 
   return (
     <div className="mt-8 mb-8">
@@ -44,14 +58,4 @@ function ReviewCarousel() {
   );
 }
 
-function renderSlide(reviewText, reviewerName) {
-  return (
-    <div className="flex flex-col items-center p-4">
-      <FontAwesomeIcon icon={faUser} className="w-12 h-12 rounded-full mb-2" />
-      <span className="block mb-2 text-center">- {reviewerName}</span>
-      <p className="text-center">{reviewText}</p>
-    </div>
-  );
-}
-
-export default ReviewCarousel;
+export default React.memo(ReviewCarousel);
