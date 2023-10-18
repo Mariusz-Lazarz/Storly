@@ -269,7 +269,7 @@ const ProductDetails = () => {
                 </button>
               </div>
               <div className="flex gap-2 bg-gray-100 py-1 px-4">
-                <button className="text-orange-500" onClick={handleIncrement}>
+                <button className="text-orange-500 dark:text-red-500" onClick={handleIncrement}>
                   <FontAwesomeIcon icon={faPlus} />
                 </button>
                 <span>{quantity}</span>

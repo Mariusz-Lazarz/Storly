@@ -5,6 +5,7 @@ import Footer from "./components/Footer/Footer";
 import BotChat from "./components/ChatBot/BotChat";
 import "./App.css";
 import LoadingSpinner from "./utils/LoadingSpinner";
+import useDarkMode from "./hooks/useDarkMode";
 
 const AddItemForm = lazy(() => import("./components/AddItem/AddItemForm"));
 const NotFound = lazy(() => import("./components/Error/NotFound"));
@@ -17,6 +18,7 @@ const UserPanel = lazy(() => import("./components/UserPanel/UserPanel"));
 const ProductDetails = lazy(() => import("./components/Store/ProductDetails"));
 
 function App() {
+  useDarkMode();
   return (
     <Router>
       <div className="App flex flex-col min-h-screen bg-gradient-to-b from-blue-50 via-white to-pink-200">
