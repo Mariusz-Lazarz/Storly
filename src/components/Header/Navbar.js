@@ -14,6 +14,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "../../utils/LoadingSpinner";
 import useAuth from "../../hooks/useAuth";
+import Switch from "./Switch";
 
 function Navbar() {
   const [openModal, setOpenModal] = useState(null);
@@ -59,10 +60,11 @@ function Navbar() {
     <>
       <nav className="bg-gray-800 p-4 fixed top-0 w-full z-50">
         <div className="container mx-auto flex justify-between items-center">
-          <div className="text-white font-logo text-2xl">
+          <div className="flex items-center gap-2">
             <Link to="/" className="text-white font-logo text-2xl no-underline">
               <span className="font-bold">Storly</span>
             </Link>
+            <Switch />
           </div>
           <div className="flex items-center">
             {loading ? (
