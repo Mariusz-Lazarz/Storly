@@ -23,7 +23,7 @@ const StoreItem = ({ item, handleAddToCart, itemsInCart }) => {
   };
 
   return (
-    <div className="p-2 relative text-center transform transition-transform duration-500 hover:scale-105">
+    <div className="p-2 relative text-center transform transition-transform duration-500 hover:scale-105 dark:text-white">
       <Link to={`/product/${item.id}`}>
         <div className="flex items-center justify-center mb-2 h-24 w-24 mx-auto cursor-pointer">
           <img
@@ -37,7 +37,7 @@ const StoreItem = ({ item, handleAddToCart, itemsInCart }) => {
         <span className="text-orange-600">${item.price}</span>
       </Link>
       <div className="flex items-center justify-between m-1">
-        <div className="flex gap-2 bg-gray-100 py-1 px-2">
+        <div className="flex gap-2 bg-gray-100 py-1 px-2 dark:bg-dark-secondary">
           <button
             className="text-orange-500"
             onClick={() => handleIncrement(item)}
@@ -51,7 +51,9 @@ const StoreItem = ({ item, handleAddToCart, itemsInCart }) => {
         </div>
         <button
           className={`py-1 px-2 rounded ${
-            isInCart ? "bg-gray-400 cursor-not-allowed" : "bg-light-pink"
+            isInCart
+              ? "bg-gray-400 cursor-not-allowed"
+              : "bg-light-pink dark:bg-dark-secondary"
           }`}
           onClick={() => handleAddToCart(item, quantity)}
           disabled={isInCart}

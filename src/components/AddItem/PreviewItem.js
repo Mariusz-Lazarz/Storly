@@ -12,7 +12,7 @@ import PreviewModal from "./PreviewModal";
 const PreviewItem = ({ isOpen, onClose, item }) => {
   return (
     <PreviewModal isOpen={isOpen} onClose={onClose}>
-      <div className="container mx-auto p-4 w-full">
+      <div className="container mx-auto p-4 w-full dark:text-white">
         <div className="flex justify-end">
           <FontAwesomeIcon
             icon={faTimes}
@@ -90,7 +90,7 @@ const PreviewItem = ({ isOpen, onClose, item }) => {
                   <span className="hidden xl:inline"> Add to faviourite</span>
                 </button>
               </div>
-              <div className="flex gap-2 bg-gray-100 py-1 px-4">
+              <div className="flex gap-2 bg-gray-100 py-1 px-4 dark:bg-dark-secondary">
                 <button className="text-orange-500">
                   <FontAwesomeIcon icon={faPlus} />
                 </button>

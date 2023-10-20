@@ -31,7 +31,7 @@ const PreviewModal = ({ children, onClose, isOpen }) => {
         <div
           ref={modalContent}
           onClick={(e) => e.stopPropagation()}
-          className="bg-white p-6 rounded shadow-lg relative mx-auto lg:w-4/6 modal-content"
+          className="bg-white p-6 rounded shadow-lg relative mx-auto lg:w-4/6 modal-content dark:bg-dark-primary"
         >
           {children}
         </div>
