@@ -36,8 +36,8 @@ const Search = ({ handleSearch }) => {
   };
 
   return (
-    <div className="flex justify-center">
-      <div className="w-full lg:w-1/2 pr-4 pl-4 pb-2 pt-2 mb-4  flex justify-center border border-black rounded-full">
+    <div className="flex justify-center dark:text-white">
+      <div className="w-full lg:w-1/2 pr-4 pl-4 pb-2 pt-2 mb-4  flex justify-center border border-black rounded-full dark:border-white">
         <input
           type="text"
           placeholder="Search for items..."
@@ -46,7 +46,7 @@ const Search = ({ handleSearch }) => {
           onKeyDown={handleKeyDown}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
-          className="focus:outline-none w-full mr-2 bg-transparent placeholder:text-black"
+          className="focus:outline-none w-full mr-2 bg-transparent placeholder:text-black dark:placeholder:text-white"
         />
         <button onClick={handleSubmit} className="bg-transparent">
           <FontAwesomeIcon icon={faSearch} />
