@@ -73,13 +73,13 @@ function Navbar() {
               <>
                 <button
                   onClick={openSignUp}
-                  className="bg-light-pink text-white py-2 px-4 rounded-full mr-2"
+                  className="bg-light-pink text-white py-2 px-4 rounded-full mr-2 dark:bg-dark-tertiary"
                 >
                   Sign Up
                 </button>
                 <button
                   onClick={openSignIn}
-                  className="bg-light-pink text-white py-2 px-4 rounded-full"
+                  className="bg-light-pink text-white py-2 px-4 rounded-full dark:bg-dark-tertiary"
                 >
                   Sign In
                 </button>

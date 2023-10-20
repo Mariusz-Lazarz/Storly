@@ -35,13 +35,13 @@ const ResetPassword = ({ isOpen, onClose }) => {
 
   return (
     <Modal onClose={onClose} isOpen={isOpen}>
-      <div className="bg-white p-6 rounded relative w-full md:w-11/12 mx-auto my-auto">
+      <div className="bg-white p-6 rounded relative w-full md:w-11/12 mx-auto my-auto dark:bg-dark-primary dark:text-white">
         <button
           onClick={() => {
             onClose();
             revertBlur();
           }}
-          className="absolute top-2 right-2 text-black"
+          className="absolute top-2 right-2 text-black dark:text-white"
         >
           <FontAwesomeIcon icon={faTimes} />
         </button>
@@ -56,7 +56,7 @@ const ResetPassword = ({ isOpen, onClose }) => {
           {error && <p className="text-red-500 text-lg">{error}</p>}
           <input
             type="email"
-            className="p-2 border rounded"
+            className="p-2 border rounded dark:bg-dark-secondary  dark:border-gray-700"
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -64,7 +64,7 @@ const ResetPassword = ({ isOpen, onClose }) => {
           />
           <button
             type="submit"
-            className="bg-light-pink text-white p-2 rounded-full"
+            className="bg-light-pink text-white p-2 rounded-full dark:bg-dark-tertiary"
           >
             Send Reset Link
           </button>
