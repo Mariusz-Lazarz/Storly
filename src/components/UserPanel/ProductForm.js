@@ -101,8 +101,7 @@ function ProductForm({
 
       try {
         await deleteObject(storageRef(storage, filePath));
-      } catch (error) {
-      }
+      } catch (error) {}
     }
   };
 
@@ -129,93 +128,96 @@ function ProductForm({
   };
 
   return (
-    <form onSubmit={handleEnhancedFormSubmit} className="space-y-4">
+    <form
+      onSubmit={handleEnhancedFormSubmit}
+      className="space-y-4 dark:text-white"
+    >
       <label className="block">
-        <span className="text-gray-700">Title</span>
+        <span className="text-gray-700 dark:text-white">Title</span>
         <input
           type="text"
           name="title"
           value={editFormData.title}
           onChange={handleInputChange}
-          className="border p-2 w-full mt-1"
+          className="border p-2 w-full mt-1 dark:bg-dark-secondary  dark:border-gray-700"
           placeholder="Title"
         />
       </label>
       <label className="block">
-        <span className="text-gray-700">Description</span>
+        <span className="text-gray-700 dark:text-white">Description</span>
         <input
           type="text"
           name="description"
           value={editFormData.description}
           onChange={handleInputChange}
-          className="border p-2 w-full mt-1"
+          className="border p-2 w-full mt-1 dark:bg-dark-secondary  dark:border-gray-700"
           placeholder="Description"
         />
       </label>
       <label className="block">
-        <span className="text-gray-700">Category</span>
+        <span className="text-gray-700 dark:text-white">Category</span>
         <input
           type="text"
           name="category"
           value={editFormData.category}
           onChange={handleInputChange}
-          className="border p-2 w-full mt-1"
+          className="border p-2 w-full mt-1 dark:bg-dark-secondary  dark:border-gray-700"
           placeholder="Category"
         />
       </label>
       <label className="block">
-        <span className="text-gray-700">Brand</span>
+        <span className="text-gray-700 dark:text-white">Brand</span>
         <input
           type="text"
           name="brand"
           value={editFormData.brand}
           onChange={handleInputChange}
-          className="border p-2 w-full mt-1"
+          className="border p-2 w-full mt-1 dark:bg-dark-secondary  dark:border-gray-700"
           placeholder="Brand"
         />
       </label>
       <label className="block">
-        <span className="text-gray-700">Variant</span>
+        <span className="text-gray-700 dark:text-white">Variant</span>
         <input
           type="text"
           name="variant"
           value={editFormData.variant}
           onChange={handleInputChange}
-          className="border p-2 w-full mt-1"
+          className="border p-2 w-full mt-1 dark:bg-dark-secondary  dark:border-gray-700"
           placeholder="Variant"
         />
       </label>
       <label className="block">
-        <span className="text-gray-700">Quantity</span>
+        <span className="text-gray-700 dark:text-white">Quantity</span>
         <input
           type="number"
           name="quantity"
           value={editFormData.quantity}
           onChange={handleInputChange}
-          className="border p-2 w-full mt-1"
+          className="border p-2 w-full mt-1 dark:bg-dark-secondary  dark:border-gray-700"
           placeholder="Quantity"
         />
       </label>
       <label className="block">
-        <span className="text-gray-700">Price</span>
+        <span className="text-gray-700 dark:text-white">Price</span>
         <input
           type="number"
           name="price"
           value={editFormData.price}
           onChange={handleInputChange}
-          className="border p-2 w-full mt-1"
+          className="border p-2 w-full mt-1 dark:bg-dark-secondary  dark:border-gray-700"
           placeholder="Price"
           step="0.01"
         />
       </label>
       <label className="block mt-4">
-        <span className="text-gray-700">Add More Images</span>
+        <span className="text-gray-700 dark:text-white">Add More Images</span>
         <input
           type="file"
           onChange={handleImageChange}
           multiple
           accept="image/*"
-          className="border p-2 w-full mt-1"
+          className="border p-2 w-full mt-1 dark:bg-dark-secondary  dark:border-gray-700"
         />
       </label>
       <div className="flex space-x-2 mt-2">

@@ -25,13 +25,13 @@ function DeliveryDetailsForm({ onPlaceOrder, cartIsEmpty }) {
     <form onSubmit={handleSubmit}>
       <div className="mb-4">
         <label
-          className="block text-sm font-medium text-gray-700"
+          className="block text-sm font-medium text-gray-700 dark:text-white"
           htmlFor="name"
         >
           Full Name
         </label>
         <input
-          className="mt-1 p-2 w-full border rounded-md"
+          className="mt-1 p-2 w-full border rounded-md dark:bg-dark-secondary  dark:border-gray-700"
           type="text"
           id="name"
           name="name"
@@ -42,13 +42,13 @@ function DeliveryDetailsForm({ onPlaceOrder, cartIsEmpty }) {
       </div>
       <div className="mb-4">
         <label
-          className="block text-sm font-medium text-gray-700"
+          className="block text-sm font-medium text-gray-700 dark:text-white"
           htmlFor="address"
         >
           Address
         </label>
         <input
-          className="mt-1 p-2 w-full border rounded-md"
+          className="mt-1 p-2 w-full border rounded-md dark:bg-dark-secondary  dark:border-gray-700"
           type="text"
           id="address"
           name="address"
@@ -59,13 +59,13 @@ function DeliveryDetailsForm({ onPlaceOrder, cartIsEmpty }) {
       </div>
       <div className="mb-4">
         <label
-          className="block text-sm font-medium text-gray-700"
+          className="block text-sm font-medium text-gray-700 dark:text-white "
           htmlFor="city"
         >
           City
         </label>
         <input
-          className="mt-1 p-2 w-full border rounded-md"
+          className="mt-1 p-2 w-full border rounded-md dark:bg-dark-secondary  dark:border-gray-700"
           type="text"
           id="city"
           name="city"
@@ -76,13 +76,13 @@ function DeliveryDetailsForm({ onPlaceOrder, cartIsEmpty }) {
       </div>
       <div className="mb-4">
         <label
-          className="block text-sm font-medium text-gray-700"
+          className="block text-sm font-medium text-gray-700 dark:text-white"
           htmlFor="zip"
         >
           ZIP Code
         </label>
         <input
-          className="mt-1 p-2 w-full border rounded-md"
+          className="mt-1 p-2 w-full border rounded-md dark:bg-dark-secondary  dark:border-gray-700"
           type="text"
           id="zip"
           name="zip"
@@ -95,7 +95,9 @@ function DeliveryDetailsForm({ onPlaceOrder, cartIsEmpty }) {
         type="submit"
         disabled={cartIsEmpty}
         className={`${
-          cartIsEmpty ? "bg-gray-400 cursor-not-allowed" : "bg-light-pink"
+          cartIsEmpty
+            ? "bg-gray-400 cursor-not-allowed"
+            : "bg-light-pink dark:bg-dark-secondary"
         } text-white py-2 px-4 rounded-full mt-4`}
       >
         Place Order

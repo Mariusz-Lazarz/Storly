@@ -4,8 +4,8 @@ import "./alert.css";
 const Alert = ({ isOpen, title, message, onConfirm, onCancel }) => {
   return (
     <Modal isOpen={isOpen} onClose={onCancel} onExited={onCancel}>
-      <h2 className="text-xl font-semibold mb-4">{title}</h2>
-      <p className="mb-6">{message}</p>
+      <h2 className="text-xl font-semibold mb-4 dark:text-white">{title}</h2>
+      <p className="mb-6 dark:text-white">{message}</p>
       <div className="flex justify-end space-x-4">
         {onCancel !== undefined && (
           <button

@@ -3,7 +3,7 @@ import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 function ProductItem({ product, handleEditClick, handleRemoveItem }) {
   return (
-    <div className="grid grid-cols-4 md:grid-cols-7 items-center">
+    <div className="grid grid-cols-4 md:grid-cols-7 items-center dark:text-white">
       <div className="col-span-1">
         <img
           src={product.imageLinks[0]}

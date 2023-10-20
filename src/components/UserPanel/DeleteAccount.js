@@ -78,7 +78,7 @@ function DeleteAccount() {
   };
 
   return (
-    <div className="bg-white p-6 rounded shadow-lg mb-6">
+    <div className="bg-white p-6 rounded shadow-lg mb-6 dark:bg-dark-primary">
       <h2 className="text-2xl font-bold mb-4">Delete Account</h2>
       {error && <div className="text-red-500 mt-2">{error}</div>}
       <form>
@@ -88,7 +88,7 @@ function DeleteAccount() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Enter your email"
-          className="border p-2 rounded w-full mb-4"
+          className="border p-2 rounded w-full mb-4 dark:bg-dark-secondary  dark:border-gray-700"
         />
         <input
           type="password"
@@ -96,7 +96,7 @@ function DeleteAccount() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Enter your password"
-          className="border p-2 rounded w-full mb-4"
+          className="border p-2 rounded w-full mb-4 dark:bg-dark-secondary  dark:border-gray-700"
         />
         <button
           type="button"

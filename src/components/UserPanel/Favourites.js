@@ -66,7 +66,7 @@ const Favourites = () => {
                 />
                 <Link to={`/product/${item.id}`}>
                   <img
-                    src={item.imageLinks[0]}
+                    src={item.imageLinks}
                     alt={item.title}
                     className="w-full h-48 object-contain mb-4"
                   />

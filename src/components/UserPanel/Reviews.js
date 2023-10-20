@@ -68,14 +68,14 @@ const Reviews = () => {
   }, []);
 
   return (
-    <div className="p-2 overflow-y-scroll h-screen">
+    <div className="p-2 overflow-y-scroll h-screen dark:text-white">
       {isLoading ? (
         <LoadingSpinner />
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-4 p-4">
           {uniqueItems && uniqueItems.length > 0 ? (
             uniqueItems.map((item, index) => (
-              <div key={index} className="border p-4 shadow-lg">
+              <div key={index} className="p-4 shadow-lg">
                 <Link to={`/product/${item.id}`}>
                   <img
                     src={item.imageLinks[0]}

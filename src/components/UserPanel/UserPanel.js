@@ -25,7 +25,9 @@ function UserPanel() {
     <div className="container mx-auto p-4">
       {auth ? (
         <div className="text-center">
-          <h1 className="text-4xl font-bold mb-4">{auth.email}</h1>
+          <h1 className="text-4xl font-bold mb-4 dark:text-gray-300">
+            {auth.email}
+          </h1>
           <div className="flex justify-center mb-4">
             <button
               onClick={() => setActiveTab("orderHistory")}
@@ -103,7 +105,7 @@ function UserPanel() {
               />
             </button>
           </div>
-          <div className="p-2 bg-white rounded shadow-lg">
+          <div className="p-2 bg-white rounded shadow-lg dark:bg-dark-primary">
             {activeTab === "orderHistory" && <OrderHistory />}
             {activeTab === "editProducts" && <EditProducts />}
             {activeTab === "reviews" && <Reviews />}

@@ -44,7 +44,7 @@ function ChangePassword() {
   };
 
   return (
-    <div className="bg-white p-6 rounded shadow-lg mb-6">
+    <div className="bg-white p-6 rounded shadow-lg mb-6 dark:bg-dark-primary">
       <h2 className="text-2xl font-bold mb-4">Change Password</h2>
       {error && <div className="text-red-500 mt-2">{error}</div>}
       {successMessage && (
@@ -57,7 +57,7 @@ function ChangePassword() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Enter your email"
-          className="border p-2 rounded w-full mb-4"
+          className="border p-2 rounded w-full mb-4 dark:bg-dark-secondary  dark:border-gray-700"
         />
         <input
           type="password"
@@ -65,7 +65,7 @@ function ChangePassword() {
           value={currentPassword}
           onChange={(e) => setCurrentPassword(e.target.value)}
           placeholder="Enter your current password"
-          className="border p-2 rounded w-full mb-4"
+          className="border p-2 rounded w-full mb-4 dark:bg-dark-secondary  dark:border-gray-700"
         />
         <input
           type="password"
@@ -73,7 +73,7 @@ function ChangePassword() {
           value={newPassword}
           onChange={(e) => setNewPassword(e.target.value)}
           placeholder="Enter your new password"
-          className="border p-2 rounded w-full mb-4"
+          className="border p-2 rounded w-full mb-4 dark:bg-dark-secondary  dark:border-gray-700"
         />
         <button
           onClick={() => setShowAlert(true)}

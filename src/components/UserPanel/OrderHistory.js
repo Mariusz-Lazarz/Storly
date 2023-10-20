@@ -70,12 +70,12 @@ function OrderHistory() {
   }, [sortOrder]);
 
   return (
-    <div className="p-2 overflow-y-scroll h-screen">
+    <div className="p-2 overflow-y-scroll h-screen ">
       {isLoading ? (
         <LoadingSpinner />
       ) : (
-        <div className="mb-4">
-          <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 p-4 bg-gray-100 text-gray-700 font-semibold">
+        <div className="mb-4 dark:text-white">
+          <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 p-4 bg-gray-100 text-gray-700 font-semibold dark:bg-dark-secondary dark:text-white">
             <span className="text-center">Order ID</span>
             <span
               className="text-center cursor-pointer"
