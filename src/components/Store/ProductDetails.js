@@ -69,6 +69,9 @@ const ProductDetails = () => {
   const itemIdsInCart = itemsInCart.map((item) => item.id);
   const isInCart = item ? itemIdsInCart.includes(item.id) : false;
 
+
+
+
   const handleDecrement = () => {
     if (quantity === 1) return;
     setQuantity((prevState) => prevState - 1);
@@ -79,9 +82,8 @@ const ProductDetails = () => {
     setQuantity((prevState) => prevState + 1);
   };
 
-  const handleAddToCart = () => {
-    const user = auth.currentUser;
-    if (user) {
+  const handleAddToCart = (item, quantity) => {
+    if (auth) {
       dispatch(addToCart({ item, quantity: Number(quantity) }));
     }
   };
@@ -107,6 +109,7 @@ const ProductDetails = () => {
     }
   }, [item]);
 
+
   const handleFavouriteItem = () => {
     setIsFavourite((prevState) => {
       const newFavouriteState = !prevState;
@@ -114,7 +117,7 @@ const ProductDetails = () => {
       const addOrUpdateFav = async () => {
         try {
           const db = getDatabase();
-          const itemRef = ref(db, `userFavourites/${auth.uid}/${item.id}/`);
+          const itemRef = ref(db, `userFavourites/${auth.uid}/${id}/`);
           const snapshot = await get(itemRef);
 
           if (snapshot.exists()) {
@@ -237,7 +240,7 @@ const ProductDetails = () => {
                       ? "bg-gray-400 cursor-not-allowed"
                       : "bg-light-pink "
                   }`}
-                  onClick={() => handleAddToCart(item)}
+                  onClick={() => handleAddToCart(item, quantity)}
                   disabled={isInCart}
                   data-tooltip-id="my-tooltip"
                   data-tooltip-content={

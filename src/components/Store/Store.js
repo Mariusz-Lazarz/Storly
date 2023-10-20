@@ -22,6 +22,7 @@ const Store = () => {
   const itemsInCart = useSelector((state) => state.cart.items);
   const itemIdsInCart = itemsInCart.map((item) => item.id);
 
+  
   useEffect(() => {
     const db = getDatabase();
     const itemsRef = ref(db, "items");

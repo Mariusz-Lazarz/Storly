@@ -50,14 +50,14 @@ const Favourites = () => {
   };
 
   return (
-    <div className="p-2 overflow-y-scroll h-screen">
+    <div className="p-2 overflow-y-scroll h-screen dark:text-white">
       {isLoading ? (
         <LoadingSpinner />
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 p-4">
           {favouriteItems && favouriteItems.length > 0 ? (
             favouriteItems.map((item) => (
-              <div key={item.id} className="border p-4 shadow-lg relative">
+              <div key={item.id} className=" p-4 shadow-lg relative">
                 <FontAwesomeIcon
                   icon={faHeart}
                   className="text-red-400 bg-white p-2 rounded-full cursor-pointer absolute top-2 right-2"
@@ -66,7 +66,7 @@ const Favourites = () => {
                 />
                 <Link to={`/product/${item.id}`}>
                   <img
-                    src={item.imageLinks}
+                    src={item.imageLinks[0]}
                     alt={item.title}
                     className="w-full h-48 object-contain mb-4"
                   />

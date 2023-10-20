@@ -37,7 +37,7 @@ const StoreItem = ({ item, handleAddToCart, itemsInCart }) => {
         <span className="text-orange-600">${item.price}</span>
       </Link>
       <div className="flex items-center justify-between m-1">
-        <div className="flex gap-2 bg-gray-100 py-1 px-2 dark:bg-dark-secondary">
+        <div className="flex gap-2 bg-gray-200 py-1 px-2 dark:bg-dark-secondary">
           <button
             className="text-orange-500"
             onClick={() => handleIncrement(item)}
