@@ -21,7 +21,7 @@ function App() {
   useDarkMode();
   return (
     <Router>
-      <div className="App flex flex-col min-h-screen bg-gradient-to-b from-blue-50 via-white to-pink-200">
+      <div className="App flex flex-col min-h-screen bg-gradient-to-b from-blue-50 via-white to-pink-200 dark:bg-gradient-to-b dark:from-dark-container dark:via-dark-primary dark:to-dark-secondary">
         <Navbar />
         <main className="flex-grow">
           <Suspense fallback={<LoadingSpinner />}>

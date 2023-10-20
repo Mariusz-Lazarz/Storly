@@ -23,17 +23,19 @@ function ReviewCarousel() {
       <div className="flex flex-col items-center p-4">
         <FontAwesomeIcon
           icon={faUser}
-          className="w-12 h-12 rounded-full mb-2"
+          className="w-12 h-12 rounded-full mb-2 dark:text-white"
         />
-        <span className="block mb-2 text-center">- {reviewerName}</span>
-        <p className="text-center">{reviewText}</p>
+        <span className="block mb-2 text-center dark:text-gray-300">
+          - {reviewerName}
+        </span>
+        <p className="text-center dark:text-gray-300">{reviewText}</p>
       </div>
     );
   }
 
   return (
     <div className="mt-8 mb-8">
-      <h2 className="text-2xl font-bold mb-4">
+      <h2 className="text-2xl font-bold mb-4 dark:text-gray-300">
         Real Feedback from Happy Shoppers
       </h2>
       <Slider {...settings}>

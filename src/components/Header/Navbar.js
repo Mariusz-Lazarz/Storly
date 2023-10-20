@@ -58,7 +58,7 @@ function Navbar() {
 
   return (
     <>
-      <nav className="bg-gray-800 p-4 fixed top-0 w-full z-50">
+      <nav className="bg-gray-800 p-4 fixed top-0 w-full z-50 dark:bg-dark-primary">
         <div className="container mx-auto flex justify-between items-center">
           <div className="flex items-center gap-2">
             <Link to="/" className="text-white font-logo text-2xl no-underline">

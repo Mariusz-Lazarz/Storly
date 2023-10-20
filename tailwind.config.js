@@ -4,7 +4,11 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        "light-pink": "#FF88AA", // Light Pink color
+        "light-pink": "#FF88AA",
+        "dark-container": "#1a1a1a",
+        "dark-primary": "#2c2c2c",
+        "dark-secondary": "#3d3d3d",
+        "dark-tertiary": "#4e4e4e",
       },
       fontFamily: {
         logo: ["Roboto", "sans-serif"], // Logo font
@@ -15,7 +19,7 @@ module.exports = {
     },
   },
   variants: {
-    extend: {},
+    extend: { backgroundColor: ["dark"] },
   },
   plugins: [],
 };
