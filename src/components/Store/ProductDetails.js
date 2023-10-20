@@ -168,7 +168,7 @@ const ProductDetails = () => {
     arrows: false,
   };
   return (
-    <div className="container mx-auto p-4">
+    <div className="container mx-auto p-4 dark:text-white">
       {isLoading ? (
         <LoadingSpinner />
       ) : (
@@ -260,7 +260,7 @@ const ProductDetails = () => {
                 />
                 <button
                   className={`border py-2 px-3 rounded border-gray-500 ${
-                    isFavourite ? "bg-yellow-400" : ""
+                    isFavourite ? "bg-yellow-400 dark:bg-yellow-700" : ""
                   }`}
                   onClick={handleFavouriteItem}
                 >
@@ -268,8 +268,11 @@ const ProductDetails = () => {
                   <span className="hidden xl:inline"> Add to faviourite</span>
                 </button>
               </div>
-              <div className="flex gap-2 bg-gray-100 py-1 px-4">
-                <button className="text-orange-500 dark:text-red-500" onClick={handleIncrement}>
+              <div className="flex gap-2 bg-gray-100 py-1 px-4 dark:bg-dark-secondary">
+                <button
+                  className="text-orange-500 dark:text-red-500"
+                  onClick={handleIncrement}
+                >
                   <FontAwesomeIcon icon={faPlus} />
                 </button>
                 <span>{quantity}</span>
