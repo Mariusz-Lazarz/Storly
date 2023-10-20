@@ -117,6 +117,7 @@ function AddItemForm() {
       const db = getDatabase();
       const newItemRef = push(dbRef(db, "items"));
       await set(newItemRef, {
+        id: newItemRef.key,
         title,
         imageLinks: downloadUrls,
         category,
