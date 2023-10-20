@@ -147,7 +147,7 @@ function AddItemForm() {
   };
 
   return (
-    <div className="bg-white p-6 rounded shadow-lg my-4 w-full md:w-11/12 lg:w-1/4 mx-auto">
+    <div className="bg-white p-6 rounded shadow-lg my-4 w-full md:w-11/12 lg:w-1/4 mx-auto dark:bg-dark-primary text-white">
       <form onSubmit={addItem} className="flex flex-col space-y-4">
         <h2 className="text-2xl font-bold text-center mb-4">Add Item</h2>
         {error && <p className="text-red-500 text-lg">{error}</p>}
@@ -156,7 +156,7 @@ function AddItemForm() {
           placeholder="Title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          className="p-2 border rounded"
+          className="p-2 border rounded dark:bg-dark-secondary  border-gray-950"
           required
         />
         <input
@@ -164,7 +164,7 @@ function AddItemForm() {
           placeholder="Category"
           value={category}
           onChange={(e) => setCategory(e.target.value)}
-          className="p-2 border rounded"
+          className="p-2 border rounded dark:bg-dark-secondary  border-gray-950"
           required
         />
         <input
@@ -172,7 +172,7 @@ function AddItemForm() {
           placeholder="Variant"
           value={variant}
           onChange={(e) => setVariant(e.target.value)}
-          className="p-2 border rounded"
+          className="p-2 border rounded dark:bg-dark-secondary  border-gray-950"
           required
         />
         <input
@@ -180,14 +180,14 @@ function AddItemForm() {
           placeholder="Brand"
           value={brand}
           onChange={(e) => setBrand(e.target.value)}
-          className="p-2 border rounded"
+          className="p-2 border rounded dark:bg-dark-secondary  border-gray-950"
           required
         />
         <textarea
           placeholder="Description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          className="p-2 border rounded"
+          className="p-2 border rounded dark:bg-dark-secondary  border-gray-950"
           required
         />
         <input
@@ -195,7 +195,7 @@ function AddItemForm() {
           placeholder="Quantity"
           value={quantity}
           onChange={(e) => setQuantity(e.target.value)}
-          className="p-2 border rounded"
+          className="p-2 border rounded dark:bg-dark-secondary  border-gray-950"
           required
         />
         <input
@@ -203,7 +203,7 @@ function AddItemForm() {
           placeholder="Price"
           value={price}
           onChange={(e) => setPrice(e.target.value)}
-          className="p-2 border rounded"
+          className="p-2 border rounded dark:bg-dark-secondary  border-gray-950"
           step="0.01"
           required
         />
@@ -216,14 +216,14 @@ function AddItemForm() {
         <div className="flex gap-2">
           <button
             type="submit"
-            className="bg-light-pink text-white p-2 rounded flex-1"
+            className="bg-light-pink text-white p-2 rounded flex-1 dark:bg-dark-secondary"
           >
             Add Item
           </button>
           <button
             type="button"
             onClick={() => setIsPreviewd(true)}
-            className="bg-blue-300 text-white p-2 rounded flex-1"
+            className="bg-blue-300 text-white p-2 rounded flex-1 dark:bg-dark-tertiary"
           >
             Preview Item
           </button>
