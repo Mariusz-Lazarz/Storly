@@ -15,11 +15,14 @@ import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "../../utils/LoadingSpinner";
 import useAuth from "../../hooks/useAuth";
 import Switch from "./Switch";
+import { clearCart } from "../../store/cartSlice";
+import { useDispatch } from "react-redux";
 
 function Navbar() {
   const [openModal, setOpenModal] = useState(null);
   const navigate = useNavigate();
   const { auth, loading } = useAuth();
+  const dispatch = useDispatch();
 
   const cartItems = useSelector((state) => state.cart.items);
   const cartItemCount = cartItems.reduce(
@@ -51,6 +54,7 @@ function Navbar() {
   const logout = async () => {
     const auth = getAuth();
     try {
+      dispatch(clearCart());
       await signOut(auth);
       navigate("/");
     } catch (error) {}
