@@ -10,6 +10,8 @@ import { useSearchParams } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import Alert from "../Modal/Alert";
 import useAlert from "../../hooks/useAlert";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 
 const Store = () => {
   const [items, setItems] = useState([]);
@@ -126,7 +128,7 @@ const Store = () => {
               : "hover:bg-gray-200"
           }`}
         >
-          Previous
+          <FontAwesomeIcon icon={faAngleLeft} />
         </button>
         {currentPage !== 1 && (
           <button
@@ -166,7 +168,7 @@ const Store = () => {
               : "hover:bg-gray-200"
           }`}
         >
-          Next
+          <FontAwesomeIcon icon={faAngleRight} />
         </button>
       </div>
 
