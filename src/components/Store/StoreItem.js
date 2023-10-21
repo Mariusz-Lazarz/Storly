@@ -74,6 +74,7 @@ const StoreItem = ({ item, handleAddToCart, itemsInCart }) => {
           }}
         />
       </div>
+      
       <div className="flex justify-center"></div>
     </div>
   );

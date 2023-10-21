@@ -21,8 +21,28 @@ const Store = () => {
   const { alert, showAlert, hideAlert } = useAlert();
   const itemsInCart = useSelector((state) => state.cart.items);
   const itemIdsInCart = itemsInCart.map((item) => item.id);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 28;
+  const filteredItems = items.filter((item) =>
+    item.title.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+  const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
 
-  
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredItems.slice(indexOfFirstItem, indexOfLastItem);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchQuery]);
+
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+    setSearchParams({ q: query });
+  };
+
   useEffect(() => {
     const db = getDatabase();
     const itemsRef = ref(db, "items");
@@ -43,10 +63,6 @@ const Store = () => {
     onValue(itemsRef, handleData);
     return () => off(itemsRef, "value", handleData);
   }, []);
-
-  const filteredItems = items.filter((item) =>
-    item.title.toLowerCase().includes(searchQuery.toLowerCase())
-  );
 
   const handleAddToCart = (item, quantity) => {
     if (auth) {
@@ -77,11 +93,6 @@ const Store = () => {
     }
   };
 
-  const handleSearch = (query) => {
-    setSearchQuery(query);
-    setSearchParams({ q: query });
-  };
-
   return (
     <div className="container mx-auto p-4">
       <Search searchQuery={searchQuery} handleSearch={handleSearch} />
@@ -89,8 +100,8 @@ const Store = () => {
         <LoadingSpinner></LoadingSpinner>
       ) : (
         <div className="grid grid-cols-2 md:grid-cols-5 lg:grid-cols-7 gap-4">
-          {filteredItems.length > 0 ? (
-            filteredItems.map((item) => (
+          {currentItems.length > 0 ? (
+            currentItems.map((item) => (
               <StoreItem
                 key={item.id}
                 item={item}
@@ -105,6 +116,31 @@ const Store = () => {
           )}
         </div>
       )}
+      <div className="pagination-controls flex items-center justify-center mt-4">
+        <button
+          onClick={() => paginate(currentPage - 1)}
+          disabled={currentPage === 1}
+          className={`px-4 py-2 mx-1 font-semibold text-gray-700 bg-white border border-gray-300 rounded-lg focus:outline-none ${
+            currentPage === 1
+              ? "cursor-not-allowed opacity-50"
+              : "hover:bg-gray-200"
+          }`}
+        >
+          Previous
+        </button>
+        <button
+          onClick={() => paginate(currentPage + 1)}
+          disabled={currentPage === totalPages}
+          className={`px-4 py-2 mx-1 font-semibold text-gray-700 bg-white border border-gray-300 rounded-lg focus:outline-none ${
+            currentPage === totalPages
+              ? "cursor-not-allowed opacity-50"
+              : "hover:bg-gray-200"
+          }`}
+        >
+          Next
+        </button>
+      </div>
+
       <Alert
         isOpen={alert.isOpen}
         title={alert.title}
