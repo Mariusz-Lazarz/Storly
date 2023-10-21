@@ -122,7 +122,7 @@ const Store = () => {
         <button
           onClick={() => paginate(currentPage - 1)}
           disabled={currentPage === 1}
-          className={`px-4 py-2 mx-1 font-semibold text-gray-700 bg-white border border-gray-300 rounded-lg focus:outline-none ${
+          className={`px-4 py-2 mx-1 font-semibold  bg-white rounded-lg focus:outline-none ${
             currentPage === 1
               ? "cursor-not-allowed opacity-50"
               : "hover:bg-gray-200"
@@ -134,7 +134,7 @@ const Store = () => {
           <button
             onClick={() => paginate(currentPage - 1)}
             disabled={currentPage === 1}
-            className={`px-4 py-2 mx-1 font-semibold text-gray-700 bg-white border border-gray-300 rounded-lg focus:outline-none ${
+            className={`px-4 py-2 mx-1 font-semibold  bg-white rounded-lg focus:outline-none ${
               currentPage === 1
                 ? "cursor-not-allowed opacity-50"
                 : "hover:bg-gray-200"
@@ -143,14 +143,14 @@ const Store = () => {
             {currentPage - 1}
           </button>
         )}
-        <button className="px-4 py-2 mx-1 font-semibold text-gray-700 bg-blue-500 border border-gray-300 rounded-lg focus:outline-none">
+        <button className="px-4 py-2 mx-1 font-semibold  bg-blue-500 rounded-lg focus:outline-none dark:bg-blue-700">
           {currentPage}
         </button>
         {currentPage !== totalPages && (
           <button
             onClick={() => paginate(currentPage + 1)}
             disabled={currentPage === totalPages}
-            className={`px-4 py-2 mx-1 font-semibold text-gray-700 bg-white border border-gray-300 rounded-lg focus:outline-none ${
+            className={`px-4 py-2 mx-1 font-semibold  bg-white rounded-lg focus:outline-none ${
               currentPage === totalPages
                 ? "cursor-not-allowed opacity-50"
                 : "hover:bg-gray-200"
@@ -162,7 +162,7 @@ const Store = () => {
         <button
           onClick={() => paginate(currentPage + 1)}
           disabled={currentPage === totalPages}
-          className={`px-4 py-2 mx-1 font-semibold text-gray-700 bg-white border border-gray-300 rounded-lg focus:outline-none ${
+          className={`px-4 py-2 mx-1 font-semibold  bg-white rounded-lg focus:outline-none ${
             currentPage === totalPages
               ? "cursor-not-allowed opacity-50"
               : "hover:bg-gray-200"

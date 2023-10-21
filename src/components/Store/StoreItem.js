@@ -25,7 +25,7 @@ const StoreItem = ({ item, handleAddToCart, itemsInCart }) => {
   return (
     <div className="p-2 relative text-center transform transition-transform duration-500 hover:scale-105 dark:text-white">
       <Link to={`/product/${item.id}`}>
-        <div className="flex items-center justify-center mb-2 h-24 w-24 mx-auto cursor-pointer">
+        <div className="flex items-center justify-center mb-2 h-36 w-36 mx-auto cursor-pointer">
           <img
             src={item.imageLinks[0]}
             alt={item.title}
@@ -33,11 +33,13 @@ const StoreItem = ({ item, handleAddToCart, itemsInCart }) => {
             loading="lazy"
           />
         </div>
-        <h3 className="font-semibold">{item.title}</h3>
+        <h3 className="font-semibold truncate w-full max-w-[95%]">
+          {item.title}
+        </h3>
         <span className="text-orange-600">${item.price}</span>
       </Link>
-      <div className="flex items-center justify-center gap-2 m-1">
-        <div className="flex gap-2 bg-gray-200 py-1 px-2 dark:bg-dark-secondary">
+      <div className="flex items-center justify-center gap-2 m-1 ">
+        <div className="flex gap-2 bg-gray-200 py-1 px-2  rounded dark:bg-dark-secondary">
           <button
             className="text-orange-500"
             onClick={() => handleIncrement(item)}
@@ -74,7 +76,7 @@ const StoreItem = ({ item, handleAddToCart, itemsInCart }) => {
           }}
         />
       </div>
-      
+
       <div className="flex justify-center"></div>
     </div>
   );
