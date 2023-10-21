@@ -10,8 +10,7 @@ import { useSearchParams } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import Alert from "../Modal/Alert";
 import useAlert from "../../hooks/useAlert";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
+import Pagination from "./Pagination";
 
 const Store = () => {
   const [items, setItems] = useState([]);
@@ -23,13 +22,12 @@ const Store = () => {
   const { alert, showAlert, hideAlert } = useAlert();
   const itemsInCart = useSelector((state) => state.cart.items);
   const itemIdsInCart = itemsInCart.map((item) => item.id);
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 28;
   const filteredItems = items.filter((item) =>
     item.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
-  const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
 
+  const itemsPerPage = 28;
+  const [currentPage, setCurrentPage] = useState(1);
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredItems.slice(indexOfFirstItem, indexOfLastItem);
@@ -118,59 +116,13 @@ const Store = () => {
           )}
         </div>
       )}
-      <div className="pagination-controls flex items-center justify-center mt-4">
-        <button
-          onClick={() => paginate(currentPage - 1)}
-          disabled={currentPage === 1}
-          className={`px-4 py-2 mx-1 font-semibold  bg-white rounded-lg focus:outline-none ${
-            currentPage === 1
-              ? "cursor-not-allowed opacity-50"
-              : "hover:bg-gray-200"
-          }`}
-        >
-          <FontAwesomeIcon icon={faAngleLeft} />
-        </button>
-        {currentPage !== 1 && (
-          <button
-            onClick={() => paginate(currentPage - 1)}
-            disabled={currentPage === 1}
-            className={`px-4 py-2 mx-1 font-semibold  bg-white rounded-lg focus:outline-none ${
-              currentPage === 1
-                ? "cursor-not-allowed opacity-50"
-                : "hover:bg-gray-200"
-            }`}
-          >
-            {currentPage - 1}
-          </button>
-        )}
-        <button className="px-4 py-2 mx-1 font-semibold  bg-blue-500 rounded-lg focus:outline-none dark:bg-blue-700">
-          {currentPage}
-        </button>
-        {currentPage !== totalPages && (
-          <button
-            onClick={() => paginate(currentPage + 1)}
-            disabled={currentPage === totalPages}
-            className={`px-4 py-2 mx-1 font-semibold  bg-white rounded-lg focus:outline-none ${
-              currentPage === totalPages
-                ? "cursor-not-allowed opacity-50"
-                : "hover:bg-gray-200"
-            }`}
-          >
-            {currentPage + 1}
-          </button>
-        )}
-        <button
-          onClick={() => paginate(currentPage + 1)}
-          disabled={currentPage === totalPages}
-          className={`px-4 py-2 mx-1 font-semibold  bg-white rounded-lg focus:outline-none ${
-            currentPage === totalPages
-              ? "cursor-not-allowed opacity-50"
-              : "hover:bg-gray-200"
-          }`}
-        >
-          <FontAwesomeIcon icon={faAngleRight} />
-        </button>
-      </div>
+      <Pagination
+        searchQuery={searchQuery}
+        filteredItems={filteredItems}
+        paginate={paginate}
+        currentPage={currentPage}
+        totalPages={Math.ceil(filteredItems.length / itemsPerPage)}
+      />
 
       <Alert
         isOpen={alert.isOpen}
