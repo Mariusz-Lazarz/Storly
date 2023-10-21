@@ -18,12 +18,14 @@ const Store = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [searchQuery, setSearchQuery] = useState(searchParams.get("q") || "");
   const dispatch = useDispatch();
-  const auth = useAuth();
+  const {auth} = useAuth();
   const { alert, showAlert, hideAlert } = useAlert();
   const itemsInCart = useSelector((state) => state.cart.items);
   const itemIdsInCart = itemsInCart.map((item) => item.id);
   const filteredItems = items.filter((item) =>
-    item.title.toLowerCase().includes(searchQuery.toLowerCase())
+    item.title
+      .toLowerCase()
+      .includes(searchQuery.toLowerCase())
   );
 
   const itemsPerPage = 28;
