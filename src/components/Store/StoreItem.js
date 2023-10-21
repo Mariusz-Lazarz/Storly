@@ -36,7 +36,7 @@ const StoreItem = ({ item, handleAddToCart, itemsInCart }) => {
         <h3 className="font-semibold">{item.title}</h3>
         <span className="text-orange-600">${item.price}</span>
       </Link>
-      <div className="flex items-center justify-between m-1">
+      <div className="flex items-center justify-center gap-2 m-1">
         <div className="flex gap-2 bg-gray-200 py-1 px-2 dark:bg-dark-secondary">
           <button
             className="text-orange-500"
