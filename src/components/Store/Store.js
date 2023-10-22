@@ -60,10 +60,10 @@ const Store = () => {
     if (filters.priceRange) {
       const { min, max } = filters.priceRange;
       if (min) {
-        result = result.filter((item) => item.price >= min);
+        result = result.filter((item) => Number(item.price) >= min);
       }
       if (max) {
-        result = result.filter((item) => item.price <= max);
+        result = result.filter((item) => Number(item.price) <= max);
       }
     }
 
@@ -71,6 +71,7 @@ const Store = () => {
   };
 
   const filteredItems = applyFilters();
+
 
   const currentItems = filteredItems.slice(indexOfFirstItem, indexOfLastItem);
 
