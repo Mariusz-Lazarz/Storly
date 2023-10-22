@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getDatabase, ref, onValue, off } from "firebase/database";
 import { addToCart } from "../../store/cartSlice";
 import StoreItem from "./StoreItem";
 import { DataLayer } from "@piwikpro/react-piwik-pro";
@@ -11,21 +10,19 @@ import useAuth from "../../hooks/useAuth";
 import Alert from "../Modal/Alert";
 import useAlert from "../../hooks/useAlert";
 import Pagination from "./Pagination";
+import { useItems } from "./useItems";
 
 const Store = () => {
-  const [items, setItems] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const { items, isLoading } = useItems();
   const [searchParams, setSearchParams] = useSearchParams();
   const [searchQuery, setSearchQuery] = useState(searchParams.get("q") || "");
   const dispatch = useDispatch();
-  const {auth} = useAuth();
+  const { auth } = useAuth();
   const { alert, showAlert, hideAlert } = useAlert();
   const itemsInCart = useSelector((state) => state.cart.items);
   const itemIdsInCart = itemsInCart.map((item) => item.id);
   const filteredItems = items.filter((item) =>
-    item.title
-      .toLowerCase()
-      .includes(searchQuery.toLowerCase())
+    item.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   const itemsPerPage = 28;
@@ -44,27 +41,6 @@ const Store = () => {
     setSearchQuery(query);
     setSearchParams({ q: query });
   };
-
-  useEffect(() => {
-    const db = getDatabase();
-    const itemsRef = ref(db, "items");
-
-    const handleData = (snapshot) => {
-      const data = snapshot.val();
-      if (data) {
-        const itemsArray = Object.entries(data).map(([id, value]) => {
-          return { id, ...value };
-        });
-        setItems(itemsArray);
-      } else {
-        setItems([]);
-      }
-      setIsLoading(false);
-    };
-
-    onValue(itemsRef, handleData);
-    return () => off(itemsRef, "value", handleData);
-  }, []);
 
   const handleAddToCart = (item, quantity) => {
     if (auth) {
