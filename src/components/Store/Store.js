@@ -1,24 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { addToCart } from "../../store/cartSlice";
+import { useSelector } from "react-redux";
 import StoreItem from "./StoreItem";
-import { DataLayer } from "@piwikpro/react-piwik-pro";
 import LoadingSpinner from "../../utils/LoadingSpinner";
 import Search from "./Search";
 import { useSearchParams } from "react-router-dom";
-import useAuth from "../../hooks/useAuth";
 import Alert from "../Modal/Alert";
 import useAlert from "../../hooks/useAlert";
 import Pagination from "./Pagination";
 import { useItems } from "./useItems";
+import useAddToCart from "./useAddToCart";
 
 const Store = () => {
   const { items, isLoading } = useItems();
   const [searchParams, setSearchParams] = useSearchParams();
   const [searchQuery, setSearchQuery] = useState(searchParams.get("q") || "");
-  const dispatch = useDispatch();
-  const { auth } = useAuth();
   const { alert, showAlert, hideAlert } = useAlert();
+  const handleAddToCart = useAddToCart(showAlert);
   const itemsInCart = useSelector((state) => state.cart.items);
   const itemIdsInCart = itemsInCart.map((item) => item.id);
   const filteredItems = items.filter((item) =>
@@ -40,35 +37,6 @@ const Store = () => {
   const handleSearch = (query) => {
     setSearchQuery(query);
     setSearchParams({ q: query });
-  };
-
-  const handleAddToCart = (item, quantity) => {
-    if (auth) {
-      dispatch(addToCart({ item, quantity: Number(quantity) }));
-      DataLayer.push({
-        event: "add_to_cart",
-        ecommerce: {
-          currency: "USD",
-          value: Number(quantity) * item.price,
-          items: [
-            {
-              item_id: String(item.id),
-              item_name: item.title,
-              price: String(item.price),
-              quantity: Number(quantity),
-              item_brand: item.brand,
-              item_category: item.category,
-              item_variant: item.variant,
-            },
-          ],
-        },
-      });
-    } else {
-      showAlert(
-        "Authentication error",
-        "Kindly sign in to add items to your cart"
-      );
-    }
   };
 
   return (
