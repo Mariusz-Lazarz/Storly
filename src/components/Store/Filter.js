@@ -49,6 +49,7 @@ const Filter = ({ isOpen, onClose, setFilters }) => {
           </button>
         </div>
         <div className="mb-4">
+          <h1 className="text-2xl text-center mb-4">Customize Your Selection</h1>
           <div className="flex justify-between items-center mb-2">
             <span>Category</span>
             {/* <FontAwesomeIcon
@@ -125,14 +126,14 @@ const Filter = ({ isOpen, onClose, setFilters }) => {
               placeholder="Min price"
               value={minPrice}
               onChange={(e) => setMinPrice(e.target.value)}
-              className="form-input block w-1/2 p-2 rounded border-gray-300 text-black"
+              className="form-input block w-1/2 p-2 rounded border-gray-500 border text-black"
             />
             <input
               type="number"
               placeholder="Max price"
               value={maxPrice}
               onChange={(e) => setMaxPrice(e.target.value)}
-              className="form-input block w-1/2 p-2 rounded border-gray-300 text-black"
+              className="form-input block w-1/2 p-2 rounded border-gray-500 border text-black"
             />
           </div>
         </div>
