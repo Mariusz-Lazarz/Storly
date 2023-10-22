@@ -9,24 +9,23 @@ import useAlert from "../../hooks/useAlert";
 import Pagination from "./Pagination";
 import { useItems } from "./useItems";
 import useAddToCart from "./useAddToCart";
+import Filter from "./Filter";
 
 const Store = () => {
   const { items, isLoading } = useItems();
   const [searchParams, setSearchParams] = useSearchParams();
   const [searchQuery, setSearchQuery] = useState(searchParams.get("q") || "");
+  const [isFilterModalOpen, setFilterModalOpen] = useState(false);
+  const [filters, setFilters] = useState({});
   const { alert, showAlert, hideAlert } = useAlert();
   const handleAddToCart = useAddToCart(showAlert);
   const itemsInCart = useSelector((state) => state.cart.items);
   const itemIdsInCart = itemsInCart.map((item) => item.id);
-  const filteredItems = items.filter((item) =>
-    item.title.toLowerCase().includes(searchQuery.toLowerCase())
-  );
 
   const itemsPerPage = 28;
   const [currentPage, setCurrentPage] = useState(1);
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = filteredItems.slice(indexOfFirstItem, indexOfLastItem);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -39,9 +38,49 @@ const Store = () => {
     setSearchParams({ q: query });
   };
 
+  const toggleFilterModal = () => {
+    setFilterModalOpen((prevState) => !prevState);
+  };
+
+  const applyFilters = () => {
+    let result = items.filter((item) =>
+      item.title.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
+    if (filters.categories && filters.categories.length > 0) {
+      result = result.filter((item) =>
+        filters.categories.includes(item.category)
+      );
+    }
+
+    if (filters.brands && filters.brands.length > 0) {
+      result = result.filter((item) => filters.brands.includes(item.brand));
+    }
+
+    if (filters.priceRange) {
+      const { min, max } = filters.priceRange;
+      if (min) {
+        result = result.filter((item) => item.price >= min);
+      }
+      if (max) {
+        result = result.filter((item) => item.price <= max);
+      }
+    }
+
+    return result;
+  };
+
+  const filteredItems = applyFilters();
+
+  const currentItems = filteredItems.slice(indexOfFirstItem, indexOfLastItem);
+
   return (
     <div className="container mx-auto p-4">
-      <Search searchQuery={searchQuery} handleSearch={handleSearch} />
+      <Search
+        searchQuery={searchQuery}
+        handleSearch={handleSearch}
+        toggleFilterModal={toggleFilterModal}
+      />
       {isLoading ? (
         <LoadingSpinner></LoadingSpinner>
       ) : (
@@ -75,6 +114,11 @@ const Store = () => {
         title={alert.title}
         message={alert.message}
         onConfirm={hideAlert}
+      />
+      <Filter
+        isOpen={isFilterModalOpen}
+        onClose={toggleFilterModal}
+        setFilters={setFilters}
       />
     </div>
   );

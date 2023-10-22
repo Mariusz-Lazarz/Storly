@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faSearch, faFilter } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 
-const Search = ({ handleSearch }) => {
+const Search = ({ handleSearch, toggleFilterModal }) => {
   const [localQuery, setLocalQuery] = useState("");
   const [isFocused, setIsFocused] = useState(false);
   const navigate = useNavigate();
@@ -48,9 +48,14 @@ const Search = ({ handleSearch }) => {
           onBlur={() => setIsFocused(false)}
           className="focus:outline-none w-full mr-2 bg-transparent text-white placeholder:text-white dark:placeholder:text-black dark:text-black"
         />
-        <button onClick={handleSubmit} className="bg-transparent">
-          <FontAwesomeIcon icon={faSearch} />
-        </button>
+        <div className="flex gap-3">
+          <button onClick={handleSubmit} className="bg-transparent">
+            <FontAwesomeIcon icon={faSearch} />
+          </button>
+          <button onClick={toggleFilterModal} className="text-xl">
+            <FontAwesomeIcon icon={faFilter} />
+          </button>
+        </div>
       </div>
     </div>
   );
