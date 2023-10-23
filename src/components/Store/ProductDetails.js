@@ -146,7 +146,7 @@ const ProductDetails = () => {
             ...value,
             id: key,
           }));
-          setCategoryItems(itemsArray);
+          setCategoryItems(itemsArray.filter((item) => id !== item.id));
         };
 
         onValue(userQuery, handleData);
