@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch, faFilter } from "@fortawesome/free-solid-svg-icons";
+import { faSearch, faSliders} from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 
 const Search = ({ handleSearch, toggleFilterModal }) => {
@@ -53,7 +53,7 @@ const Search = ({ handleSearch, toggleFilterModal }) => {
             <FontAwesomeIcon icon={faSearch} />
           </button>
           <button onClick={toggleFilterModal} className="text-xl">
-            <FontAwesomeIcon icon={faFilter} />
+            <FontAwesomeIcon icon={faSliders} />
           </button>
         </div>
       </div>
