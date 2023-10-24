@@ -158,7 +158,7 @@ const ProductDetails = () => {
         console.log(error);
       }
     }
-  }, [item]);
+  });
 
   return (
     <div className="container mx-auto p-4 dark:text-white">

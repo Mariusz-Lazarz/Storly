@@ -118,7 +118,7 @@ const ProductDetailsItem = ({
             </button>
           </div>
         </div>
-        <hr className="mb-4" />
+        <hr className="mb-8 mt-8" />
         {categoryItems.length > 0 && (
           <h1 className="text-2xl mb-8">You also might like these products</h1>
         )}
