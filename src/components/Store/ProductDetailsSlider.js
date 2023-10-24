@@ -14,7 +14,7 @@ const ProductDetailsSlider = ({ item }) => {
     arrows: false,
   };
   return (
-    <div className="w-full md:w-1/2 p-4 flex items-center justify-center">
+    <div className="w-full p-4 flex items-center justify-center">
       <Slider {...settings} className="w-full md:w-1/2">
         {item.imageLinks.map((imgLink, index) => (
           <div key={index} className="w-full h-64 md:h-96">
