@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch, faSliders, faSort } from "@fortawesome/free-solid-svg-icons";
+import { faSearch, faSliders } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import Sort from "./Sort";
 
-const Search = ({ handleSearch, toggleFilterModal }) => {
+const Search = ({ handleSearch, toggleFilterModal, sortItems }) => {
   const [localQuery, setLocalQuery] = useState("");
   const [isFocused, setIsFocused] = useState(false);
   const navigate = useNavigate();
@@ -59,7 +59,7 @@ const Search = ({ handleSearch, toggleFilterModal }) => {
           <button onClick={toggleFilterModal} className="hover:text-gray-600">
             <FontAwesomeIcon icon={faSliders} size="lg" />
           </button>
-          <Sort />
+          <Sort sortItems={sortItems} />
         </div>
       </div>
     </div>

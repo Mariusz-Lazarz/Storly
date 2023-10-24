@@ -17,6 +17,7 @@ const Store = () => {
   const [searchQuery, setSearchQuery] = useState(searchParams.get("q") || "");
   const [isFilterModalOpen, setFilterModalOpen] = useState(false);
   const [filters, setFilters] = useState({});
+  const [sortedItems, setSortedItems] = useState(null);
   const { alert, showAlert, hideAlert } = useAlert();
   const handleAddToCart = useAddToCart(showAlert);
   const itemsInCart = useSelector((state) => state.cart.items);
@@ -72,8 +73,28 @@ const Store = () => {
 
   const filteredItems = applyFilters();
 
+  const sortItems = (option) => {
+    let sorted = [...filteredItems];
+    switch (option) {
+      case "Max Price":
+        sorted.sort((a, b) => b.price - a.price);
+        break;
+      case "Min Price":
+        sorted.sort((a, b) => a.price - b.price);
+        break;
+      case "A-Z":
+        sorted.sort((a, b) => a.title.localeCompare(b.title));
+        break;
+      default:
+        break;
+    }
+    const paginatedSorted = sorted.slice(indexOfFirstItem, indexOfLastItem);
+    setSortedItems(paginatedSorted);
+  };
 
-  const currentItems = filteredItems.slice(indexOfFirstItem, indexOfLastItem);
+  const itemsToDisplay = sortedItems
+    ? sortedItems
+    : filteredItems.slice(indexOfFirstItem, indexOfLastItem);
 
   return (
     <div className="container mx-auto p-4">
@@ -81,13 +102,14 @@ const Store = () => {
         searchQuery={searchQuery}
         handleSearch={handleSearch}
         toggleFilterModal={toggleFilterModal}
+        sortItems={sortItems}
       />
       {isLoading ? (
         <LoadingSpinner></LoadingSpinner>
       ) : (
         <div className="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-7 gap-4">
-          {currentItems.length > 0 ? (
-            currentItems.map((item) => (
+          {itemsToDisplay.length > 0 ? (
+            itemsToDisplay.map((item) => (
               <StoreItem
                 key={item.id}
                 item={item}

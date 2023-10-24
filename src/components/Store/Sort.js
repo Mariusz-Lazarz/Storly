@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSort } from "@fortawesome/free-solid-svg-icons";
 
-const Sort = () => {
+const Sort = ({ sortItems }) => {
   const [isSortMenuOpen, setIsSortMenuOpen] = useState(false);
 
   const toggleSortMenu = (e) => {
@@ -11,7 +11,7 @@ const Sort = () => {
   };
 
   const handleSortSelection = (option) => {
-    console.log("Sorting by:", option);
+    sortItems(option);
     setIsSortMenuOpen(false);
   };
 
@@ -51,11 +51,11 @@ const Sort = () => {
               Max Price
             </button>
             <button
-              onClick={() => handleSortSelection("Low Price")}
+              onClick={() => handleSortSelection("Min Price")}
               className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-dark-tertiary w-full text-left"
               role="menuitem"
             >
-              Low Price
+              Min Price
             </button>
             <button
               onClick={() => handleSortSelection("A-Z")}
