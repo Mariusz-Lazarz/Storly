@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useSelector } from "react-redux";
 import StoreItem from "./StoreItem";
 import LoadingSpinner from "../../utils/LoadingSpinner";
@@ -17,7 +17,7 @@ const Store = () => {
   const [searchQuery, setSearchQuery] = useState(searchParams.get("q") || "");
   const [isFilterModalOpen, setFilterModalOpen] = useState(false);
   const [filters, setFilters] = useState({});
-  const [sortedItems, setSortedItems] = useState(null);
+  const [filteredItems, setFilteredItems] = useState([]);
   const { alert, showAlert, hideAlert } = useAlert();
   const handleAddToCart = useAddToCart(showAlert);
   const itemsInCart = useSelector((state) => state.cart.items);
@@ -43,7 +43,7 @@ const Store = () => {
     setFilterModalOpen((prevState) => !prevState);
   };
 
-  const applyFilters = () => {
+  const applyFilters = useCallback(() => {
     let result = items.filter((item) =>
       item.title.toLowerCase().includes(searchQuery.toLowerCase())
     );
@@ -68,10 +68,12 @@ const Store = () => {
       }
     }
 
-    return result;
-  };
+    setFilteredItems(result);
+  }, [items, searchQuery, filters]);
 
-  const filteredItems = applyFilters();
+  useEffect(() => {
+    applyFilters();
+  }, [applyFilters]);
 
   const sortItems = (option) => {
     let sorted = [...filteredItems];
@@ -88,13 +90,10 @@ const Store = () => {
       default:
         break;
     }
-    const paginatedSorted = sorted.slice(indexOfFirstItem, indexOfLastItem);
-    setSortedItems(paginatedSorted);
+    setFilteredItems(sorted);
   };
 
-  const itemsToDisplay = sortedItems
-    ? sortedItems
-    : filteredItems.slice(indexOfFirstItem, indexOfLastItem);
+  const itemsToDisplay = filteredItems.slice(indexOfFirstItem, indexOfLastItem);
 
   return (
     <div className="container mx-auto p-4">
