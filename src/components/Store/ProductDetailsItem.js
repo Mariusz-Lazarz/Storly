@@ -43,7 +43,7 @@ const ProductDetailsItem = ({
           <h1 className="text-2xl text-pink-500 font-bold mb-2">
             {item.title}
           </h1>
-          <div className="flex justify-between items-center mb-2">
+          <div className="flex flex-col-reverse items-start lg:flex-row lg:justify-between mb-2">
             <div className="flex justify-center gap-2">
               <span
                 className={`text-orange-600 ${
