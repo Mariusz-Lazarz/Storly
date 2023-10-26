@@ -3,6 +3,9 @@ module.exports = {
   darkMode: "class",
   theme: {
     extend: {
+      textShadow: {
+        default: "0 2px 5px rgba(0, 0, 0, 0.5)",
+      },
       colors: {
         "light-pink": "#FF88AA",
         "dark-container": "#1a1a1a",

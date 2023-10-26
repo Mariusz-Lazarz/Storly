@@ -10,7 +10,7 @@ import useDarkMode from "./hooks/useDarkMode";
 const AddItemForm = lazy(() => import("./components/AddItem/AddItemForm"));
 const NotFound = lazy(() => import("./components/Error/NotFound"));
 const Store = lazy(() => import("./components/Store/Store"));
-const HomePage = lazy(() => import("./components/Home/HomePage"));
+const NewHomePage = lazy(() => import("./components/Home/NewHomePage"));
 const Cart = lazy(() => import("./components/Cart/Cart"));
 const About = lazy(() => import("./components/Home/About"));
 const Contact = lazy(() => import("./components/Home/Contact"));
@@ -23,10 +23,10 @@ function App() {
     <Router>
       <div className="App flex flex-col min-h-screen bg-gradient-to-b from-blue-50 via-white to-pink-200 dark:bg-gradient-to-b dark:from-dark-container dark:via-dark-primary dark:to-dark-secondary">
         <Navbar />
-        <main className="flex-grow">
+        <main>
           <Suspense fallback={<LoadingSpinner />}>
             <Routes>
-              <Route path="/" element={<HomePage />} />
+              <Route path="/" element={<NewHomePage />} />
               <Route path="/add" element={<AddItemForm />} />
               <Route path="/store" element={<Store />} />
               <Route path="/cart" element={<Cart />} />
@@ -38,8 +38,8 @@ function App() {
             </Routes>
           </Suspense>
         </main>
-        <Footer />
         <BotChat />
+        <Footer />
       </div>
     </Router>
   );

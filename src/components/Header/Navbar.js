@@ -62,10 +62,10 @@ function Navbar() {
 
   return (
     <>
-      <nav className="bg-gray-800 p-4 fixed top-0 w-full z-50 dark:bg-dark-primary">
+      <nav className="bg-white p-4 fixed top-0 w-full z-50 dark:bg-dark-primary dark:text-white ">
         <div className="container mx-auto flex justify-between items-center">
           <div className="flex items-center gap-2">
-            <Link to="/" className="text-white font-logo text-2xl no-underline">
+            <Link to="/" className=" font-logo text-2xl no-underline">
               <span className="font-bold">Storly</span>
             </Link>
             <Switch />
@@ -77,35 +77,26 @@ function Navbar() {
               <>
                 <button
                   onClick={openSignUp}
-                  className="bg-light-pink text-white py-2 px-4 rounded-full mr-2 dark:bg-dark-tertiary"
+                  className="bg-light-pink  py-2 px-4 rounded-full mr-2 dark:bg-dark-tertiary"
                 >
                   Sign Up
                 </button>
                 <button
                   onClick={openSignIn}
-                  className="bg-light-pink text-white py-2 px-4 rounded-full dark:bg-dark-tertiary"
+                  className="bg-light-pink  py-2 px-4 rounded-full dark:bg-dark-tertiary"
                 >
                   Sign In
                 </button>
               </>
             ) : (
               <>
-                <Link
-                  to="/userPanel"
-                  state={auth.email}
-                  className="text-blue-500 hover:underline"
-                >
-                  <FontAwesomeIcon
-                    icon={faUser}
-                    style={{ fontSize: "20px" }}
-                    color="white"
-                  />
+                <Link to="/userPanel" state={auth.email}>
+                  <FontAwesomeIcon icon={faUser} style={{ fontSize: "20px" }} />
                 </Link>
                 <Link to="/cart" className="mx-4 relative">
                   <FontAwesomeIcon
                     icon={faShoppingCart}
                     style={{ fontSize: "20px" }}
-                    color="white"
                   />
                   <span
                     className="absolute text-white rounded-full text-xs w-4 h-4 flex items-center justify-center bg-red-500"
@@ -114,10 +105,7 @@ function Navbar() {
                     {cartItemCount}
                   </span>
                 </Link>
-                <button
-                  onClick={logout}
-                  className="text-white py-1 px-2 rounded-full"
-                >
+                <button onClick={logout} className=" py-1 px-2 rounded-full">
                   <FontAwesomeIcon
                     icon={faSignOutAlt}
                     style={{ fontSize: "20px" }}

@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 
 function Footer() {
   return (
-    <footer className="bg-gray-800 p-4 mt-auto text-white dark:bg-dark-primary">
+    <footer className="bg-white p-4 mt-auto dark:text-white dark:bg-dark-primary">
       <div className="container mx-auto justify-between items-center flex flex-col md:flex-row">
         <div className="flex space-x-4">
           <a
@@ -39,24 +39,22 @@ function Footer() {
         </div>
         <div className="flex space-x-4">
           {" "}
-          <Link to="/about" className="text-white hover:underline">
+          <Link to="/about" className=" hover:underline">
             About
           </Link>
-          <Link to="/contact" className="text-white hover:underline">
+          <Link to="/contact" className=" hover:underline">
             Contact
           </Link>
           <a
             href="https://www.piwik.pro"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-white hover:underline"
+            className=" hover:underline"
           >
             Piwik PRO
           </a>
         </div>
-        <div className="text-white">
-          &copy; {new Date().getFullYear()} Mariusz Łazarz
-        </div>
+        <div className="">&copy; {new Date().getFullYear()} Mariusz Łazarz</div>
       </div>
     </footer>
   );

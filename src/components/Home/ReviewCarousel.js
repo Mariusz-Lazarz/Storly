@@ -34,7 +34,7 @@ function ReviewCarousel() {
   }
 
   return (
-    <div className="mt-8 mb-8">
+    <div className="mt-8 mb-8 text-center">
       <h2 className="text-2xl font-bold mb-4 dark:text-gray-300">
         Real Feedback from Happy Shoppers
       </h2>

@@ -1,0 +1,17 @@
+.background-image {
+  background-image: url("../../images/smartphone-high-digital-vector_276941-304.avif");
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-size: cover;
+  width: 100%;
+  height: 90vh;
+  margin: auto;
+}
+
+/* @media (max-width: 768px) {
+  .background-image {
+    background-position: 35% center;
+  }
+} */
+
+
