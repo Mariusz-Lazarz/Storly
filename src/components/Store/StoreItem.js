@@ -7,6 +7,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Tooltip } from "react-tooltip";
 import { useState } from "react";
+import SaleIcon from "../../utils/SaleIcon";
 
 const StoreItem = ({ item, handleAddToCart, itemsInCart }) => {
   const [quantity, setQuantity] = useState(1);
@@ -23,13 +24,13 @@ const StoreItem = ({ item, handleAddToCart, itemsInCart }) => {
   };
 
   return (
-    <div className="p-2 relative text-center transform transition-transform duration-500 hover:scale-105 dark:text-white">
+    <div className="p-2 text-center transform transition-transform duration-500 hover:scale-105 dark:text-white">
       <Link to={`/product/${item.id}`}>
         <div className="flex items-center justify-center mb-2 h-36 w-36 mx-auto cursor-pointer">
           <img
             src={item.imageLinks[0]}
             alt={item.title}
-            className="object-fit w-full h-full"
+            className="object-fit w-full h-full  relative"
             loading="lazy"
           />
         </div>
@@ -87,8 +88,7 @@ const StoreItem = ({ item, handleAddToCart, itemsInCart }) => {
           }}
         />
       </div>
-
-      <div className="flex justify-center"></div>
+      <SaleIcon itemDiscount={item.discount} />
     </div>
   );
 };

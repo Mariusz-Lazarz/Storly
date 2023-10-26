@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import SaleIcon from "../../utils/SaleIcon";
 
 const RecommendedItem = ({ item }) => {
   return (
@@ -28,6 +29,7 @@ const RecommendedItem = ({ item }) => {
           <span className="text-red-500">${item.discount}</span>
         )}
       </div>
+      <SaleIcon itemDiscount={item.discount} />
     </div>
   );
 };
