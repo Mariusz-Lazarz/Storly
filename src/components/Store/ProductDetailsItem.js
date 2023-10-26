@@ -44,7 +44,20 @@ const ProductDetailsItem = ({
             {item.title}
           </h1>
           <div className="flex justify-between items-center mb-2">
-            <p className="text-xl text-red-300">${item.price}</p>
+            <div className="flex justify-center gap-2">
+              <span
+                className={`text-red-300 text-xl ${
+                  item.discount > 0 ? "line-through" : ""
+                }`}
+              >
+                ${item.price}
+              </span>
+              {item.discount > 0 && (
+                <span className="text-red-500 text-xl">
+                  ${item.discount}
+                </span>
+              )}
+            </div>
             <div className="flex items-center">
               <span className="text-sm mr-2">{averageRating.toFixed(2)}</span>
               <StarRating averageRating={averageRating} />

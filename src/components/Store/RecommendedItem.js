@@ -16,7 +16,18 @@ const RecommendedItem = ({ item }) => {
       <h3 className="font-semibold truncate w-full max-w-[95%] text-center">
         {item.title}
       </h3>
-      <span className="text-orange-600">${item.price}</span>
+      <div className="flex justify-center gap-2">
+        <span
+          className={`text-orange-600 ${
+            item.discount > 0 ? "line-through" : ""
+          }`}
+        >
+          ${item.price}
+        </span>
+        {item.discount > 0 && (
+          <span className="text-red-500">${item.discount}</span>
+        )}
+      </div>
     </div>
   );
 };

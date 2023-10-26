@@ -36,7 +36,18 @@ const StoreItem = ({ item, handleAddToCart, itemsInCart }) => {
         <h3 className="font-semibold truncate w-full max-w-[95%]">
           {item.title}
         </h3>
-        <span className="text-orange-600">${item.price}</span>
+        <div className="flex justify-center gap-2">
+          <span
+            className={`text-orange-600 ${
+              item.discount > 0 ? "line-through" : ""
+            }`}
+          >
+            ${item.price}
+          </span>
+          {item.discount > 0 && (
+            <span className="text-red-500">${item.discount}</span>
+          )}
+        </div>
       </Link>
       <div className="flex items-center justify-center gap-2 m-1 ">
         <div className="flex gap-2 bg-gray-200 py-1 px-2  rounded dark:bg-dark-secondary">
