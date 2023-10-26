@@ -78,10 +78,10 @@ const Store = () => {
     let sorted = [...filteredItems];
     switch (option) {
       case "Max Price":
-        sorted.sort((a, b) => b.price - a.price);
+        sorted.sort((a, b) => Number(b.price) - Number(a.price));
         break;
       case "Min Price":
-        sorted.sort((a, b) => a.price - b.price);
+        sorted.sort((a, b) => Number(a.price) - Number(b.price));
         break;
       case "A-Z":
         sorted.sort((a, b) => a.title.localeCompare(b.title));
@@ -93,8 +93,6 @@ const Store = () => {
   };
 
   const itemsToDisplay = filteredItems.slice(indexOfFirstItem, indexOfLastItem);
-
-
 
   return (
     <div className="container mx-auto p-4">
