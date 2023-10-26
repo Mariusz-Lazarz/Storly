@@ -4,7 +4,7 @@ Storly is a feature-rich e-commerce platform that brings a seamless shopping exp
 
 [Explore Storly Live](https://storly.netlify.app/)
 
-![Storly Banner](./img/Banner.png)
+![Storly Banner](./img/banner2.png)
 
 ## Key Features
 
