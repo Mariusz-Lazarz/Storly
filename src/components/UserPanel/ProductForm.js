@@ -210,6 +210,18 @@ function ProductForm({
           step="0.01"
         />
       </label>
+      <label className="block">
+        <span className="text-gray-700 dark:text-white">Discounted price</span>
+        <input
+          type="number"
+          name="discount"
+          value={editFormData.discount}
+          onChange={handleInputChange}
+          className="border p-2 w-full mt-1 dark:bg-dark-secondary  dark:border-gray-700"
+          placeholder="Discounted Price"
+          step="0.01"
+        />
+      </label>
       <label className="block mt-4">
         <span className="text-gray-700 dark:text-white">Add More Images</span>
         <input
