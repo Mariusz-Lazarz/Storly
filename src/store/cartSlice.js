@@ -17,15 +17,19 @@ const cartSlice = createSlice({
         state.items[existingItemIndex].quantity += action.payload.quantity;
         state.items[existingItemIndex].totalPrice = (
           state.items[existingItemIndex].quantity *
-          state.items[existingItemIndex].price
+            state.items[existingItemIndex].discount >
+          0
+            ? state.items[existingItemIndex].discount
+            : state.items[existingItemIndex].price
         ).toFixed(2);
       } else {
         state.items.push({
           ...action.payload.item,
           quantity: action.payload.quantity,
-          totalPrice: (
-            action.payload.item.price * action.payload.quantity
-          ).toFixed(2),
+          totalPrice:
+            (action.payload.item.discount > 0
+              ? action.payload.item.discount
+              : action.payload.item.price) * action.payload.quantity.toFixed(2),
         });
       }
     },
