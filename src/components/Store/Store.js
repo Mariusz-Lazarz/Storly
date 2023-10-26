@@ -22,7 +22,6 @@ const Store = () => {
   const handleAddToCart = useAddToCart(showAlert);
   const itemsInCart = useSelector((state) => state.cart.items);
   const itemIdsInCart = itemsInCart.map((item) => item.id);
-
   const itemsPerPage = 28;
   const [currentPage, setCurrentPage] = useState(1);
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -94,6 +93,8 @@ const Store = () => {
   };
 
   const itemsToDisplay = filteredItems.slice(indexOfFirstItem, indexOfLastItem);
+
+
 
   return (
     <div className="container mx-auto p-4">

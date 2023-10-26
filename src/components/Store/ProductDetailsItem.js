@@ -46,16 +46,14 @@ const ProductDetailsItem = ({
           <div className="flex justify-between items-center mb-2">
             <div className="flex justify-center gap-2">
               <span
-                className={`text-red-300 text-xl ${
-                  item.discount > 0 ? "line-through" : ""
+                className={`text-orange-600 ${
+                  Number(item.discount) > 0 ? "line-through" : ""
                 }`}
               >
                 ${item.price}
               </span>
-              {item.discount > 0 && (
-                <span className="text-red-500 text-xl">
-                  ${item.discount}
-                </span>
+              {Number(item.discount) > 0 && (
+                <span className="text-red-500">${item.discount}</span>
               )}
             </div>
             <div className="flex items-center">

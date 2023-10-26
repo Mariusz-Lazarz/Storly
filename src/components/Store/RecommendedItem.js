@@ -19,12 +19,12 @@ const RecommendedItem = ({ item }) => {
       <div className="flex justify-center gap-2">
         <span
           className={`text-orange-600 ${
-            item.discount > 0 ? "line-through" : ""
+            Number(item.discount) > 0 ? "line-through" : ""
           }`}
         >
           ${item.price}
         </span>
-        {item.discount > 0 && (
+        {Number(item.discount) > 0 && (
           <span className="text-red-500">${item.discount}</span>
         )}
       </div>
