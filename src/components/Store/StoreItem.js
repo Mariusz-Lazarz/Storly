@@ -22,9 +22,6 @@ const StoreItem = ({ item, handleAddToCart, itemsInCart }) => {
     setQuantity((prevState) => prevState + 1);
   };
 
-  console.log(Number(item.discount));
-  console.log(Number(item.price));
-
   return (
     <div className="p-2 relative text-center transform transition-transform duration-500 hover:scale-105 dark:text-white">
       <Link to={`/product/${item.id}`}>

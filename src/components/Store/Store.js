@@ -60,12 +60,24 @@ const Store = () => {
     if (filters.priceRange) {
       const { min, max } = filters.priceRange;
       if (min) {
-        result = result.filter((item) => Number(item.price) >= min);
+        result = result.filter(
+          (item) =>
+            (Number(item.discount) > 0
+              ? Number(item.discount)
+              : Number(item.price)) >= min
+        );
       }
       if (max) {
-        result = result.filter((item) => Number(item.price) <= max);
+        result = result.filter(
+          (item) =>
+            (Number(item.discount) > 0
+              ? Number(item.discount)
+              : Number(item.price)) <= max
+        );
       }
     }
+
+    console.log(result);
 
     setFilteredItems(result);
   }, [items, searchQuery, filters]);
