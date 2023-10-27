@@ -24,7 +24,7 @@ const StoreItem = ({ item, handleAddToCart, itemsInCart }) => {
   };
 
   return (
-    <div className="p-2 text-center transform transition-transform duration-500 hover:scale-105 dark:text-white">
+    <div className="p-2 text-center shadow-lg transform transition-transform duration-500 hover:scale-105 dark:text-white">
       <Link to={`/product/${item.id}`}>
         <div className="flex items-center justify-center mb-2 h-36 w-36 mx-auto cursor-pointer">
           <img

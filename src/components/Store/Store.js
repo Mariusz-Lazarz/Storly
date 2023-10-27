@@ -77,8 +77,6 @@ const Store = () => {
       }
     }
 
-    console.log(result);
-
     setFilteredItems(result);
   }, [items, searchQuery, filters]);
 

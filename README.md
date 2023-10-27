@@ -9,15 +9,18 @@ Storly is a feature-rich e-commerce platform that brings a seamless shopping exp
 ## Key Features
 
 - **User Authentication**: Sign up, log in, and manage your account with ease.
-- **Product Discovery**: Search and browse products, view detailed product information.
+- **Product Discovery**: Search and browse products, view detailed product information, and sort items based on common factors like price.
+- **Advanced Filtering**: Narrow down your search with filters based on category, brand, and price range (min-max).
 - **Wishlist Management**: Add and keep track of your favorite items in a specialized wishlist.
-- **Seller Dashboard**: List your items, manage orders, and interact with buyers.
+- **Seller Dashboard**: List your items, manage orders, and interact with buyers. Preview items in real-time as they are being added to the website, and apply discounts to entice buyers.
 - **Rating and Reviews**: Share your experiences with products through ratings and reviews.
 - **Shopping Cart and Checkout**: Add products to your cart and breeze through our streamlined checkout process.
 - **Order Management**: View and manage your orders from your personalized user panel.
 - **Password Management**: Change or reset your password effortlessly.
 - **Piwik PRO Integration**: Monitor and analyze e-commerce activities with Piwik PRO tracking.
 - **Simple Chat Bot**: Engage with our simple chat bot for basic interactions and support.
+- **Theme Toggle**: Switch between light and dark mode for a comfortable browsing experience.
+- **Personalized Recommendations**: Discover new items with a list of recommended products tailored to your browsing and purchasing history.
 
 > 🚀 More features are on the horizon! Stay tuned for updates.
 
@@ -42,8 +45,9 @@ npm install
 npm run start
 ```
 
-### 4. Configure Piwik PRO
+### 4. Configure Piwik PRO (optional)
 
+If you're not using Piwik PRO analytics, skip this step.
 Update the Piwik PRO credentials in the index.js file located in the /src directory (line 12).
 
 ```
