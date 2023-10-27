@@ -96,6 +96,17 @@ const Store = () => {
       case "A-Z":
         sorted.sort((a, b) => a.title.localeCompare(b.title));
         break;
+      case "Sale":
+        sorted.sort((a, b) => {
+          if (Number(a.discount) > 0 && !Number(b.discount) > 0) {
+            return -1;
+          }
+          if (!Number(a.discount) > 0 && Number(b.discount) > 0) {
+            return 1;
+          }
+          return 0;
+        });
+        break;
       default:
         break;
     }

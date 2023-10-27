@@ -58,6 +58,13 @@ const Sort = ({ sortItems }) => {
               Min Price
             </button>
             <button
+              onClick={() => handleSortSelection("Sale")}
+              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-dark-tertiary w-full text-left"
+              role="menuitem"
+            >
+              Sale products
+            </button>
+            <button
               onClick={() => handleSortSelection("A-Z")}
               className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-dark-tertiary w-full text-left"
               role="menuitem"
