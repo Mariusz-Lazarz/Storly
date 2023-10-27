@@ -35,7 +35,7 @@ const ProductDetailsItem = ({
 
   return (
     <div className="flex flex-col md:gap-4">
-      <div className="flex flex-col md:flex-row md:gap-4 w-full">
+      <div className="flex flex-col md:flex-row md:gap-4 w-full shadow-lg">
         <div className="w-full md:w-1/2">
           <ProductDetailsSlider item={item} />
         </div>

@@ -3,7 +3,7 @@ import SaleIcon from "../../utils/SaleIcon";
 
 const RecommendedItem = ({ item }) => {
   return (
-    <div className="flex flex-col justify-center items-center w-1/3 cursor-pointer transform transition-transform duration-500 hover:scale-105">
+    <div className="flex flex-col justify-center items-center w-1/3 shadow-lg cursor-pointer transform transition-transform duration-500 hover:scale-105">
       <Link to={`/product/${item.id}`}>
         <div className="h-32 w-32 mx-auto">
           <img
