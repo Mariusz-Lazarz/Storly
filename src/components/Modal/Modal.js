@@ -26,12 +26,12 @@ const Modal = ({ children, onClose, isOpen }) => {
     <CSSTransition in={isOpen} timeout={300} classNames="modal" unmountOnExit>
       <div
         onClick={handleClickOutside}
-        className="fixed inset-0 flex items-center justify-center  overflow-y-scroll bg-black bg-opacity-50 "
+        className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 "
       >
         <div
           ref={modalContent}
           onClick={(e) => e.stopPropagation()}
-          className="bg-white  p-6 rounded shadow-lg relative w-11/12 lg:w-1/3 mx-auto modal-content dark:bg-dark-primary"
+          className="bg-white  p-6 rounded shadow-lg relative w-11/12 lg:w-1/3 h-4/5 overflow-scroll modal-content dark:bg-dark-primary"
         >
           {children}
         </div>
