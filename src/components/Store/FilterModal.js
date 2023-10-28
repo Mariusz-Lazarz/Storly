@@ -2,9 +2,9 @@ import React, { useRef, useEffect } from "react";
 import ReactDOM from "react-dom";
 import { applyBlur, revertBlur } from "../../utils/blur";
 import { CSSTransition } from "react-transition-group";
-import "./modal.css";
+import "../Modal/modal.css";
 
-const Modal = ({ children, onClose, isOpen }) => {
+const FilterModal = ({ children, onClose, isOpen }) => {
   const modalContent = useRef(null);
 
   const handleClickOutside = (event) => {
@@ -31,7 +31,7 @@ const Modal = ({ children, onClose, isOpen }) => {
         <div
           ref={modalContent}
           onClick={(e) => e.stopPropagation()}
-          className="bg-white  p-6 rounded shadow-lg relative w-11/12 lg:w-1/3 overflow-scroll modal-content dark:bg-dark-primary"
+          className="bg-white  p-6 rounded shadow-lg relative w-11/12 lg:w-1/3 h-4/5 overflow-scroll modal-content dark:bg-dark-primary"
         >
           {children}
         </div>
@@ -41,4 +41,4 @@ const Modal = ({ children, onClose, isOpen }) => {
   );
 };
 
-export default Modal;
+export default FilterModal;

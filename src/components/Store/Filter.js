@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faCaretDown, faCaretUp } from "@fortawesome/free-solid-svg-icons";
-import Modal from "../Modal/Modal";
+import FilterModal from "./FilterModal";
 
 const Filter = ({ isOpen, onClose, setFilters }) => {
   // const [categoryOpen, setCategoryOpen] = useState(false);
@@ -41,7 +41,7 @@ const Filter = ({ isOpen, onClose, setFilters }) => {
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
+    <FilterModal isOpen={isOpen} onClose={onClose}>
       <div className="px-2 text-black dark:text-white">
         <div className="flex justify-end mb-4">
           <button onClick={onClose} className=" text-3xl">
@@ -49,7 +49,9 @@ const Filter = ({ isOpen, onClose, setFilters }) => {
           </button>
         </div>
         <div className="mb-4">
-          <h1 className="text-2xl text-center mb-4">Customize Your Selection</h1>
+          <h1 className="text-2xl text-center mb-4">
+            Customize Your Selection
+          </h1>
           <div className="flex justify-between items-center mb-2">
             <span>Category</span>
             {/* <FontAwesomeIcon
@@ -152,7 +154,7 @@ const Filter = ({ isOpen, onClose, setFilters }) => {
           </button>
         </div>
       </div>
-    </Modal>
+    </FilterModal>
   );
 };
 
