@@ -148,106 +148,101 @@ function AddItemForm() {
   };
 
   return (
-    <div className="bg-white p-6 rounded shadow-lg my-4 w-full md:w-11/12 lg:w-1/4 mx-auto dark:bg-dark-primary dark:text-white">
-      <form onSubmit={addItem} className="flex flex-col space-y-4">
-        <h2 className="text-2xl font-bold text-center mb-4">Add Item</h2>
-        {error && <p className="text-red-500 text-lg">{error}</p>}
-        <input
-          type="text"
-          placeholder="Title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          className="p-2 border rounded dark:bg-dark-secondary  dark:border-gray-700"
-          required
-        />
-        <input
-          type="text"
-          placeholder="Category"
-          value={category}
-          onChange={(e) => setCategory(e.target.value)}
-          className="p-2 border rounded dark:bg-dark-secondary  dark:border-gray-700"
-          required
-        />
-        <input
-          type="text"
-          placeholder="Variant"
-          value={variant}
-          onChange={(e) => setVariant(e.target.value)}
-          className="p-2 border rounded dark:bg-dark-secondary  dark:border-gray-700"
-          required
-        />
-        <input
-          type="text"
-          placeholder="Brand"
-          value={brand}
-          onChange={(e) => setBrand(e.target.value)}
-          className="p-2 border rounded dark:bg-dark-secondary  dark:border-gray-700"
-          required
-        />
-        <textarea
-          placeholder="Description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          className="p-2 border rounded dark:bg-dark-secondary  dark:border-gray-700"
-          required
-        />
-        <input
-          type="number"
-          placeholder="Quantity"
-          value={quantity}
-          onChange={(e) => setQuantity(e.target.value)}
-          className="p-2 border rounded dark:bg-dark-secondary  dark:border-gray-700"
-          required
-        />
-        <input
-          type="number"
-          placeholder="Price"
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
-          className="p-2 border rounded dark:bg-dark-secondary  dark:border-gray-700"
-          step="0.01"
-          required
-        />
-        <ImageUpload
-          onUpload={handleFileUpload}
-          onRemove={removeImage}
-          imagePreviewUrls={imagePreviewUrls}
-          fileInputRef={fileInputRef}
-        />
-        <div className="flex gap-2">
-          <button
-            type="submit"
-            className="bg-light-pink text-white p-2 rounded flex-1 dark:bg-dark-secondary"
-          >
-            Add Item
-          </button>
-          <button
-            type="button"
-            onClick={() => setIsPreviewd(true)}
-            className="bg-blue-300 text-white p-2 rounded flex-1 dark:bg-dark-tertiary"
-          >
-            Preview Item
-          </button>
+    <>
+      <div className="flex flex-col md:flex-row gap-4 p-6">
+        <div className="bg-white p-6 rounded shadow-lg my-4 w-full md:w-11/12 lg:w-1/4 dark:bg-dark-primary dark:text-white">
+          <form onSubmit={addItem} className="flex flex-col space-y-4">
+            <h2 className="text-2xl font-bold text-center mb-4">Add Item</h2>
+            {error && <p className="text-red-500 text-lg">{error}</p>}
+            <input
+              type="text"
+              placeholder="Title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              className="p-2 border rounded dark:bg-dark-secondary  dark:border-gray-700"
+              required
+            />
+            <input
+              type="text"
+              placeholder="Category"
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+              className="p-2 border rounded dark:bg-dark-secondary  dark:border-gray-700"
+              required
+            />
+            <input
+              type="text"
+              placeholder="Variant"
+              value={variant}
+              onChange={(e) => setVariant(e.target.value)}
+              className="p-2 border rounded dark:bg-dark-secondary  dark:border-gray-700"
+              required
+            />
+            <input
+              type="text"
+              placeholder="Brand"
+              value={brand}
+              onChange={(e) => setBrand(e.target.value)}
+              className="p-2 border rounded dark:bg-dark-secondary  dark:border-gray-700"
+              required
+            />
+            <textarea
+              placeholder="Description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              className="p-2 border rounded dark:bg-dark-secondary  dark:border-gray-700"
+              required
+            />
+            <input
+              type="number"
+              placeholder="Quantity"
+              value={quantity}
+              onChange={(e) => setQuantity(e.target.value)}
+              className="p-2 border rounded dark:bg-dark-secondary  dark:border-gray-700"
+              required
+            />
+            <input
+              type="number"
+              placeholder="Price"
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
+              className="p-2 border rounded dark:bg-dark-secondary  dark:border-gray-700"
+              step="0.01"
+              required
+            />
+            <ImageUpload
+              onUpload={handleFileUpload}
+              onRemove={removeImage}
+              imagePreviewUrls={imagePreviewUrls}
+              fileInputRef={fileInputRef}
+            />
+            <div className="flex gap-2">
+              <button
+                type="submit"
+                className="bg-light-pink text-white p-2 rounded flex-1 dark:bg-dark-secondary"
+              >
+                Add Item
+              </button>
+            </div>
+          </form>
         </div>
-      </form>
+        <PreviewItem
+          item={{
+            title,
+            imagePreviewUrls,
+            description,
+            category,
+            variant,
+            brand,
+            quantity,
+            price,
+          }}
+        />
+      </div>
       <Modal isOpen={isLoading} onClose={null}>
         <LoadingSpinner />
       </Modal>
-      <PreviewItem
-        isOpen={isPreviewd}
-        onClose={() => setIsPreviewd(false)}
-        item={{
-          title,
-          imagePreviewUrls,
-          description,
-          category,
-          variant,
-          brand,
-          quantity,
-          price,
-        }}
-      />
-    </div>
+    </>
   );
 }
 
