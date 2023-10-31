@@ -87,8 +87,8 @@ const Search = ({
       </div>
       {showSuggestions && (
         <div
-          className="absolute top-12 w-full overflow-scroll lg:w-3/5 mt-2 z-50 bg-gray-700 border border-gray-300 rounded shadow-lg dark:bg-white"
-          style={{ height: "80vh" }}
+          className="absolute top-12 w-full overflow-auto lg:w-3/5 mt-2 z-50 bg-gray-700 border border-gray-300 rounded shadow-lg dark:bg-white"
+          style={{ height: "auto", maxHeight: "80vh" }}
         >
           {suggestions.length > 0 ? (
             suggestions.map((suggestion, index) => (
