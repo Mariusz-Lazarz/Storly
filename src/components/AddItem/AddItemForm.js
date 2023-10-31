@@ -26,7 +26,6 @@ function AddItemForm() {
   const [price, setPrice] = useState("");
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [isPreviewd, setIsPreviewd] = useState(false);
   const fileInputRef = useRef();
   const navigate = useNavigate();
   const { auth } = useAuth();
