@@ -26,7 +26,6 @@ const Store = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   useEffect(() => {
