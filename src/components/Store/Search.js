@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faSliders } from "@fortawesome/free-solid-svg-icons";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Sort from "./Sort";
 import Suggestions from "./Suggestions";
 
@@ -18,8 +18,9 @@ const Search = ({
   const navigate = useNavigate();
 
   useEffect(() => {
+    const itemsForSuggestion = [...filteredItems];
     if (localQuery) {
-      const filteredSuggestions = filteredItems.filter((item) =>
+      const filteredSuggestions = itemsForSuggestion.filter((item) =>
         item.title.toLowerCase().includes(localQuery.toLowerCase())
       );
       setSuggestions(filteredSuggestions);
