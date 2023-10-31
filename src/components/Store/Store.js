@@ -123,6 +123,7 @@ const Store = () => {
           handleSearch={handleSearch}
           toggleFilterModal={toggleFilterModal}
           sortItems={sortItems}
+          filteredItems={filteredItems}
         />
         {isLoading ? (
           <LoadingSpinner></LoadingSpinner>

@@ -43,7 +43,8 @@ const PreviewItem = ({ item }) => {
           <h2 className="text-lg text-pink-500 font-semibold mb-2">
             Description
           </h2>
-          <p className="mb-4">{item.description || "N/A"}</p>
+          <p className="mb-4 break-words overflow-wrap break-word">{item.description || "N/A"}</p>
+
           <hr className="mb-4" />
           <div className="mb-4">
             <h2 className="text-lg text-pink-500 font-semibold mb-2">
@@ -51,15 +52,15 @@ const PreviewItem = ({ item }) => {
             </h2>
             <div className="flex flex-col md:flex-row justify-between">
               <p className="mb-2">
-                <span className="font-medium">Category:</span>
+                <span className="font-medium">Category: </span>
                 {item.category || "N/A"}
               </p>
               <p className="mb-2">
-                <span className="font-medium">Variant:</span>
+                <span className="font-medium">Variant: </span>
                 {item.variant || "N/A"}
               </p>
               <p className="mb-2">
-                <span className="font-medium">Brand:</span>
+                <span className="font-medium">Brand: </span>
                 {item.brand || "N/A"}
               </p>
             </div>
