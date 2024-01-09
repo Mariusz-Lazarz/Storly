@@ -26,7 +26,7 @@ function Cart() {
   const orderItems = cartItems.map((item) => ({
     item_id: item.id || "Unknown",
     item_title: item.title || "Unknown",
-    price: item.price || "Unknown",
+    price: Number(item.discount) > 0 ? item.discount : item.price || "Unknown",
     item_brand: item.brand || "Unknown",
     item_category: item.category || "Unknown",
     item_variant: item.variant || "Unknown",
