@@ -23,9 +23,21 @@ function Cart() {
   const [isOverlayVisible, setIsOverlayVisible] = useState(false);
   const [isAlertVisible, setIsAlertVisible] = useState(false);
 
+  console.log(cartItems);
+
   const orderItems = cartItems.map((item) => ({
     item_id: item.id || "Unknown",
     item_title: item.title || "Unknown",
+    price: Number(item.discount) > 0 ? item.discount : item.price || "Unknown",
+    item_brand: item.brand || "Unknown",
+    item_category: item.category || "Unknown",
+    item_variant: item.variant || "Unknown",
+    quantity: item.quantity || "Unknown",
+  }));
+
+  const piwikItems = cartItems.map((item) => ({
+    item_id: item.id || "Unknown",
+    item_name: item.title || "Unknown",
     price: Number(item.discount) > 0 ? item.discount : item.price || "Unknown",
     item_brand: item.brand || "Unknown",
     item_category: item.category || "Unknown",
@@ -67,7 +79,7 @@ function Cart() {
         value: totalAmount,
         tax: 3.26,
         shipping: 5.0,
-        items: orderItems,
+        items: piwikItems,
       },
     });
     setIsOrderPlaced(false);
