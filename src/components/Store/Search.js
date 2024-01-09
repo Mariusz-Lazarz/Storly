@@ -43,7 +43,6 @@ const Search = ({
 
   const handleInputChange = (e) => {
     setLocalQuery(e.target.value);
-    console.log(filteredItems);
   };
 
   const handleSubmit = () => {

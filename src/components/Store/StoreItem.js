@@ -12,7 +12,6 @@ import SaleIcon from "../../utils/SaleIcon";
 const StoreItem = ({ item, handleAddToCart, itemsInCart }) => {
   const [quantity, setQuantity] = useState(1);
   const isInCart = itemsInCart.includes(item.id);
-  console.log(item)
 
   const handleDecrement = () => {
     if (quantity === 1) return;
